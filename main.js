@@ -38,4 +38,4 @@ document.addEventListener('keydown', (e) => {
 
 // initial caret position
 caret.style.left = `${textToType.offsetLeft}px`;
-caret.style.top = `${textToType.offsetTop + 5}px`; // adjust caret vertical position
+//caret.style.top = `${textToType.offsetTop + 5}px`; // adjust caret vertical position
