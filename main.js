@@ -3,45 +3,49 @@ const caret = document.getElementById('caret');
 const originalText = textToType.textContent;
 let currentIndex = 0;
 
+// Function to calculate the width of a string
+function getTextWidth(text) {
+    const tempSpan = document.createElement('span');
+    tempSpan.style.visibility = 'hidden';
+    tempSpan.style.position = 'absolute';
+    tempSpan.style.fontSize = '24px'; // Make sure this matches your CSS
+    tempSpan.style.fontFamily = getComputedStyle(textToType).fontFamily; // Use the same font as the text
+    tempSpan.textContent = text;
+    document.body.appendChild(tempSpan);
+    const width = tempSpan.offsetWidth;
+    document.body.removeChild(tempSpan);
+    return width;
+}
+
+function updateText() {
+    textToType.innerHTML = '';
+    for (let i = 0; i < originalText.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = originalText[i];
+        span.style.color = i < currentIndex ? '#000' : '#ccc';
+        textToType.appendChild(span);
+    }
+}
+
+function updateCaret() {
+    const typedText = originalText.substring(0, currentIndex);
+    const caretOffset = getTextWidth(typedText);
+    caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
+}
+
 document.addEventListener('keydown', (e) => {
     if (e.key === originalText[currentIndex]) {
-        // correct key press
-        const span = document.createElement('span');
-        span.textContent = originalText[currentIndex];
-        textToType.innerHTML = '';
-        for (let i = 0; i <= currentIndex; i++) {
-            if (i === currentIndex) {
-                span.style.color = '#000';
-                textToType.appendChild(span);
-            } else {
-                const prevSpan = document.createElement('span');
-                prevSpan.textContent = originalText[i];
-                prevSpan.style.color = '#000';
-                textToType.appendChild(prevSpan);
-            }
-        }
-        for (let i = currentIndex + 1; i < originalText.length; i++) {
-            const remainingSpan = document.createElement('span');
-            remainingSpan.textContent = originalText[i];
-            remainingSpan.style.color = '#ccc';
-            textToType.appendChild(remainingSpan);
-        }
-
-        const fontSize = 24;
-        const charWidth = fontSize * 0.5; // adjust this value as needed
-        //caret.style.left = `${currentIndex * 15}px`; // adjust caret position
-        //caret.style.left = `${currentIndex * charWidth}px`; /* update caret position */
-        caret.style.left = `${caret.offsetLeft + charWidth}px`;
-
         currentIndex++;
+        updateText();
+        updateCaret();
+
         if (currentIndex === originalText.length) {
-            // success
             alert('Success!');
-            document.removeEventListener('keydown', this);
+            document.removeEventListener('keydown', arguments.callee);
         }
     }
 });
 
-// initial caret position
-caret.style.left = `${textToType.offsetLeft}px`;
-//caret.style.top = `${textToType.offsetTop + 5}px`; // adjust caret vertical position
+// Initial setup
+updateText();
+updateCaret();
