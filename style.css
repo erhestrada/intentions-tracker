@@ -1,0 +1,22 @@
+.container {
+    width: 50%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#text-to-type {
+    color: #ccc; /* grey color */
+    font-size: 24px;
+}
+
+#input-field {
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.success {
+    color: green;
+}
