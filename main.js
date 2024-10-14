@@ -26,7 +26,13 @@ document.addEventListener('keydown', (e) => {
             remainingSpan.style.color = '#ccc';
             textToType.appendChild(remainingSpan);
         }
-        caret.style.left = `${currentIndex * 15}px`; // adjust caret position
+
+        const fontSize = 24;
+        const charWidth = fontSize * 0.5; // adjust this value as needed
+        //caret.style.left = `${currentIndex * 15}px`; // adjust caret position
+        //caret.style.left = `${currentIndex * charWidth}px`; /* update caret position */
+        caret.style.left = `${caret.offsetLeft + charWidth}px`;
+
         currentIndex++;
         if (currentIndex === originalText.length) {
             // success
