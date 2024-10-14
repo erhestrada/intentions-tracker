@@ -2,21 +2,36 @@
     width: 50%;
     margin: 40px auto;
     text-align: center;
+    position: relative;
 }
 
 #text-to-type {
+    font-size: 24px;
     color: #ccc; /* grey color */
-    font-size: 24px;
+    position: relative; /* added this */
 }
 
-#input-field {
-    font-size: 24px;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
+#text-to-type span {
+    color: #000; /* black color */
 }
 
-.success {
-    color: green;
+.caret {
+    position: absolute;
+    width: 2px;
+    background-color: #000;
+    height: 24px; /* adjusted height to match text */
+    animation: blink 1s infinite;
+    z-index: 1; /* added this to ensure cursor visibility */
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
