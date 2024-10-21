@@ -1,15 +1,19 @@
-const container = document.querySelector('.container');
 
-const textToTypeElement = document.createElement('span');
-textToTypeElement.id = 'text-to-type';
-textToTypeElement.textContent = "this is another example that should be type again so try this out";
 
-const caretElement = document.createElement('span');
-caretElement.id = 'caret';
-caretElement.className = 'caret';
+function initializeIntention() {
+    const container = document.querySelector('.container');
 
-container.appendChild(textToTypeElement);
-container.appendChild(caretElement);
+    const textToTypeElement = document.createElement('span');
+    textToTypeElement.id = 'text-to-type';
+    textToTypeElement.textContent = "this is another example that should be type again so try this out";
+    
+    const caretElement = document.createElement('span');
+    caretElement.id = 'caret';
+    caretElement.className = 'caret';
+    
+    container.appendChild(textToTypeElement);
+    container.appendChild(caretElement);
+}
 
 
 let currentIndex = 0;
@@ -74,5 +78,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Initial setup
+initializeIntention();
 updateText();
 updateCaret();
