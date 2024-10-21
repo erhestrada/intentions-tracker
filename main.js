@@ -1,3 +1,5 @@
+import { displayIntentions } from "./displayIntentions";
+
 let currentIndex = 0;
 let currentIntentionIndex = 0;
 let intentions = [];
@@ -94,8 +96,9 @@ function handleKeydown(e) {
     }
 }
 
-// Add event listener
+
 document.addEventListener('keydown', handleKeydown);
 
-// Usage
-typeIntentions(["this is the first one", "this is the second one", "this is the third one"]);
+const intentionsArray = ["this is the first one", "this is the second one", "this is the third one"];
+displayIntentions(intentionsArray);
+typeIntentions(intentionsArray);
