@@ -1,17 +1,36 @@
 let currentIndex = 0;
+let currentIntentionIndex = 0;
+let intentions = [];
 
-function typeIntention() {
-    initializeIntention();
+function typeIntentions(intentionsArray) {
+    intentions = intentionsArray;
+    const container = document.querySelector('.container');
+    container.innerHTML = ''; // Clear previous content
+    typeNextIntention();
+}
+
+function typeNextIntention() {
+    if (currentIntentionIndex < intentions.length) {
+        typeIntention(intentions[currentIntentionIndex]);
+    } else {
+        alert('All intentions completed!');
+    }
+}
+
+function typeIntention(intention) {
+    currentIndex = 0;
+    initializeIntention(intention);
     updateText();
     updateCaret();
 }
 
-function initializeIntention() {
+function initializeIntention(intention) {
     const container = document.querySelector('.container');
+    container.innerHTML = ''; // Clear previous intention
 
     const textToTypeElement = document.createElement('span');
     textToTypeElement.id = 'text-to-type';
-    textToTypeElement.textContent = "this is another example that should be type again so try this out";
+    textToTypeElement.textContent = intention;
     
     const caretElement = document.createElement('span');
     caretElement.id = 'caret';
@@ -46,11 +65,6 @@ function updateText() {
         const span = document.createElement('span');
         span.textContent = originalText[i];
         span.style.color = i < currentIndex ? '#000' : '#ccc';
-        /*
-        if (originalText[i] === ' ') {
-            span.style.backgroundColor = i < currentIndex ? '#e0e0e0' : 'transparent';
-        }
-        */
         textToType.appendChild(span);
     }
 }
@@ -65,7 +79,7 @@ function updateCaret() {
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
 }
 
-document.addEventListener('keydown', (e) => {
+function handleKeydown(e) {
     const textToType = document.getElementById('text-to-type');
     const originalText = textToType.textContent;
     if (e.key === originalText[currentIndex]) {
@@ -74,10 +88,14 @@ document.addEventListener('keydown', (e) => {
         updateCaret();
 
         if (currentIndex === originalText.length) {
-            alert('Success!');
-            document.removeEventListener('keydown', arguments.callee);
+            currentIntentionIndex++;
+            setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
         }
     }
-});
+}
 
-typeIntention();
+// Add event listener
+document.addEventListener('keydown', handleKeydown);
+
+// Usage
+typeIntentions(["this is the first one", "this is the second one", "this is the third one"]);
