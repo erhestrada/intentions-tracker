@@ -1,5 +1,5 @@
 import { displayIntentions } from "./displayIntentions";
-import { addIntention } from "./addIntention";
+import { addIntention, loadIntentionsFromLocalStorage } from "./addIntention";
 
 let currentIndex = 0;
 let currentIntentionIndex = 0;
@@ -105,9 +105,8 @@ form.addEventListener('submit', (e) => {
     addIntention();
   });
   
-const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
+//const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
+const intentionsArray = loadIntentionsFromLocalStorage();
 displayIntentions(intentionsArray);
 typeIntentions(intentionsArray);
 
-
-// need to save and load intentions from localstorage
