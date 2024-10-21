@@ -1,4 +1,10 @@
+let currentIndex = 0;
 
+function typeIntention() {
+    initializeIntention();
+    updateText();
+    updateCaret();
+}
 
 function initializeIntention() {
     const container = document.querySelector('.container');
@@ -14,9 +20,6 @@ function initializeIntention() {
     container.appendChild(textToTypeElement);
     container.appendChild(caretElement);
 }
-
-
-let currentIndex = 0;
 
 function getTextWidth(text) {
     const textToType = document.getElementById('text-to-type');
@@ -77,7 +80,4 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Initial setup
-initializeIntention();
-updateText();
-updateCaret();
+typeIntention();
