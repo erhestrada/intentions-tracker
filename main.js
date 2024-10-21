@@ -1,4 +1,5 @@
 import { displayIntentions } from "./displayIntentions";
+import { addIntention } from "./addIntention";
 
 let currentIndex = 0;
 let currentIntentionIndex = 0;
@@ -99,6 +100,13 @@ function handleKeydown(e) {
 
 document.addEventListener('keydown', handleKeydown);
 
+
+const form = document.getElementById('myForm');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addIntention();
+  });
+  
 const intentionsArray = ["this is the first one", "this is the second one", "this is the third one"];
 displayIntentions(intentionsArray);
 typeIntentions(intentionsArray);
