@@ -97,9 +97,7 @@ function handleKeydown(e) {
     }
 }
 
-
 document.addEventListener('keydown', handleKeydown);
-
 
 const form = document.getElementById('myForm');
 form.addEventListener('submit', (e) => {
@@ -107,6 +105,9 @@ form.addEventListener('submit', (e) => {
     addIntention();
   });
   
-const intentionsArray = ["this is the first one", "this is the second one", "this is the third one"];
+const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
 displayIntentions(intentionsArray);
 typeIntentions(intentionsArray);
+
+
+// need to save and load intentions from localstorage
