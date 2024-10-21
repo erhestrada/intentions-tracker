@@ -1,3 +1,16 @@
+const container = document.querySelector('.container');
+
+const textToTypeElement = document.createElement('span');
+textToTypeElement.id = 'text-to-type';
+textToTypeElement.textContent = "this is another example that should be type again so try this out";
+
+const caretElement = document.createElement('span');
+caretElement.id = 'caret';
+caretElement.className = 'caret';
+
+container.appendChild(textToTypeElement);
+container.appendChild(caretElement);
+
 const textToType = document.getElementById('text-to-type');
 const caret = document.getElementById('caret');
 const originalText = textToType.textContent;
