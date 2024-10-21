@@ -11,12 +11,12 @@ caretElement.className = 'caret';
 container.appendChild(textToTypeElement);
 container.appendChild(caretElement);
 
-const textToType = document.getElementById('text-to-type');
 
-const originalText = textToType.textContent;
 let currentIndex = 0;
 
 function getTextWidth(text) {
+    const textToType = document.getElementById('text-to-type');
+
     const tempSpan = document.createElement('span');
     tempSpan.style.visibility = 'hidden';
     tempSpan.style.position = 'absolute';
@@ -31,6 +31,9 @@ function getTextWidth(text) {
 }
 
 function updateText() {
+    const textToType = document.getElementById('text-to-type');
+    const originalText = textToType.textContent;
+
     textToType.innerHTML = '';
     for (let i = 0; i < originalText.length; i++) {
         const span = document.createElement('span');
@@ -46,13 +49,18 @@ function updateText() {
 }
 
 function updateCaret() {
+    const textToType = document.getElementById('text-to-type');
+    const originalText = textToType.textContent;
     const caret = document.getElementById('caret');
+
     const typedText = originalText.substring(0, currentIndex);
     const caretOffset = getTextWidth(typedText);
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
 }
 
 document.addEventListener('keydown', (e) => {
+    const textToType = document.getElementById('text-to-type');
+    const originalText = textToType.textContent;
     if (e.key === originalText[currentIndex]) {
         currentIndex++;
         updateText();
