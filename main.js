@@ -12,7 +12,7 @@ container.appendChild(textToTypeElement);
 container.appendChild(caretElement);
 
 const textToType = document.getElementById('text-to-type');
-const caret = document.getElementById('caret');
+
 const originalText = textToType.textContent;
 let currentIndex = 0;
 
@@ -46,6 +46,7 @@ function updateText() {
 }
 
 function updateCaret() {
+    const caret = document.getElementById('caret');
     const typedText = originalText.substring(0, currentIndex);
     const caretOffset = getTextWidth(typedText);
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
