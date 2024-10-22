@@ -9,3 +9,17 @@ form.addEventListener('submit', (e) => {
 
 const intentionsArray = loadIntentionsFromLocalStorage();
 displayIntentions(intentionsArray);
+
+const deleteButton = document.getElementById('delete-intentions-button');
+setTimeout(() => {
+    const intentions = document.querySelectorAll('.intention');
+
+    deleteButton.addEventListener('click', () => {
+        console.log(intentions);
+        intentions.forEach((intention) => {
+            intention.classList.toggle('clickable');
+    });
+    });
+  }, 0);
+
+

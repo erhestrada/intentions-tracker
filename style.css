@@ -39,3 +39,12 @@
 #manage-intentions-container {
     display: flex;
 }
+  
+.intention.clickable {
+    cursor: pointer; /* change cursor to pointer */
+    color: blue; /* change text color */
+}
+
+.intention.clickable:hover {
+    background-color: #ccc; /* change background color on hover */
+}

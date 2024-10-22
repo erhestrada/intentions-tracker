@@ -7,5 +7,6 @@ export function displayIntentions(intentions) {
 export function displayIntention(intention) {
     const element = document.createElement('p');
     element.innerText = intention;
+    element.className = "intention";
     document.body.appendChild(element);
 }
