@@ -15,11 +15,16 @@ setTimeout(() => {
     const intentions = document.querySelectorAll('.intention');
 
     deleteButton.addEventListener('click', () => {
-        console.log(intentions);
         intentions.forEach((intention) => {
             intention.classList.toggle('clickable');
+            if (intention.classList.contains('clickable')) {
+                intention.addEventListener('click', () => {
+                    intention.remove();
+                });
+            }
+        });
     });
-    });
-  }, 0);
+
+}, 0);
 
 
