@@ -15,22 +15,13 @@ document.body.addEventListener('click', (event) => {
     }
 });
 
+deleteButton.addEventListener('click', () => {
+    deleteButton.clicked = !deleteButton.clicked;
+    const intentions = document.querySelectorAll('.intention');
+    intentions.forEach((intention) => {
+        intention.classList.toggle('clickable');
+    });
+});
+
 const intentionsArray = loadIntentionsFromLocalStorage();
 displayIntentions(intentionsArray);
-
-setTimeout(() => {
-    const intentions = document.querySelectorAll('.intention');
-
-      deleteButton.addEventListener('click', () => {
-        deleteButton.clicked = !deleteButton.clicked;
-        intentions.forEach((intention) => {
-          intention.classList.toggle('clickable');
-        });
-      });
-    
-
-}, 0);
-
-
-  
-
