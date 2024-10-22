@@ -11,8 +11,7 @@ export function addIntention() {
 function addIntentionToLocalStorage(intention) {
     let intentions = loadIntentionsFromLocalStorage();
     intentions.push(intention);
-    const jsonIntentions = JSON.stringify(intentions);
-    localStorage.setItem('intentions', jsonIntentions);
+    saveDataToLocalStorage('intentions', intentions);
     return intentions;
 }
 
@@ -20,4 +19,10 @@ export function loadIntentionsFromLocalStorage() {
     const jsonIntentions = localStorage?.getItem('intentions') ?? JSON.stringify(['placeholder intention']);
     const intentions = JSON.parse(jsonIntentions);
     return intentions;
+}
+
+export function saveDataToLocalStorage(key, data) {
+  jsonData = JSON.stringify(data);
+  localStorage.setItem(key, jsonData);
+  return jsonData
 }
