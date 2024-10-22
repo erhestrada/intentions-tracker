@@ -7,28 +7,30 @@ form.addEventListener('submit', (e) => {
     addIntention();
   });
 
+const deleteButton = document.getElementById('delete-intentions-button');
+
+document.body.addEventListener('click', (event) => {
+    if (event.target.classList.contains('intention') && deleteButton.clicked) {
+        event.target.remove();
+    }
+});
+
 const intentionsArray = loadIntentionsFromLocalStorage();
 displayIntentions(intentionsArray);
 
-const deleteButton = document.getElementById('delete-intentions-button');
 setTimeout(() => {
     const intentions = document.querySelectorAll('.intention');
 
-    const intentionClickHandler = (event) => {
-        event.target.remove();
-      };
-
-    deleteButton.addEventListener('click', () => {
+      deleteButton.addEventListener('click', () => {
+        deleteButton.clicked = !deleteButton.clicked;
         intentions.forEach((intention) => {
-            intention.classList.toggle('clickable');
-            if (intention.classList.contains('clickable')) {
-                intention.addEventListener('click', intentionClickHandler);
-            } else {
-                intention.removeEventListener('click', intentionClickHandler);
-            }
+          intention.classList.toggle('clickable');
         });
-    });
+      });
+    
 
 }, 0);
 
+
+  
 
