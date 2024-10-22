@@ -1,4 +1,5 @@
 import { loadIntentionsFromLocalStorage, addIntention } from "./addIntention";
+import { displayIntentions } from "./displayIntentions";
 
 const form = document.getElementById('myForm');
 form.addEventListener('submit', (e) => {
