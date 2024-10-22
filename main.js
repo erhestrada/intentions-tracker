@@ -98,12 +98,6 @@ function handleKeydown(e) {
 }
 
 document.addEventListener('keydown', handleKeydown);
-
-const form = document.getElementById('myForm');
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    addIntention();
-  });
   
 //const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
 const intentionsArray = loadIntentionsFromLocalStorage();
