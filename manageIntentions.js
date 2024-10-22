@@ -8,6 +8,7 @@ form.addEventListener('submit', (e) => {
   });
 
 const deleteButton = document.getElementById('delete-intentions-button');
+deleteButton.clicked = false;
 
 document.body.addEventListener('click', (event) => {
     if (event.target.classList.contains('intention') && deleteButton.clicked) {
