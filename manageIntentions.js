@@ -14,13 +14,17 @@ const deleteButton = document.getElementById('delete-intentions-button');
 setTimeout(() => {
     const intentions = document.querySelectorAll('.intention');
 
+    const intentionClickHandler = (event) => {
+        event.target.remove();
+      };
+
     deleteButton.addEventListener('click', () => {
         intentions.forEach((intention) => {
             intention.classList.toggle('clickable');
             if (intention.classList.contains('clickable')) {
-                intention.addEventListener('click', () => {
-                    intention.remove();
-                });
+                intention.addEventListener('click', intentionClickHandler);
+            } else {
+                intention.removeEventListener('click', intentionClickHandler);
             }
         });
     });
