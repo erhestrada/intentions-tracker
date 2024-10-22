@@ -22,7 +22,7 @@ export function loadIntentionsFromLocalStorage() {
 }
 
 export function saveDataToLocalStorage(key, data) {
-  jsonData = JSON.stringify(data);
+  const jsonData = JSON.stringify(data);
   localStorage.setItem(key, jsonData);
   return jsonData
 }
