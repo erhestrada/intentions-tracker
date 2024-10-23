@@ -1,5 +1,6 @@
 import { loadIntentionsFromLocalStorage, addIntention } from "./addIntention";
 import { displayIntentions } from "./displayIntentions";
+import { removeIntentionFromLocalStorage } from "./removeIntentionFromLocalStorage";
 
 const form = document.getElementById('myForm');
 form.addEventListener('submit', (e) => {
@@ -12,6 +13,8 @@ deleteButton.clicked = false;
 
 document.body.addEventListener('click', (event) => {
     if (event.target.classList.contains('intention') && deleteButton.clicked) {
+        const intention = event.target.textContent;
+        removeIntentionFromLocalStorage(intention);
         event.target.remove();
     }
 });
