@@ -1,4 +1,5 @@
 import { loadIntentionsFromLocalStorage } from "./addIntention";
+import { updateIntentionsLog } from "./updateIntentionsLog";
 
 let currentIndex = 0;
 let currentIntentionIndex = 0;
@@ -94,8 +95,7 @@ function handleKeydown(e) {
             currentIntentionIndex++;
             const dateTime = new Date();
             const currentIntention = localStorage.getItem('currentIntention');
-            // want to store intention, dateTime
-            console.log(currentIntention, dateTime);
+            updateIntentionsLog(currentIntention, dateTime);
             setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
         }
     }
