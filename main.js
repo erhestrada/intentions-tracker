@@ -20,6 +20,7 @@ function typeNextIntention() {
 }
 
 function typeIntention(intention) {
+    localStorage.setItem('currentIntention', intention);
     currentIndex = 0;
     initializeIntention(intention);
     updateText();
@@ -91,6 +92,10 @@ function handleKeydown(e) {
 
         if (currentIndex === originalText.length) {
             currentIntentionIndex++;
+            const dateTime = new Date();
+            const currentIntention = localStorage.getItem('currentIntention');
+            // want to store intention, dateTime
+            console.log(currentIntention, dateTime);
             setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
         }
     }
