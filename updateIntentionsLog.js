@@ -7,7 +7,7 @@ export function updateIntentionsLog(intention, dateTime) {
     return intentionsLog;
 }
 
-function loadArrayFromLocalStorage(key) {
+export function loadArrayFromLocalStorage(key) {
     const jsonIntentionsLog = localStorage.getItem(key) ?? JSON.stringify([]);
     const intentionsLog = JSON.parse(jsonIntentionsLog);
     return intentionsLog
