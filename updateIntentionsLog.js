@@ -1,9 +1,14 @@
 import { saveDataToLocalStorage } from "./addIntention";
 
 export function updateIntentionsLog(intention, dateTime) {
-    const jsonIntentionsLog = localStorage.getItem('intentionsLog') ?? JSON.stringify([]);
-    let intentionsLog = JSON.parse(jsonIntentionsLog);
+    let intentionsLog = loadArrayFromLocalStorage('intentionsLog');
     intentionsLog.push([intention, dateTime]);
     saveDataToLocalStorage('intentionsLog', intentionsLog);
     return intentionsLog;
+}
+
+function loadArrayFromLocalStorage(key) {
+    const jsonIntentionsLog = localStorage.getItem(key) ?? JSON.stringify([]);
+    const intentionsLog = JSON.parse(jsonIntentionsLog);
+    return intentionsLog
 }
