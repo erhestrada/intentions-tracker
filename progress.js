@@ -36,7 +36,8 @@ function formatTime(dateTime) {
     
     // Replace the time portion in the original date string
     const newDateString = dateTime.replace(/(\d{2}:\d{2}:\d{2})/, formattedTime);
-    return newDateString    
+    const trimmedDateString = newDateString.replace(/(AM|PM).*/, '$1');
+    return trimmedDateString    
 }
 
 displayProgress();
