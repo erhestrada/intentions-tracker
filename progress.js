@@ -11,6 +11,8 @@ function displayProgress() {
 
         intentionsLogContainer.appendChild(intentionEntry);
     }
+    const uniqueIntentions = getUniqueIntentionsFromIntentionsLog(intentionsLog);
+    console.log(uniqueIntentions);
 }
 
 function formatTime(dateTime) {
@@ -38,6 +40,12 @@ function formatTime(dateTime) {
     const newDateString = dateTime.replace(/(\d{2}:\d{2}:\d{2})/, formattedTime);
     const trimmedDateString = newDateString.replace(/(AM|PM).*/, '$1');
     return trimmedDateString    
+}
+
+function getUniqueIntentionsFromIntentionsLog(intentionsLog) {
+    const intentions = intentionsLog.map(intentionEntry => intentionEntry[0]);
+    const uniqueIntentions = [...new Set(intentions)];
+    return uniqueIntentions
 }
 
 displayProgress();
