@@ -93,7 +93,7 @@ function handleKeydown(e) {
 
         if (currentIndex === originalText.length) {
             currentIntentionIndex++;
-            const dateTime = new Date();
+            const dateTime = Date();
             const currentIntention = localStorage.getItem('currentIntention');
             updateIntentionsLog(currentIntention, dateTime);
             setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
