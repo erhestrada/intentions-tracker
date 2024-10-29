@@ -13,6 +13,40 @@ function displayProgress() {
     }
     const uniqueIntentions = getUniqueIntentionsFromIntentionsLog(intentionsLog);
     console.log(uniqueIntentions);
+    uniqueIntentions.forEach(intention => {
+        // Create a label for the intention
+        const label = document.createElement('label');
+        label.textContent = intention; // Set label text to the intention
+        document.body.appendChild(label); // Append the label to the body
+
+        // Create the "Yes" checkbox
+        const yesCheckbox = document.createElement('input');
+        yesCheckbox.type = "checkbox";
+        yesCheckbox.id = `${intention}-yes`; // Unique ID for "Yes" checkbox
+
+        // Create the label for the "Yes" checkbox
+        const yesLabel = document.createElement('label');
+        yesLabel.htmlFor = yesCheckbox.id; // Associate the label with the checkbox
+        yesLabel.textContent = " Yes"; // Set label text
+
+        // Create the "No" checkbox
+        const noCheckbox = document.createElement('input');
+        noCheckbox.type = "checkbox";
+        noCheckbox.id = `${intention}-no`; // Unique ID for "No" checkbox
+
+        // Create the label for the "No" checkbox
+        const noLabel = document.createElement('label');
+        noLabel.htmlFor = noCheckbox.id; // Associate the label with the checkbox
+        noLabel.textContent = " No"; // Set label text
+
+        // Append the checkboxes and their labels to the body
+        document.body.appendChild(yesCheckbox);
+        document.body.appendChild(yesLabel);
+        document.body.appendChild(noCheckbox);
+        document.body.appendChild(noLabel);
+        document.body.appendChild(document.createElement('br'));
+    })
+    // pass/fail buttons per intention
 }
 
 function formatTime(dateTime) {
