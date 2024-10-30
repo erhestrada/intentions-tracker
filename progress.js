@@ -22,8 +22,8 @@ function displayProgress() {
         // Create the "Yes" checkbox
         const yesCheckbox = document.createElement('input');
         yesCheckbox.type = "checkbox";
-        yesCheckbox.id = `${intention}-yes`; // Unique ID for "Yes" checkbox
-        yesCheckbox.addEventListener('change', () => localStorage.setItem('yesCheckboxState', yesCheckbox.checked));
+        yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
+        yesCheckbox.addEventListener('change', () => localStorage.setItem(yesCheckbox.id + '-checkbox-state', yesCheckbox.checked));
 
         // Create the label for the "Yes" checkbox
         const yesLabel = document.createElement('label');
@@ -33,8 +33,8 @@ function displayProgress() {
         // Create the "No" checkbox
         const noCheckbox = document.createElement('input');
         noCheckbox.type = "checkbox";
-        noCheckbox.id = `${intention}-no`; // Unique ID for "No" checkbox
-        noCheckbox.addEventListener('change', () => localStorage.setItem('noCheckboxState', noCheckbox.checked));
+        noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
+        noCheckbox.addEventListener('change', () => localStorage.setItem(noCheckbox.id + '-checkbox-state', noCheckbox.checked));
 
         // Create the label for the "No" checkbox
         const noLabel = document.createElement('label');
