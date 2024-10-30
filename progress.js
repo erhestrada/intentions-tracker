@@ -84,8 +84,28 @@ function getUniqueIntentionsFromIntentionsLog(intentionsLog) {
     return uniqueIntentions
 }
 
-function saveCheckboxState() {
+// e.g. checkboxStates = {meditate: {yes: true, no: false}}
+function loadStatesOfCheckboxes() {
+    const checkboxStates = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+
+    for (const action in checkboxStates) {
+        if (checkboxStates.hasOwnProperty(action)) {
+            const yesNoStates = checkboxStates[action];
+    
+            for (const yesNoState in yesNoStates) {
+                if (yesNoStates.hasOwnProperty(yesNoState)) {
+                    const bool = obj[yesNo];
+                    console.log(`${intention}: ${yesNo} is ${bool}`);
+                    // get the checkbox and set its state
+                    // const checkbox = document.getElementById('myCheckbox');
+                    // checkbox.checked = (savedState === 'true');
+
+                }
+            }
+        }
+    }
 
 }
 
 displayProgress();
+loadStatesOfCheckboxes();
