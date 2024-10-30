@@ -13,6 +13,9 @@ function displayProgress() {
     }
     const uniqueIntentions = getUniqueIntentionsFromIntentionsLog(intentionsLog);
     console.log(uniqueIntentions);
+
+    let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+
     uniqueIntentions.forEach(intention => {
         // Create a label for the intention
         const label = document.createElement('label');
@@ -23,7 +26,8 @@ function displayProgress() {
         const yesCheckbox = document.createElement('input');
         yesCheckbox.type = "checkbox";
         yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
-        yesCheckbox.addEventListener('change', () => localStorage.setItem(yesCheckbox.id + '-checkbox-state', yesCheckbox.checked));
+        yesCheckbox.checked = statesOfCheckboxes[intention]['yes'];
+        yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
 
         // Create the label for the "Yes" checkbox
         const yesLabel = document.createElement('label');
@@ -34,7 +38,8 @@ function displayProgress() {
         const noCheckbox = document.createElement('input');
         noCheckbox.type = "checkbox";
         noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
-        noCheckbox.addEventListener('change', () => localStorage.setItem(noCheckbox.id + '-checkbox-state', noCheckbox.checked));
+        noCheckbox.checked = statesOfCheckboxes[intention]['no'];
+        noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
 
         // Create the label for the "No" checkbox
         const noLabel = document.createElement('label');
@@ -84,28 +89,15 @@ function getUniqueIntentionsFromIntentionsLog(intentionsLog) {
     return uniqueIntentions
 }
 
-// e.g. checkboxStates = {meditate: {yes: true, no: false}}
-function loadStatesOfCheckboxes() {
-    const checkboxStates = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
-
-    for (const action in checkboxStates) {
-        if (checkboxStates.hasOwnProperty(action)) {
-            const yesNoStates = checkboxStates[action];
-    
-            for (const yesNoState in yesNoStates) {
-                if (yesNoStates.hasOwnProperty(yesNoState)) {
-                    const bool = obj[yesNo];
-                    console.log(`${intention}: ${yesNo} is ${bool}`);
-                    // get the checkbox and set its state
-                    // const checkbox = document.getElementById('myCheckbox');
-                    // checkbox.checked = (savedState === 'true');
-
-                }
-            }
-        }
+function updateCheckboxStates(intention, yesNo, checked) {
+    let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+    if (intention in statesOfCheckboxes) {
+        statesOfCheckboxes[intention][yesNo] = checked;
+    } else {
+        statesOfCheckboxes[intention] = {'yes': false, 'no': false};
     }
-
+    localStorage.setItem('statesOfCheckboxes', JSON.stringify(statesOfCheckboxes));
+    return statesOfCheckboxes;
 }
 
 displayProgress();
-loadStatesOfCheckboxes();
