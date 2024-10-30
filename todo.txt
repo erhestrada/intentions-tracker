@@ -1,3 +1,2 @@
-1. pass/fail carrying out the intention (maybe like a button) - per intention
-2. timer for expressing intention
+2. timer for expressing intention -- set intentions expression frequency
 3. each day needs to have its own box
