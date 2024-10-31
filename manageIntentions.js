@@ -1,5 +1,4 @@
 import { addIntention } from "./addIntention";
-import { removeIntentionFromLocalStorage } from "./removeIntentionFromLocalStorage";
 import { displaySquares } from "./displaySquares";
 
 const form = document.getElementById('myForm');
