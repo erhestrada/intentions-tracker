@@ -20,7 +20,7 @@ function displayProgress() {
         // Create a label for the intention
         const label = document.createElement('label');
         label.textContent = intention; // Set label text to the intention
-        document.body.appendChild(label); // Append the label to the body
+        intentionsLogContainer.appendChild(label); // Append the label to the body
 
         // Create the "Yes" checkbox
         const yesCheckbox = document.createElement('input');
@@ -47,11 +47,11 @@ function displayProgress() {
         noLabel.textContent = " No"; // Set label text
 
         // Append the checkboxes and their labels to the body
-        document.body.appendChild(yesCheckbox);
-        document.body.appendChild(yesLabel);
-        document.body.appendChild(noCheckbox);
-        document.body.appendChild(noLabel);
-        document.body.appendChild(document.createElement('br'));
+        intentionsLogContainer.appendChild(yesCheckbox);
+        intentionsLogContainer.appendChild(yesLabel);
+        intentionsLogContainer.appendChild(noCheckbox);
+        intentionsLogContainer.appendChild(noLabel);
+        intentionsLogContainer.appendChild(document.createElement('br'));
     })
     // pass/fail buttons per intention
 }
