@@ -1,13 +1,14 @@
 import { displayIntention } from "./displayIntentions";
 
 export function addIntention() {
+  let requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
   const intention = document.getElementById('add-intention-input').value.trim();
-  addIntentionToLocalStorage(intention);
-
-  const timesPerDay = document.getElementById('times-per-day-input').value;
+  const requiredRepetitions = document.getElementById('required-repetitions-input').value;
+  requiredRepetitionsPerIntention[intention] = requiredRepetitions;
+  localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(requiredRepetitionsPerIntention));
   
   displayIntention(intention);
-  displayIntention(timesPerDay);
+  displayIntention(requiredRepetitions);
   console.log(intention);
   document.getElementById('add-intention-input').value = ''; // clear input when intention added
 }
