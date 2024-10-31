@@ -1,3 +1,5 @@
 2. timer for expressing intention -- set intentions expression frequency
 3. each day needs to have its own box
 4. pagination/calendar widget to look at different dates
+5. journal/notes/thoughts on the day
+6. rearrange intentions (?)

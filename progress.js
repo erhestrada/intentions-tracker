@@ -1,5 +1,7 @@
 import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 
+// i want to put date at the top of the container e.g. Monday October 28, 2024
+
 function displayProgress() {
     const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
     const intentionsLogContainer = document.getElementById('intentions-log-container');
