@@ -15,7 +15,10 @@ deleteButton.clicked = false;
 document.body.addEventListener('click', (event) => {
     if (event.target.classList.contains('intention') && deleteButton.clicked) {
         const intention = event.target.textContent.split(':')[0].trim(); // Extract the key from the text
-        removeIntentionFromLocalStorage(intention);
+        let requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
+        const { [intention]: _, ...updatedRequiredRepetitionsPerIntention } = requiredRepetitionsPerIntention;
+        localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(updatedRequiredRepetitionsPerIntention));
+
         event.target.remove();
     }
 });
