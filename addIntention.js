@@ -6,6 +6,7 @@ export function addIntention() {
   
   displayIntention(intention);
   console.log(intention);
+  document.getElementById('add-intention-input').value = ''; // clear input when intention added
 }
 
 function addIntentionToLocalStorage(intention) {
