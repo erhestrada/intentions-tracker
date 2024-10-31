@@ -1,6 +1,4 @@
 import { addIntention } from "./addIntention";
-import { displayIntentions } from "./displayIntentions";
-import { displayObjectAsTable } from "./displayObjectAsTable";
 import { removeIntentionFromLocalStorage } from "./removeIntentionFromLocalStorage";
 import { displaySquares } from "./displaySquares";
 

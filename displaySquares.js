@@ -16,7 +16,3 @@ export function displaySquares(data) {
     // Append the container to the document body or a specific container
     document.body.appendChild(container);
 }
-
-// Example usage
-//const data = { eat: 3, run: 2, walk: 1 };
-//displaySquares(data);
