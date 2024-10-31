@@ -2,7 +2,10 @@ import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 
 // i want to put date at the top of the container e.g. Monday October 28, 2024
 
+// ✅
+
 function displayProgress() {
+    const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'))) || [];
     const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
     const intentionsLogContainer = document.getElementById('intentions-log-container');
     for (const intentionAndDateTime of intentionsLog) {
@@ -14,6 +17,7 @@ function displayProgress() {
         intentionsLogContainer.appendChild(intentionEntry);
     }
     const uniqueIntentions = getUniqueIntentionsFromIntentionsLog(intentionsLog);
+    console.log(intentions);
     console.log(uniqueIntentions);
 
     let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
