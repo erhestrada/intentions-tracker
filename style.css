@@ -58,3 +58,7 @@ nav li {
 .intention.clickable:hover {
     background-color: #ccc; /* change background color on hover */
 }
+
+#intentions-log-container{
+    border: 1px solid;
+}
