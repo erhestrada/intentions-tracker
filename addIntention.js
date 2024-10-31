@@ -3,8 +3,11 @@ import { displayIntention } from "./displayIntentions";
 export function addIntention() {
   const intention = document.getElementById('add-intention-input').value.trim();
   addIntentionToLocalStorage(intention);
+
+  const timesPerDay = document.getElementById('times-per-day-input').value;
   
   displayIntention(intention);
+  displayIntention(timesPerDay);
   console.log(intention);
   document.getElementById('add-intention-input').value = ''; // clear input when intention added
 }
