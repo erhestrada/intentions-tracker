@@ -1,5 +1,6 @@
-import { loadIntentionsFromLocalStorage, addIntention } from "./addIntention";
+import { addIntention } from "./addIntention";
 import { displayIntentions } from "./displayIntentions";
+import { displayObjectAsTable } from "./displayObjectAsTable";
 import { removeIntentionFromLocalStorage } from "./removeIntentionFromLocalStorage";
 
 const form = document.getElementById('myForm');
@@ -27,5 +28,7 @@ deleteButton.addEventListener('click', () => {
     });
 });
 
-const intentionsArray = loadIntentionsFromLocalStorage();
-displayIntentions(intentionsArray);
+//const intentionsArray = loadIntentionsFromLocalStorage();
+const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
+//displayIntentions(intentionsArray);
+displayObjectAsTable(requiredRepetitionsPerIntention, 'intentions', 'repetitions per day');
