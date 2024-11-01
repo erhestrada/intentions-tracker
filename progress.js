@@ -8,60 +8,75 @@ import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 
 function displayProgress() {
     const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'))) || [];
-    const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
+    //const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
+    const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
+    console.log(intentionsLog);
     const intentionsLogContainer = document.getElementById('intentions-log-container');
-    for (const intentionAndDateTime of intentionsLog) {
-        const [intention, dateTime] = intentionAndDateTime;
-        
-        const intentionEntry = document.createElement('p');
-        intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
 
-        intentionsLogContainer.appendChild(intentionEntry);
+    for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
+        console.log('date', date);
+        console.log('intentionsAndDateTimes', intentionsAndDateTimes);
+        let uniqueIntentions = [];
+        for (const intentionAndDateTime of intentionsAndDateTimes) {
+            const [intention, dateTime] = intentionAndDateTime;
+
+            if (!(intention in uniqueIntentions)) {
+                uniqueIntentions.push(intention);
+            }
+            
+            console.log(intention);
+
+            const intentionEntry = document.createElement('p');
+            intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
+    
+            intentionsLogContainer.appendChild(intentionEntry);
+        }
+
+
+        let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+
+        uniqueIntentions.forEach(intention => {
+            // Create a label for the intention
+            const label = document.createElement('label');
+            label.textContent = intention; // Set label text to the intention
+            intentionsLogContainer.appendChild(label); // Append the label to the body
+    
+            // Create the "Yes" checkbox
+            const yesCheckbox = document.createElement('input');
+            yesCheckbox.type = "checkbox";
+            yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
+            yesCheckbox.checked = statesOfCheckboxes[intention]['yes'];
+            yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
+    
+            // Create the label for the "Yes" checkbox
+            const yesLabel = document.createElement('label');
+            yesLabel.htmlFor = yesCheckbox.id; // Associate the label with the checkbox
+            yesLabel.textContent = " Yes"; // Set label text
+    
+            // Create the "No" checkbox
+            const noCheckbox = document.createElement('input');
+            noCheckbox.type = "checkbox";
+            noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
+            noCheckbox.checked = statesOfCheckboxes[intention]['no'];
+            noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
+    
+            // Create the label for the "No" checkbox
+            const noLabel = document.createElement('label');
+            noLabel.htmlFor = noCheckbox.id; // Associate the label with the checkbox
+            noLabel.textContent = " No"; // Set label text
+    
+            // Append the checkboxes and their labels to the body
+            intentionsLogContainer.appendChild(yesCheckbox);
+            intentionsLogContainer.appendChild(yesLabel);
+            intentionsLogContainer.appendChild(noCheckbox);
+            intentionsLogContainer.appendChild(noLabel);
+            intentionsLogContainer.appendChild(document.createElement('br'));
+        })
+
     }
-    const uniqueIntentions = getUniqueIntentionsFromIntentionsLog(intentionsLog);
-    console.log(intentions);
-    console.log(uniqueIntentions);
 
-    let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
 
-    uniqueIntentions.forEach(intention => {
-        // Create a label for the intention
-        const label = document.createElement('label');
-        label.textContent = intention; // Set label text to the intention
-        intentionsLogContainer.appendChild(label); // Append the label to the body
 
-        // Create the "Yes" checkbox
-        const yesCheckbox = document.createElement('input');
-        yesCheckbox.type = "checkbox";
-        yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
-        yesCheckbox.checked = statesOfCheckboxes[intention]['yes'];
-        yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
-
-        // Create the label for the "Yes" checkbox
-        const yesLabel = document.createElement('label');
-        yesLabel.htmlFor = yesCheckbox.id; // Associate the label with the checkbox
-        yesLabel.textContent = " Yes"; // Set label text
-
-        // Create the "No" checkbox
-        const noCheckbox = document.createElement('input');
-        noCheckbox.type = "checkbox";
-        noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
-        noCheckbox.checked = statesOfCheckboxes[intention]['no'];
-        noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
-
-        // Create the label for the "No" checkbox
-        const noLabel = document.createElement('label');
-        noLabel.htmlFor = noCheckbox.id; // Associate the label with the checkbox
-        noLabel.textContent = " No"; // Set label text
-
-        // Append the checkboxes and their labels to the body
-        intentionsLogContainer.appendChild(yesCheckbox);
-        intentionsLogContainer.appendChild(yesLabel);
-        intentionsLogContainer.appendChild(noCheckbox);
-        intentionsLogContainer.appendChild(noLabel);
-        intentionsLogContainer.appendChild(document.createElement('br'));
-    })
-    // pass/fail buttons per intention
 }
 
 function formatTime(dateTime) {

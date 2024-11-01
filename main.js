@@ -100,10 +100,11 @@ function handleKeydown(e) {
             let intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
             const intentionEntry = [window.currentIntention, dateTime]
             if (!(date in intentionsLog)) {
-                intentionsLog[date] = intentionEntry;
+                intentionsLog[date] = [intentionEntry];
             } else {
                 intentionsLog[date].push(intentionEntry);
             }
+            localStorage.setItem('intentionsLog', JSON.stringify(intentionsLog));
             
             setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
         }
