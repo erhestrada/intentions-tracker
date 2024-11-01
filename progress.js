@@ -14,6 +14,16 @@ function displayProgress() {
         const dateElement = document.createElement('p');
         dateElement.textContent = date;
         intentionsLogContainer.append(dateElement);
+
+        console.log(intentionsAndDateTimes);
+        const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
+            const [intention, isoDateTime] = intentionAndDateTime;
+            const abc = new Date(isoDateTime);
+            if (abc.toLocaleDateString() === date) {
+                return true;
+            } 
+        });
+        console.log(intentionsExpressedOnDate);
         
         let uniqueIntentions = [];
         for (const intentionAndDateTime of intentionsAndDateTimes) {
@@ -25,14 +35,14 @@ function displayProgress() {
                 intentionsLogContainer.appendChild(checkmarkElement);
             }
             const dateTime = abc.toString();
-            console.log(date);
-            console.log(dateTime);
+            //console.log(date);
+            //console.log(dateTime);
 
             if (!(intention in uniqueIntentions)) {
                 uniqueIntentions.push(intention);
             }
             
-            console.log(intention);
+            //console.log(intention);
 
             //const intentionEntry = document.createElement('p');
             //intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
