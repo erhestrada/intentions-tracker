@@ -16,16 +16,20 @@ function displayProgress() {
         intentionsLogContainer.append(dateElement);
 
         console.log(intentionsAndDateTimes);
+        // just store this in main.js in the first place
         const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
             const [intention, isoDateTime] = intentionAndDateTime;
             const abc = new Date(isoDateTime);
             if (abc.toLocaleDateString() === date) {
                 return true;
             } 
-        });
+        }).map(element => element[0]);
         console.log(intentionsExpressedOnDate);
+        const frequencies = intentionsExpressedOnDate.reduce((acc, element) => {
+            acc[element] = (acc[element] || 0) + 1;
+            return acc;
+        }, {});
         
-        let uniqueIntentions = [];
         for (const intentionAndDateTime of intentionsAndDateTimes) {
             const [intention, isoDateTime] = intentionAndDateTime;
             const abc = new Date(isoDateTime);
@@ -35,23 +39,14 @@ function displayProgress() {
                 intentionsLogContainer.appendChild(checkmarkElement);
             }
             const dateTime = abc.toString();
-            //console.log(date);
-            //console.log(dateTime);
-
-            if (!(intention in uniqueIntentions)) {
-                uniqueIntentions.push(intention);
-            }
-            
-            //console.log(intention);
-
-            //const intentionEntry = document.createElement('p');
-            //intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
-            //intentionsLogContainer.appendChild(intentionEntry);
         }
 
 
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
 
+        const uniqueIntentions = Object.keys(frequencies);
+        console.log(frequencies);
+        console.log(Object.keys(frequencies));
         uniqueIntentions.forEach(intention => {
             // Create a label for the intention
             const label = document.createElement('label');
