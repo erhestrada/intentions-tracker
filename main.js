@@ -21,7 +21,7 @@ function typeNextIntention() {
 }
 
 function typeIntention(intention) {
-    localStorage.setItem('currentIntention', intention);
+    window.currentIntention = intention;
     currentIndex = 0;
     initializeIntention(intention);
     updateText();
@@ -94,8 +94,17 @@ function handleKeydown(e) {
         if (currentIndex === originalText.length) {
             currentIntentionIndex++;
             const dateTime = Date();
-            const currentIntention = localStorage.getItem('currentIntention');
-            updateIntentionsLog(currentIntention, dateTime);
+            const date = (new Date()).toLocaleDateString();
+            console.log(date);
+            console.log(window.currentIntention);
+            let intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
+            const intentionEntry = [window.currentIntention, dateTime]
+            if (!(date in intentionsLog)) {
+                intentionsLog[date] = intentionEntry;
+            } else {
+                intentionsLog[date].push(intentionEntry);
+            }
+            
             setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
         }
     }

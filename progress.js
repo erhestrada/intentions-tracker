@@ -4,6 +4,8 @@ import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 
 // ✅
 
+// intentions log needs to be per day
+
 function displayProgress() {
     const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'))) || [];
     const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
