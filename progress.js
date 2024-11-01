@@ -5,8 +5,7 @@ import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 // ✅
 
 function displayProgress() {
-    //const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
-    
+    const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};    
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
@@ -28,23 +27,41 @@ function displayProgress() {
             } 
         }).map(element => element[0]);
         
-        const intentionRepetitionsOnDate = intentionsExpressedOnDate.reduce((acc, element) => {
+        const intentionsRepetitionsOnDate = intentionsExpressedOnDate.reduce((acc, element) => {
             acc[element] = (acc[element] || 0) + 1;
             return acc;
         }, {});
 
-        Object.entries(intentionRepetitionsOnDate).forEach(([intention, frequency]) => {
+        Object.entries(requiredRepetitionsPerIntention).forEach(([intention, requiredRepetitions]) => {
+            const requirementSymbol = '⬜';
+            const repetitionSymbol = '✅';
+            const repetitionsOnDate = intentionsRepetitionsOnDate[intention] || 0;
+
+            let repetitionsLeftToDo = requiredRepetitions - repetitionsOnDate;
+            if (repetitionsLeftToDo < 0) {
+                repetitionsLeftToDo = 0;
+            }
+
+            // display all checkmarks
+            const checkmarksElement = document.createElement('p');
+            checkmarksElement.innerText = intention + ' ' + repetitionSymbol.repeat(repetitionsOnDate) + requirementSymbol.repeat(repetitionsLeftToDo);
+            entryForDate.appendChild(checkmarksElement);
+        })
+
+        /*
+        Object.entries(intentionsRepetitionsOnDate).forEach(([intention, frequency]) => {
             const checkmarksElement = document.createElement('p');
             checkmarksElement.innerText = intention + ' ' + '✅'.repeat(frequency);
             entryForDate.appendChild(checkmarksElement);
         })
+        */
 
 
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
 
-        const uniqueIntentions = Object.keys(intentionRepetitionsOnDate);
-        console.log(intentionRepetitionsOnDate);
-        console.log(Object.keys(intentionRepetitionsOnDate));
+        const uniqueIntentions = Object.keys(intentionsRepetitionsOnDate);
+        console.log(intentionsRepetitionsOnDate);
+        console.log(Object.keys(intentionsRepetitionsOnDate));
         uniqueIntentions.forEach(intention => {
             // Create a label for the intention
             const label = document.createElement('label');
