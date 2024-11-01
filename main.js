@@ -1,15 +1,13 @@
 let currentIndex = 0;
 let currentIntentionIndex = 0;
-let intentions = [];
 
-function typeIntentions(intentionsArray) {
-    intentions = intentionsArray;
+function typeIntentions(intentions) {
     const container = document.querySelector('.container');
     container.innerHTML = ''; // Clear previous content
-    typeNextIntention();
+    typeNextIntention(intentions);
 }
 
-function typeNextIntention() {
+function typeNextIntention(intentions) {
     if (currentIntentionIndex < intentions.length) {
         typeIntention(intentions[currentIntentionIndex]);
     } else {
@@ -103,14 +101,14 @@ function handleKeydown(e) {
             }
             localStorage.setItem('intentionsLog', JSON.stringify(intentionsLog));
             
-            setTimeout(typeNextIntention, 500); // Wait for 500ms before moving to the next intention
+            setTimeout(typeNextIntention(window.intentions), 500); // Wait for 500ms before moving to the next intention
         }
     }
 }
 
-document.addEventListener('keydown', handleKeydown);
   
-//const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
-const intentionsArray = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-console.log(intentionsArray);
-typeIntentions(intentionsArray);
+const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+window.intentions = intentions;
+console.log(intentions);
+document.addEventListener('keydown', handleKeydown);
+typeIntentions(intentions);
