@@ -14,6 +14,9 @@ function displayProgress() {
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
     for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
+        const dateElement = document.createElement('p');
+        dateElement.textContent = date;
+        intentionsLogContainer.append(dateElement);
         console.log('date', date);
         console.log('intentionsAndDateTimes', intentionsAndDateTimes);
         let uniqueIntentions = [];
