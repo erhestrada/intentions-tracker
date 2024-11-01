@@ -24,22 +24,17 @@ function displayProgress() {
                 return true;
             } 
         }).map(element => element[0]);
-        console.log(intentionsExpressedOnDate);
+        
         const frequencies = intentionsExpressedOnDate.reduce((acc, element) => {
             acc[element] = (acc[element] || 0) + 1;
             return acc;
         }, {});
-        
-        for (const intentionAndDateTime of intentionsAndDateTimes) {
-            const [intention, isoDateTime] = intentionAndDateTime;
-            const abc = new Date(isoDateTime);
-            if (abc.toLocaleDateString() === date){
-                const checkmarkElement = document.createElement('p');
-                checkmarkElement.innerText = intention + ' ' + '✅';
-                intentionsLogContainer.appendChild(checkmarkElement);
-            }
-            const dateTime = abc.toString();
-        }
+
+        Object.entries(frequencies).forEach(([intention, frequency]) => {
+            const checkmarksElement = document.createElement('p');
+            checkmarksElement.innerText = intention + ' ' + '✅'.repeat(frequency);
+            intentionsLogContainer.appendChild(checkmarksElement);
+        })
 
 
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
