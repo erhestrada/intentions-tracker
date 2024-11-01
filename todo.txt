@@ -3,3 +3,5 @@
 5. journal/notes/thoughts on the day
 6. rearrange intentions (?)
 7. only be prompted to express up to the number of times i've set for myself in requirements
+8. save yes/no checkboxes on progress page
+9. need yes/no checkbox for every intention

@@ -18,7 +18,8 @@ function displayProgress() {
         entryForDate.append(dateElement);
 
         console.log(intentionsAndDateTimes);
-        // just store this in main.js in the first place
+
+        // just store intentionsExpressedOnDate in main.js in the first place
         const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
             const [intention, isoDateTime] = intentionAndDateTime;
             const abc = new Date(isoDateTime);
@@ -27,12 +28,12 @@ function displayProgress() {
             } 
         }).map(element => element[0]);
         
-        const frequencies = intentionsExpressedOnDate.reduce((acc, element) => {
+        const intentionRepetitionsOnDate = intentionsExpressedOnDate.reduce((acc, element) => {
             acc[element] = (acc[element] || 0) + 1;
             return acc;
         }, {});
 
-        Object.entries(frequencies).forEach(([intention, frequency]) => {
+        Object.entries(intentionRepetitionsOnDate).forEach(([intention, frequency]) => {
             const checkmarksElement = document.createElement('p');
             checkmarksElement.innerText = intention + ' ' + '✅'.repeat(frequency);
             entryForDate.appendChild(checkmarksElement);
@@ -41,9 +42,9 @@ function displayProgress() {
 
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
 
-        const uniqueIntentions = Object.keys(frequencies);
-        console.log(frequencies);
-        console.log(Object.keys(frequencies));
+        const uniqueIntentions = Object.keys(intentionRepetitionsOnDate);
+        console.log(intentionRepetitionsOnDate);
+        console.log(Object.keys(intentionRepetitionsOnDate));
         uniqueIntentions.forEach(intention => {
             // Create a label for the intention
             const label = document.createElement('label');
