@@ -7,7 +7,7 @@ export function displaySquares(data) {
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('intention'); // Add class for targeting in deletion        
         // Create a label for the key and add squares for the value
-        itemDiv.textContent = `${key}: ${'■'.repeat(value)}`; // Repeat the square based on value
+        itemDiv.textContent = `${key}: ${'⬜'.repeat(value)}`; // Repeat the square based on value
 
         // Append the item div to the container
         container.appendChild(itemDiv);
