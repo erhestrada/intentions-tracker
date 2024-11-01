@@ -11,9 +11,11 @@ function displayProgress() {
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
     for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
+        const entryForDate = document.createElement('div');
+        entryForDate.className = 'entry-for-date';
         const dateElement = document.createElement('p');
         dateElement.textContent = date;
-        intentionsLogContainer.append(dateElement);
+        entryForDate.append(dateElement);
 
         console.log(intentionsAndDateTimes);
         // just store this in main.js in the first place
@@ -33,7 +35,7 @@ function displayProgress() {
         Object.entries(frequencies).forEach(([intention, frequency]) => {
             const checkmarksElement = document.createElement('p');
             checkmarksElement.innerText = intention + ' ' + '✅'.repeat(frequency);
-            intentionsLogContainer.appendChild(checkmarksElement);
+            entryForDate.appendChild(checkmarksElement);
         })
 
 
@@ -46,7 +48,7 @@ function displayProgress() {
             // Create a label for the intention
             const label = document.createElement('label');
             label.textContent = intention; // Set label text to the intention
-            intentionsLogContainer.appendChild(label); // Append the label to the body
+            entryForDate.appendChild(label); // Append the label to the body
     
             // Create the "Yes" checkbox
             const yesCheckbox = document.createElement('input');
@@ -73,11 +75,12 @@ function displayProgress() {
             noLabel.textContent = " No"; // Set label text
     
             // Append the checkboxes and their labels to the body
-            intentionsLogContainer.appendChild(yesCheckbox);
-            intentionsLogContainer.appendChild(yesLabel);
-            intentionsLogContainer.appendChild(noCheckbox);
-            intentionsLogContainer.appendChild(noLabel);
-            intentionsLogContainer.appendChild(document.createElement('br'));
+            entryForDate.appendChild(yesCheckbox);
+            entryForDate.appendChild(yesLabel);
+            entryForDate.appendChild(noCheckbox);
+            entryForDate.appendChild(noLabel);
+            entryForDate.appendChild(document.createElement('br'));
+            intentionsLogContainer.appendChild(entryForDate);
         })
 
     }

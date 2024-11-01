@@ -59,6 +59,7 @@ nav li {
     background-color: #ccc; /* change background color on hover */
 }
 
-#intentions-log-container{
-    border: 1px solid;
+
+.entry-for-date {
+    border: 2px solid;
 }
