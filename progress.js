@@ -1,27 +1,25 @@
+import { displaySquares } from "./displaySquares";
 import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
 
-// i want to put date at the top of the container e.g. Monday October 28, 2024
-
+// put a checkmark next to intention if date matches date for container
 // ✅
 
-// intentions log needs to be per day
-
 function displayProgress() {
-    const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'))) || [];
-    //const intentionsLog = loadArrayFromLocalStorage('intentionsLog');
+    //const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
+    
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
-    console.log(intentionsLog);
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
     for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
         const dateElement = document.createElement('p');
         dateElement.textContent = date;
         intentionsLogContainer.append(dateElement);
-        console.log('date', date);
-        console.log('intentionsAndDateTimes', intentionsAndDateTimes);
+        
         let uniqueIntentions = [];
         for (const intentionAndDateTime of intentionsAndDateTimes) {
             const [intention, dateTime] = intentionAndDateTime;
+            console.log(date);
+            console.log(dateTime);
 
             if (!(intention in uniqueIntentions)) {
                 uniqueIntentions.push(intention);

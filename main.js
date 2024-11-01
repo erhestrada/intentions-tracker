@@ -93,8 +93,9 @@ function handleKeydown(e) {
 
         if (currentIndex === originalText.length) {
             currentIntentionIndex++;
-            const dateTime = Date();
-            const date = (new Date()).toLocaleDateString();
+            const abc = new Date();
+            const dateTime = abc.toString();
+            const date = abc.toLocaleDateString();
             console.log(date);
             console.log(window.currentIntention);
             let intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
