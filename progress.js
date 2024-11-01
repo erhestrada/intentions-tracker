@@ -17,7 +17,9 @@ function displayProgress() {
         
         let uniqueIntentions = [];
         for (const intentionAndDateTime of intentionsAndDateTimes) {
-            const [intention, dateTime] = intentionAndDateTime;
+            const [intention, isoDateTime] = intentionAndDateTime;
+            const abc = new Date(isoDateTime);
+            const dateTime = abc.toString();
             console.log(date);
             console.log(dateTime);
 
