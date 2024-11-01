@@ -11,6 +11,7 @@ export function addIntention() {
   document.getElementById('add-intention-input').value = ''; // clear input when intention added
 }
 
+/*
 function addIntentionToLocalStorage(intention) {
     let intentions = loadIntentionsFromLocalStorage();
     intentions.push(intention);
@@ -18,11 +19,13 @@ function addIntentionToLocalStorage(intention) {
     return intentions;
 }
 
+
 export function loadIntentionsFromLocalStorage() {
     const jsonIntentions = localStorage?.getItem('intentions') ?? JSON.stringify(['placeholder intention']);
     const intentions = JSON.parse(jsonIntentions);
     return intentions;
 }
+*/
 
 export function saveDataToLocalStorage(key, data) {
   const jsonData = JSON.stringify(data);

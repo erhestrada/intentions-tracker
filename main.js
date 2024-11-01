@@ -1,6 +1,3 @@
-import { loadIntentionsFromLocalStorage } from "./addIntention";
-import { updateIntentionsLog } from "./updateIntentionsLog";
-
 let currentIndex = 0;
 let currentIntentionIndex = 0;
 let intentions = [];
@@ -114,5 +111,6 @@ function handleKeydown(e) {
 document.addEventListener('keydown', handleKeydown);
   
 //const intentionsArray = localStorage?.getItem('intentions') ?? ['placeholder intention'];
-const intentionsArray = loadIntentionsFromLocalStorage();
+const intentionsArray = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+console.log(intentionsArray);
 typeIntentions(intentionsArray);
