@@ -19,6 +19,11 @@ function displayProgress() {
         for (const intentionAndDateTime of intentionsAndDateTimes) {
             const [intention, isoDateTime] = intentionAndDateTime;
             const abc = new Date(isoDateTime);
+            if (abc.toLocaleDateString() === date){
+                const checkmarkElement = document.createElement('p');
+                checkmarkElement.innerText = intention + ' ' + '✅';
+                intentionsLogContainer.appendChild(checkmarkElement);
+            }
             const dateTime = abc.toString();
             console.log(date);
             console.log(dateTime);
@@ -29,10 +34,9 @@ function displayProgress() {
             
             console.log(intention);
 
-            const intentionEntry = document.createElement('p');
-            intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
-    
-            intentionsLogContainer.appendChild(intentionEntry);
+            //const intentionEntry = document.createElement('p');
+            //intentionEntry.innerText = intention + ' ' + formatTime(dateTime);
+            //intentionsLogContainer.appendChild(intentionEntry);
         }
 
 
