@@ -78,7 +78,7 @@ function updateCaret() {
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
 }
 
-function handleKeydown(e) {
+function handleKeydown(e, intentions) {
     const textToType = document.getElementById('text-to-type');
     const originalText = textToType.textContent;
     if (e.key === originalText[currentIndex]) {
@@ -101,14 +101,12 @@ function handleKeydown(e) {
             }
             localStorage.setItem('intentionsLog', JSON.stringify(intentionsLog));
             
-            setTimeout(typeNextIntention(window.intentions), 500); // Wait for 500ms before moving to the next intention
+            setTimeout(typeNextIntention(intentions), 500); // Wait for 500ms before moving to the next intention
         }
     }
 }
 
-  
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-window.intentions = intentions;
 console.log(intentions);
-document.addEventListener('keydown', handleKeydown);
+document.addEventListener('keydown', (e) => handleKeydown(e, intentions));
 typeIntentions(intentions);
