@@ -1,9 +1,3 @@
-import { displaySquares } from "./displaySquares";
-import { loadArrayFromLocalStorage } from "./updateIntentionsLog";
-
-// put a checkmark next to intention if date matches date for container
-// ✅
-
 function displayProgress() {
     const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};    
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
@@ -15,8 +9,6 @@ function displayProgress() {
         const dateElement = document.createElement('p');
         dateElement.textContent = date;
         entryForDate.append(dateElement);
-
-        console.log(intentionsAndDateTimes);
 
         // just store intentionsExpressedOnDate in main.js in the first place
         const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
@@ -52,7 +44,7 @@ function displayProgress() {
 
         const uniqueIntentions = Object.keys(intentionsRepetitionsOnDate);
         //const uniqueIntentions = Object.keys(requiredRepetitionsPerIntention);
-        console.log(uniqueIntentions);
+        //console.log(uniqueIntentions);
         uniqueIntentions.forEach(intention => {
             // Create a label for the intention
             const label = document.createElement('label');
@@ -62,7 +54,8 @@ function displayProgress() {
             // Create the "Yes" checkbox
             const yesCheckbox = document.createElement('input');
             yesCheckbox.type = "checkbox";
-            yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
+            yesCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-yes`;
+            console.log(yesCheckbox.id);
             yesCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['yes'] : false;
             yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
     
@@ -74,23 +67,24 @@ function displayProgress() {
             // Create the "No" checkbox
             const noCheckbox = document.createElement('input');
             noCheckbox.type = "checkbox";
-            noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
+            noCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-no`;
             noCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['no'] : false;
             noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
 
 
 
-
+            // uncheck no checkbox when yes checkbox checked
             yesCheckbox.addEventListener('change', () => {
                 if (yesCheckbox.checked) {
-                    noCheckbox.checked = false; // Uncheck the "No" checkbox
+                    noCheckbox.checked = false;
                     updateCheckboxStates(intention, 'no', noCheckbox.checked)
                 }
             });
             
+            // uncheck yes checkbox when no checkbox checked
             noCheckbox.addEventListener('change', () => {
                 if (noCheckbox.checked) {
-                    yesCheckbox.checked = false; // Uncheck the "Yes" checkbox
+                    yesCheckbox.checked = false;
                     updateCheckboxStates(intention, 'yes', yesCheckbox.checked)
                 }
             });

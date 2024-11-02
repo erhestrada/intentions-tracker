@@ -6,8 +6,10 @@
 8. save yes/no checkboxes on progress page
 10. if i add new intention should only add to current date onward, not past dates (progress page)
 11. yes/no checkboxes locked in when day ends (?)
-12. changing yes/no box on a previous day changes box on all days
 13. client-server-client -- streaks, bond constraints, profiles, notifications when buddy succeeds/fails/takes action
     groups
     search groups
     search intentions, intention-action success rate
+
+
+12. changing yes/no box on a previous day changes box on all days
