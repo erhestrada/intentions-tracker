@@ -5,3 +5,4 @@
 7. only be prompted to express up to the number of times i've set for myself in requirements
 8. save yes/no checkboxes on progress page
 9. need yes/no checkbox for every intention
+10. if i add new intention should only add to current date onward, not past dates (progress page)

@@ -48,20 +48,11 @@ function displayProgress() {
             entryForDate.appendChild(checkmarksElement);
         })
 
-        /*
-        Object.entries(intentionsRepetitionsOnDate).forEach(([intention, frequency]) => {
-            const checkmarksElement = document.createElement('p');
-            checkmarksElement.innerText = intention + ' ' + '✅'.repeat(frequency);
-            entryForDate.appendChild(checkmarksElement);
-        })
-        */
-
-
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
 
         const uniqueIntentions = Object.keys(intentionsRepetitionsOnDate);
-        console.log(intentionsRepetitionsOnDate);
-        console.log(Object.keys(intentionsRepetitionsOnDate));
+        //const uniqueIntentions = Object.keys(requiredRepetitionsPerIntention);
+        console.log(uniqueIntentions);
         uniqueIntentions.forEach(intention => {
             // Create a label for the intention
             const label = document.createElement('label');
@@ -72,7 +63,7 @@ function displayProgress() {
             const yesCheckbox = document.createElement('input');
             yesCheckbox.type = "checkbox";
             yesCheckbox.id = `${intention.replace(' ', '-')}-yes`; // Unique ID for "Yes" checkbox
-            yesCheckbox.checked = statesOfCheckboxes[intention]['yes'];
+            yesCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['yes'] : false;
             yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
     
             // Create the label for the "Yes" checkbox
@@ -84,7 +75,7 @@ function displayProgress() {
             const noCheckbox = document.createElement('input');
             noCheckbox.type = "checkbox";
             noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
-            noCheckbox.checked = statesOfCheckboxes[intention]['no'];
+            noCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['no'] : false;
             noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
     
             // Create the label for the "No" checkbox
@@ -105,39 +96,6 @@ function displayProgress() {
 
 
 
-}
-
-function formatTime(dateTime) {
-    // Create a Date object from the string
-    const date = new Date(dateTime);
-    
-    // Extract hours, minutes, and seconds
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    
-    // Determine AM/PM
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    // Convert to 12-hour format
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    
-    // Format minutes with leading zeros
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-    
-    // Combine to get the final formatted time
-    const formattedTime = `${hours}:${formattedMinutes} ${ampm}`;
-    
-    // Replace the time portion in the original date string
-    const newDateString = dateTime.replace(/(\d{2}:\d{2}:\d{2})/, formattedTime);
-    const trimmedDateString = newDateString.replace(/(AM|PM).*/, '$1');
-    return trimmedDateString    
-}
-
-function getUniqueIntentionsFromIntentionsLog(intentionsLog) {
-    const intentions = intentionsLog.map(intentionEntry => intentionEntry[0]);
-    const uniqueIntentions = [...new Set(intentions)];
-    return uniqueIntentions
 }
 
 function updateCheckboxStates(intention, yesNo, checked) {
