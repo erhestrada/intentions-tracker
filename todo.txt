@@ -4,5 +4,10 @@
 6. rearrange intentions (?)
 7. only be prompted to express up to the number of times i've set for myself in requirements
 8. save yes/no checkboxes on progress page
-9. need yes/no checkbox for every intention
 10. if i add new intention should only add to current date onward, not past dates (progress page)
+11. yes/no checkboxes locked in when day ends (?)
+12. changing yes/no box on a previous day changes box on all days
+13. client-server-client -- streaks, bond constraints, profiles, notifications when buddy succeeds/fails/takes action
+    groups
+    search groups
+    search intentions, intention-action success rate

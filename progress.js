@@ -77,6 +77,24 @@ function displayProgress() {
             noCheckbox.id = `${intention.replace(' ', '-')}-no`; // Unique ID for "No" checkbox
             noCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['no'] : false;
             noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
+
+
+
+
+            yesCheckbox.addEventListener('change', () => {
+                if (yesCheckbox.checked) {
+                    noCheckbox.checked = false; // Uncheck the "No" checkbox
+                }
+            });
+            
+            noCheckbox.addEventListener('change', () => {
+                if (noCheckbox.checked) {
+                    yesCheckbox.checked = false; // Uncheck the "Yes" checkbox
+                }
+            });
+
+
+
     
             // Create the label for the "No" checkbox
             const noLabel = document.createElement('label');
