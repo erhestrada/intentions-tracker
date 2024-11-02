@@ -84,12 +84,14 @@ function displayProgress() {
             yesCheckbox.addEventListener('change', () => {
                 if (yesCheckbox.checked) {
                     noCheckbox.checked = false; // Uncheck the "No" checkbox
+                    updateCheckboxStates(intention, 'no', noCheckbox.checked)
                 }
             });
             
             noCheckbox.addEventListener('change', () => {
                 if (noCheckbox.checked) {
                     yesCheckbox.checked = false; // Uncheck the "Yes" checkbox
+                    updateCheckboxStates(intention, 'yes', yesCheckbox.checked)
                 }
             });
 
