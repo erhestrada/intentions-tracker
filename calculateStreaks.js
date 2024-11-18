@@ -38,7 +38,7 @@ export function calculateStreaks(statesOfCheckboxes) {
                     streaks[action] = 1; // Start streak for this action if not already
                 } else {
                     streaks[action] += 1; // Increment the streak
-                    console.log('streaks:', streaks);
+                    //console.log('streaks:', streaks);
                 }
             }
         }
