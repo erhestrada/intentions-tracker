@@ -1,3 +1,5 @@
+import { calculateStreaks } from "./calculateStreaks";
+
 function displayProgress() {
     const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};    
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
