@@ -1,6 +1,20 @@
 export function calculateStreaks(statesOfCheckboxes) {
     const dates = Object.keys(statesOfCheckboxes).sort(); // Get sorted date keys
-    let streaks = {}; // To store the streak count for each action
+
+    let allActions = [];
+    
+    // Iterate through the sorted dates
+    for (const date of dates) {  // Change from `for (const date in dates)`
+        const dateDict = statesOfCheckboxes[date]; // Use `date` directly here to access the correct key-value pair
+        const actions = Object.keys(dateDict);  // Get the actions (keys) for the current date
+        const newActions = actions.filter(action => !allActions.includes(action));  // Find new actions that aren't in `allActions`
+        allActions.push(...newActions);  // Add those actions to `allActions`
+    }
+    
+    // Create streaks object with initial values
+    let streaks = Object.fromEntries(allActions.map(action => [action, 0]));
+    
+    console.log(streaks);
 
     let previousDate = null;
     
