@@ -1,3 +1,8 @@
+1. mark intention-action as success/fail
+streaks
+"bond" with second user
+2. chat with people in groups
+
 2. timer for expressing intention -- set intentions expression frequency
 4. pagination/calendar widget to look at different dates
 5. journal/notes/thoughts on the day

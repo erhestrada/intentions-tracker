@@ -41,6 +41,8 @@ function displayProgress() {
         })
 
         let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+        console.log('data', date);
+        console.log('states of checkboxes', statesOfCheckboxes);
 
         const uniqueIntentions = Object.keys(intentionsRepetitionsOnDate);
         //const uniqueIntentions = Object.keys(requiredRepetitionsPerIntention);
@@ -57,7 +59,7 @@ function displayProgress() {
             yesCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-yes`;
             console.log(yesCheckbox.id);
             yesCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['yes'] : false;
-            yesCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'yes', yesCheckbox.checked));
+            yesCheckbox.addEventListener('change', () => updateCheckboxStates(date, intention, 'yes', yesCheckbox.checked));
     
             // Create the label for the "Yes" checkbox
             const yesLabel = document.createElement('label');
@@ -69,7 +71,7 @@ function displayProgress() {
             noCheckbox.type = "checkbox";
             noCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-no`;
             noCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['no'] : false;
-            noCheckbox.addEventListener('change', () => updateCheckboxStates(intention, 'no', noCheckbox.checked));
+            noCheckbox.addEventListener('change', () => updateCheckboxStates(date, intention, 'no', noCheckbox.checked));
 
 
 
@@ -77,7 +79,7 @@ function displayProgress() {
             yesCheckbox.addEventListener('change', () => {
                 if (yesCheckbox.checked) {
                     noCheckbox.checked = false;
-                    updateCheckboxStates(intention, 'no', noCheckbox.checked)
+                    updateCheckboxStates(date, intention, 'no', noCheckbox.checked)
                 }
             });
             
@@ -85,7 +87,7 @@ function displayProgress() {
             noCheckbox.addEventListener('change', () => {
                 if (noCheckbox.checked) {
                     yesCheckbox.checked = false;
-                    updateCheckboxStates(intention, 'yes', yesCheckbox.checked)
+                    updateCheckboxStates(date, intention, 'yes', yesCheckbox.checked)
                 }
             });
 
@@ -112,7 +114,7 @@ function displayProgress() {
 
 }
 
-function updateCheckboxStates(intention, yesNo, checked) {
+function updateCheckboxStates(date, intention, yesNo, checked) {
     let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
     if (intention in statesOfCheckboxes) {
         statesOfCheckboxes[intention][yesNo] = checked;
