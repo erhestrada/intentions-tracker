@@ -68,7 +68,7 @@ function datesAreConsecutive(dateStr1, dateStr2) {
     return differenceInMillis === oneDayInMillis;
 }
 
-
+/*
 const statesOfCheckboxes = {
                             "10/31/2024":{"meditate":{"yes":true,"no":false}},
                             "11/1/2024":{"meditate":{"yes":true,"no":false},"weigh self":{"yes":false,"no":false},"drink more water":{"yes":false,"no":false}},
@@ -79,3 +79,4 @@ const statesOfCheckboxes = {
 
 const streaks = calculateStreaks(statesOfCheckboxes);
 console.log(streaks);
+*/
