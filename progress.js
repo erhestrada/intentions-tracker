@@ -12,7 +12,10 @@ function displayProgress() {
     const streaks = calculateStreaks(statesOfCheckboxes);
 
     for (const [key, value] of Object.entries(streaks)) {
-
+        const streakElement = document.createElement('span');
+        streakElement.textContent = `${key}: ${value}`;
+        intentionsLogContainer.appendChild(streakElement);
+        intentionsLogContainer.appendChild(document.createTextNode(' '));  // Add a space between spans
     }
 
     for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
