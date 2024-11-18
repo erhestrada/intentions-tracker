@@ -5,6 +5,16 @@ function displayProgress() {
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
+    let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
+    const streaksLabelElement = document.createElement('p');
+    streaksLabelElement.innerText = 'Streaks';
+    intentionsLogContainer.appendChild(streaksLabelElement);
+    const streaks = calculateStreaks(statesOfCheckboxes);
+
+    for (const [key, value] of Object.entries(streaks)) {
+
+    }
+
     for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
         const entryForDate = document.createElement('div');
         entryForDate.className = 'entry-for-date';
