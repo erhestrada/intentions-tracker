@@ -1,26 +1,26 @@
 export function calculateStreaks(statesOfCheckboxes) {
-    const dates = Object.keys(statesOfCheckboxes).sort(); // Get sorted date keys
+    const dates = Object.keys(statesOfCheckboxes).sort();
 
     let allActions = [];
     
-    // Iterate through the sorted dates
-    for (const date of dates) {  // Change from `for (const date in dates)`
-        const dateDict = statesOfCheckboxes[date]; // Use `date` directly here to access the correct key-value pair
-        const actions = Object.keys(dateDict);  // Get the actions (keys) for the current date
-        const newActions = actions.filter(action => !allActions.includes(action));  // Find new actions that aren't in `allActions`
-        allActions.push(...newActions);  // Add those actions to `allActions`
+    for (const date of dates) {
+        const dateDict = statesOfCheckboxes[date];
+        const actions = Object.keys(dateDict);
+        const newActions = actions.filter(action => !allActions.includes(action));
+        allActions.push(...newActions);
     }
     
     // Create streaks object with initial values
     let streaks = Object.fromEntries(allActions.map(action => [action, 0]));
     
-    console.log(streaks);
+    //console.log(streaks);
 
     let previousDate = null;
     
     // Loop through each date and check streaks
     dates.forEach((date, index) => {
-        const actions = statesOfCheckboxes[date];
+        const actionsLog = statesOfCheckboxes[date];
+        //console.log('actionsLog', actionsLog);
         
         // Check if consecutive with the previous date
         if (previousDate && !datesAreConsecutive(previousDate, date)) {
@@ -31,13 +31,14 @@ export function calculateStreaks(statesOfCheckboxes) {
         }
 
         // Check each action on this date
-        for (let action in actions) {
+        for (let action in actionsLog) {
             // If the action was marked "yes": true, increment the streak
-            if (actions[action].yes === true) {
+            if (actionsLog[action].yes === true) {
                 if (streaks[action] === undefined) {
                     streaks[action] = 1; // Start streak for this action if not already
                 } else {
                     streaks[action] += 1; // Increment the streak
+                    console.log('streaks:', streaks);
                 }
             }
         }
@@ -73,5 +74,8 @@ const statesOfCheckboxes = {
                             "11/1/2024":{"meditate":{"yes":true,"no":false},"weigh self":{"yes":false,"no":false},"drink more water":{"yes":false,"no":false}},
                             "11/18/2024":{"weigh self":{"yes":false,"no":false}}
                         };
+//const abc = datesAreConsecutive('10/31/2024', '11/1/2024');
+//console.log(abc);
+
 const streaks = calculateStreaks(statesOfCheckboxes);
 console.log(streaks);
