@@ -58,7 +58,7 @@ function displayProgress() {
             yesCheckbox.type = "checkbox";
             yesCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-yes`;
             console.log(yesCheckbox.id);
-            yesCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['yes'] : false;
+            yesCheckbox.checked = statesOfCheckboxes[date] && statesOfCheckboxes[date][intention] ? statesOfCheckboxes[date][intention]['yes'] : false;
             yesCheckbox.addEventListener('change', () => updateCheckboxStates(date, intention, 'yes', yesCheckbox.checked));
     
             // Create the label for the "Yes" checkbox
@@ -70,10 +70,8 @@ function displayProgress() {
             const noCheckbox = document.createElement('input');
             noCheckbox.type = "checkbox";
             noCheckbox.id = date.replace(/\//g, '-') + '-' + `${intention.replace(/ /g, '-')}-no`;
-            noCheckbox.checked = statesOfCheckboxes[intention] ? statesOfCheckboxes[intention]['no'] : false;
+            noCheckbox.checked = statesOfCheckboxes[date] && statesOfCheckboxes[date][intention] ? statesOfCheckboxes[date][intention]['no'] : false;
             noCheckbox.addEventListener('change', () => updateCheckboxStates(date, intention, 'no', noCheckbox.checked));
-
-
 
             // uncheck no checkbox when yes checkbox checked
             yesCheckbox.addEventListener('change', () => {
@@ -91,9 +89,6 @@ function displayProgress() {
                 }
             });
 
-
-
-    
             // Create the label for the "No" checkbox
             const noLabel = document.createElement('label');
             noLabel.htmlFor = noCheckbox.id; // Associate the label with the checkbox
@@ -109,19 +104,29 @@ function displayProgress() {
         })
 
     }
-
-
-
 }
 
 function updateCheckboxStates(date, intention, yesNo, checked) {
+    // Retrieve existing states from localStorage, or initialize an empty object if none exist
     let statesOfCheckboxes = JSON.parse(localStorage.getItem('statesOfCheckboxes')) || {};
-    if (intention in statesOfCheckboxes) {
-        statesOfCheckboxes[intention][yesNo] = checked;
-    } else {
-        statesOfCheckboxes[intention] = {'yes': false, 'no': false};
+
+    // Ensure the date is part of the object, creating it if necessary
+    if (!statesOfCheckboxes[date]) {
+        statesOfCheckboxes[date] = {};
     }
+
+    // If the intention exists, update the yesNo state
+    if (intention in statesOfCheckboxes[date]) {
+        statesOfCheckboxes[date][intention][yesNo] = checked;
+    } else {
+        // Otherwise, initialize the intention with the yesNo states
+        statesOfCheckboxes[date][intention] = { 'yes': false, 'no': false };
+        statesOfCheckboxes[date][intention][yesNo] = checked;
+    }
+
+    // Save the updated states back to localStorage
     localStorage.setItem('statesOfCheckboxes', JSON.stringify(statesOfCheckboxes));
+
     return statesOfCheckboxes;
 }
 
