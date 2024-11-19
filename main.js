@@ -2,9 +2,11 @@ let currentIndex = 0;
 let currentIntentionIndex = 0;
 
 function typeIntentions(intentions) {
-    const container = document.querySelector('.container');
-    container.innerHTML = ''; // Clear previous content
-    typeNextIntention(intentions);
+    if (intentions.length > 0) {
+        const container = document.querySelector('.container');
+        container.innerHTML = ''; // Clear previous content
+        typeNextIntention(intentions);
+    }
 }
 
 function typeNextIntention(intentions) {
