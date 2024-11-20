@@ -1,10 +1,10 @@
 // Store data function
 async function storeRequiredRepetitionsForIntention(intention, repetition) {
   try {
-    const response = await fetch('http://192.168.86.195:3000/store', {
+    const response = await fetch('http://192.168.86.195:3000/storeRequiredRepetitionsForIntention', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ value })
+      body: JSON.stringify({ intention, repetition })
     });
     const result = await response.json();
     console.log('Data Stored:', result);
