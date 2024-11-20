@@ -1,5 +1,5 @@
 // Store data function
-async function storeRequiredRepetitionsForIntention(intention, repetitions) {
+export async function storeRequiredRepetitionsForIntention(intention, repetitions) {
   try {
     const response = await fetch('http://192.168.86.195:3000/storeRequiredRepetitionsForIntention', {
       method: 'POST',
