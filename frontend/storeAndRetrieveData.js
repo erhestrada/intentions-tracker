@@ -9,8 +9,6 @@ async function storeRequiredRepetitionsForIntention(intention, repetition) {
     const result = await response.json();
     console.log('Data Stored:', result);
 
-    // After storing, retrieve data
-    getData();
   } catch (error) {
     console.error('Error storing data:', error);
   }
