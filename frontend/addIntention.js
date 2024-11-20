@@ -1,4 +1,5 @@
 import { displaySquares } from "./displaySquares";
+import { storeRequiredRepetitionsForIntention } from "./storeAndRetrieveData";
 
 export function addIntention() {
   let requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
@@ -6,6 +7,7 @@ export function addIntention() {
   const requiredRepetitions = document.getElementById('required-repetitions-input').value;
   requiredRepetitionsPerIntention[intention] = requiredRepetitions;
   localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(requiredRepetitionsPerIntention));
+  storeRequiredRepetitionsForIntention(intention, requiredRepetitions);
 
   displaySquares({[intention]: requiredRepetitions});
   document.getElementById('add-intention-input').value = ''; // clear input when intention added
