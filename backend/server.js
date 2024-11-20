@@ -14,12 +14,12 @@ app.use(express.json());
 const db = new sqlite3.Database('./data.db');
 
 // Initialize the database table if it doesn't exist
-db.run('CREATE TABLE IF NOT EXISTS store_data (id INTEGER PRIMARY KEY, value INTEGER)');
+db.run('CREATE TABLE IF NOT EXISTS store_required_repetitions_per_intention (id INTEGER PRIMARY KEY, intention TEXT, repetitions INTEGER)');
 
 // Route to store data
-app.post('/store', (req, res) => {
-  const { value } = req.body;
-  db.run('INSERT INTO store_data (value) VALUES (?)', [value], function (err) {
+app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
+  const { intention, repetitions } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
+  db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
     if (err) {
       return res.status(500).json({ error: 'Failed to store data' });
     }
