@@ -1,7 +1,10 @@
 import { calculateStreaks } from "./calculateStreaks";
+import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 
-function displayProgress() {
+async function displayProgress() {
     const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};    
+    const requiredRepetitionsPerIntentionFromServer = await retrieveRequiredRepetitionsPerIntention();
+    console.log('requiredRepetitionsPerIntentionFromServer: ', requiredRepetitionsPerIntentionFromServer);
     const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
     const intentionsLogContainer = document.getElementById('intentions-log-container');
 
