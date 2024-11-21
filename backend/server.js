@@ -16,7 +16,7 @@ const db = new sqlite3.Database('./data.db');
 // Initialize the database table if it doesn't exist
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, intention TEXT, repetitions INTEGER)');
 //db.run('DROP TABLE store_required_repetitions_per_intention');
-
+//db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
 
 // Route to store data
 app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
