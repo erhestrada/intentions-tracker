@@ -24,9 +24,10 @@ storeRequiredRepetitionsForIntention('limit soda', 3);
 storeRequiredRepetitionsForIntention('say no to distractions, wait and wander instead', 6);
 storeRequiredRepetitionsForIntention('express intentions in morning check-in', 1);
 storeRequiredRepetitionsForIntention('lucid dream', 1);
+*/
 
-db.run('DROP TABLE required_repetitions_per_intention');
-db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
+
+/*
 deletes where id = 1
 db.run('DELETE FROM required_repetitions_per_intention WHERE id = ?', [1], (err) => {
   if (err) {
