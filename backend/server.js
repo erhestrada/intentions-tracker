@@ -15,6 +15,8 @@ const db = new sqlite3.Database('./data.db');
 
 // Initialize the database table if it doesn't exist
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, intention TEXT, repetitions INTEGER)');
+//db.run('DROP TABLE store_required_repetitions_per_intention');
+
 
 // Route to store data
 app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
@@ -43,3 +45,4 @@ app.get('/retrieveRequiredRepetitionsPerIntention', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
 });
+
