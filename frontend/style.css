@@ -64,10 +64,17 @@ nav li {
     box-shadow: 0 0 0 2px black; /* Adjust the last value for thickness */
 }
 
+#intention-boxes-container {
+    display: grid;             /* Enable grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Create columns with flexible width */
+    gap: 20px;                 /* Space between grid items */
+  }
+
 .intention-box{
     display: flex;
     justify-content: center; /* Horizontally center */
     align-items: center;     /* Vertically center */
+    text-align: center;
     width: 100px;
     height: 100px;           /* Set the height */
 }
