@@ -64,6 +64,11 @@ nav li {
     box-shadow: 0 0 0 2px black; /* Adjust the last value for thickness */
 }
 
+#express-intentions-button-container{
+    display: flex;
+    justify-content: center;
+}
+
 #intention-boxes-container {
     display: flex;                          /* Enable Flexbox */
     flex-wrap: wrap;                        /* Allow items to wrap to the next row if needed */
