@@ -18,9 +18,11 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
 
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
+        successButton.addEventListener('click', () => intentionBox.style.backgroundColor = 'green');
 
         const failureButton = document.createElement('button');
         failureButton.innerText = '❌';
+        failureButton.addEventListener('click', () => intentionBox.style.backgroundColor = 'red');
         
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
