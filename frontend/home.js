@@ -18,12 +18,23 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
 
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
-        successButton.addEventListener('click', () => intentionBox.style.backgroundColor = 'green');
+        successButton.addEventListener('click', () => {
+            if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
+                intentionBox.style.backgroundColor = 'lightblue';
+            } else {
+                intentionBox.style.backgroundColor = '#81C784';
+            }
+        });
 
         const failureButton = document.createElement('button');
         failureButton.innerText = '❌';
-        failureButton.addEventListener('click', () => intentionBox.style.backgroundColor = 'red');
-        
+        failureButton.addEventListener('click', () => {
+            if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
+                intentionBox.style.backgroundColor = 'lightblue';
+            } else {
+                intentionBox.style.backgroundColor = '#E53935 ';
+            }
+        });        
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
         intentionBox.appendChild(requiredRepetitionsTextElement);
