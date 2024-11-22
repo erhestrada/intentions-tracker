@@ -63,3 +63,11 @@ nav li {
 .entry-for-date {
     box-shadow: 0 0 0 2px black; /* Adjust the last value for thickness */
 }
+
+.intention-box{
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
+    width: 100px;
+    height: 100px;           /* Set the height */
+}

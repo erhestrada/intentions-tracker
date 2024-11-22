@@ -1,8 +1,19 @@
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 
-function displayIntentionBoxes(required_repetitions_per_intention) {
+function displayIntentionBoxes(requiredRepetitionsPerIntention) {
+    const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+    for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
+        const intentionBox = document.createElement('div');
+        intentionBox.className = 'intention-box';
+        intentionBox.id = intention;
+        intentionBox.innerText = intention;
+        intentionBox.style.border = '1px solid black';
+        intentionBoxesContainer.appendChild(intentionBox);
 
+        console.log(intention, repetitions);
+    }
 }
 
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
+console.log(requiredRepetitionsPerIntention);
 displayIntentionBoxes(requiredRepetitionsPerIntention);
