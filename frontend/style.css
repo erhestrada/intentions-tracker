@@ -82,6 +82,7 @@ nav li {
     max-width: 300px;                       /* Set a maximum width for the boxes */
     aspect-ratio: 1 / 1;                    /* Creates a perfect square */
     display: flex;                          /* Enable Flexbox inside each box */
+    flex-direction: column;
     justify-content: center;                /* Center content horizontally */
     align-items: center;                    /* Center content vertically */
     text-align: center;                     /* Center text inside the box */

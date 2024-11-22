@@ -6,8 +6,15 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
         intentionBox.id = intention;
-        intentionBox.innerText = intention;
+
+        const intentionTextElement = document.createElement('p');
+        intentionTextElement.innerText = intention;
+        const requiredRepetitionsTextElement = document.createElement('p');
+        requiredRepetitionsTextElement.innerText = 'repetitions: ' + repetitions;
+        
         intentionBoxesContainer.appendChild(intentionBox);
+        intentionBox.appendChild(intentionTextElement);
+        intentionBox.appendChild(requiredRepetitionsTextElement);
 
         console.log(intention, repetitions);
     }
