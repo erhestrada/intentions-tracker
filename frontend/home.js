@@ -15,5 +15,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
 }
 
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
+//const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
 console.log(requiredRepetitionsPerIntention);
 displayIntentionBoxes(requiredRepetitionsPerIntention);
