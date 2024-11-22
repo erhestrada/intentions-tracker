@@ -9,12 +9,21 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
 
         const intentionTextElement = document.createElement('p');
         intentionTextElement.innerText = intention;
+        
         const requiredRepetitionsTextElement = document.createElement('p');
         requiredRepetitionsTextElement.innerText = 'repetitions: ' + repetitions;
+
+        const successButton = document.createElement('button');
+        successButton.innerText = '✔️';
+
+        const failureButton = document.createElement('button');
+        failureButton.innerText = '❌';
         
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
         intentionBox.appendChild(requiredRepetitionsTextElement);
+        intentionBox.appendChild(successButton);
+        intentionBox.appendChild(failureButton);
 
         console.log(intention, repetitions);
     }
