@@ -65,16 +65,21 @@ nav li {
 }
 
 #intention-boxes-container {
-    display: grid;             /* Enable grid layout */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Create columns with flexible width */
-    gap: 20px;                 /* Space between grid items */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible columns */
+    gap: 20px;                                /* Space between boxes */
+    height: 100vh;                            /* Make container fill the height of the viewport */
+    padding: 20px;                            /* Optional padding around the container */
+    box-sizing: border-box;                   /* Include padding in width and height calculation */
+    overflow: hidden;                         /* Prevent scrolling */
   }
 
 .intention-box{
-    display: flex;
+    background-color: lightblue;  /* Box color */
+    padding: 20px;                /* Padding inside the box */
     justify-content: center; /* Horizontally center */
     align-items: center;     /* Vertically center */
-    text-align: center;
-    width: 100px;
-    height: 100px;           /* Set the height */
+    text-align: center;           /* Center the text */
+    border: 1px solid #ccc;      /* Optional: border for visibility */
+    box-sizing: border-box;      /* Ensure padding doesn't affect width */
 }
