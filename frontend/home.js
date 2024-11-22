@@ -7,7 +7,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
         intentionBox.className = 'intention-box';
         intentionBox.id = intention;
         intentionBox.innerText = intention;
-        intentionBox.style.border = '1px solid black';
         intentionBoxesContainer.appendChild(intentionBox);
 
         console.log(intention, repetitions);

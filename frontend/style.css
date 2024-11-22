@@ -85,7 +85,7 @@ nav li {
     justify-content: center;                /* Center content horizontally */
     align-items: center;                    /* Center content vertically */
     text-align: center;                     /* Center text inside the box */
-    border: 1px solid #ccc;                 /* Optional border */
+    border: 1px solid black;                 /* Optional border */
     box-sizing: border-box;                 /* Include padding and border in box size */
     padding: 20px;                          /* Add internal spacing */
     border-radius: 10px;  /* Add rounded corners. */
