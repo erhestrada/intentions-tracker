@@ -54,7 +54,10 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 console.log(intentions);
 document.addEventListener('keydown', (e) => handleKeydown(e, intentions));
-document.getElementById('express-intentions-button').addEventListener('click', () => typeIntentions(intentions));
+document.getElementById('express-intentions-button').addEventListener('click',  function() {
+    this.blur();
+    typeIntentions(intentions)
+});
 
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
