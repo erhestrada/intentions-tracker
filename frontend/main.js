@@ -80,7 +80,7 @@ function updateCaret() {
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
 }
 
-function handleKeydown(e, intentions) {
+export function handleKeydown(e, intentions) {
     const textToType = document.getElementById('text-to-type');
     const originalText = textToType.textContent;
     if (e.key === originalText[currentIndex]) {
