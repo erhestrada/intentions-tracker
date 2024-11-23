@@ -1,4 +1,4 @@
-import { typeIntentions,handleKeydown } from "./typeIntentions";
+import { typeIntentions, handleKeydown } from "./typeIntentions";
 
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 console.log(intentions);
