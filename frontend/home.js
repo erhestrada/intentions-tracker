@@ -1,4 +1,5 @@
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
+import { typeIntentions } from "./main.js";
 
 function displayIntentionBoxes(requiredRepetitionsPerIntention) {
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
