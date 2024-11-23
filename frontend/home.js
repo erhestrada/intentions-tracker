@@ -1,5 +1,5 @@
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
-//import { typeIntentions, handleKeydown } from "./typeIntentions";
+import { typeIntentions, handleKeydown } from "./typeIntentions";
 
 function displayIntentionBoxes(requiredRepetitionsPerIntention) {
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
@@ -51,15 +51,15 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
     }
 }
 
-/*
-function runTypeIntentions() {
-    const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-    console.log(intentions);
-    document.addEventListener('keydown', (e) => handleKeydown(e, intentions));
-    typeIntentions(intentions);
-}*/
 
-//document.getElementById('express-intentions-button').addEventListener('click', runTypeIntentions);
+function runTypeIntentions(intentions) {
+    console.log(intentions);
+    typeIntentions(intentions);
+}
+
+const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+document.addEventListener('keydown', (e) => handleKeydown(e, intentions));
+document.getElementById('express-intentions-button').addEventListener('click', () => runTypeIntentions(intentions));
 
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
