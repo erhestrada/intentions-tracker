@@ -1,7 +1,8 @@
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 
-function displayIntentionBoxes(requiredRepetitionsPerIntention) {
+function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog) {
+    console.log('intentions log', intentionsLog);
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
     for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
@@ -51,6 +52,44 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention) {
     }
 }
 
+function displayProgress(intention, intentionsRepetitionsOnDate, requiredRepetitions) {
+    const requirementSymbol = '⬜';
+    const repetitionSymbol = '✅';
+    const repetitionsOnDate = intentionsRepetitionsOnDate[intention] || 0;
+
+    let repetitionsLeftToDo = requiredRepetitions - repetitionsOnDate;
+    if (repetitionsLeftToDo < 0) {
+        repetitionsLeftToDo = 0;
+    }
+
+    // display all checkmarks
+    const checkmarksElement = document.createElement('p');
+    checkmarksElement.innerText = intention + ' ' + repetitionSymbol.repeat(repetitionsOnDate) + requirementSymbol.repeat(repetitionsLeftToDo);
+    entryForDate.appendChild(checkmarksElement);
+}
+
+function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
+    const intentionsRepetitionsPerDate = {};
+    for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
+        // just store intentionsExpressedOnDate in main.js in the first place
+        const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
+            const [intention, isoDateTime] = intentionAndDateTime;
+            const abc = new Date(isoDateTime);
+            if (abc.toLocaleDateString() === date) {
+                return true;
+            } 
+        }).map(element => element[0]);
+        
+        const intentionsRepetitionsOnDate = intentionsExpressedOnDate.reduce((acc, element) => {
+            acc[element] = (acc[element] || 0) + 1;
+            return acc;
+        }, {});
+
+        intentionsRepetitionsPerDate[date] = intentionsRepetitionsOnDate;
+    }
+    return intentionsRepetitionsPerDate;
+}
+
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 console.log(intentions);
 document.addEventListener('keydown', (e) => {
@@ -65,9 +104,12 @@ document.getElementById('express-intentions-button').addEventListener('click',  
 });
 
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
+const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
+const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+console.log('thing to check', intentionsRepetitionsPerDate);
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 console.log(requiredRepetitionsPerIntention);
-displayIntentionBoxes(requiredRepetitionsPerIntention);
+displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog);
