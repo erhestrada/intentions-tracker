@@ -1,8 +1,8 @@
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 
-function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog) {
-    console.log('intentions log', intentionsLog);
+function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+    console.log('intentions rep per date', intentionsRepetitionsPerDate);
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
     for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
@@ -16,7 +16,8 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog) {
         requiredRepetitionsTextElement.innerText = repetitions + ' repetitions';
 
         const repetitionSquaresElement = document.createElement('p');
-        repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
+        //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
+        repetitionSquaresElement.innerText = displayProgress(intention, repetitions, intentionsRepetitionsPerDate);
 
         const successTextElement = document.createElement('p');
         successTextElement.innerText = 'Achievement Status';
@@ -52,10 +53,18 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog) {
     }
 }
 
-function displayProgress(intention, intentionsRepetitionsOnDate, requiredRepetitions) {
+function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
     const requirementSymbol = '⬜';
     const repetitionSymbol = '✅';
-    const repetitionsOnDate = intentionsRepetitionsOnDate[intention] || 0;
+    /*
+    let date = (new Date()).toLocaleDateString('en-US', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    */
+    const date = (new Date()).toLocaleDateString();
+    const repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
 
     let repetitionsLeftToDo = requiredRepetitions - repetitionsOnDate;
     if (repetitionsLeftToDo < 0) {
@@ -63,9 +72,8 @@ function displayProgress(intention, intentionsRepetitionsOnDate, requiredRepetit
     }
 
     // display all checkmarks
-    const checkmarksElement = document.createElement('p');
-    checkmarksElement.innerText = intention + ' ' + repetitionSymbol.repeat(repetitionsOnDate) + requirementSymbol.repeat(repetitionsLeftToDo);
-    entryForDate.appendChild(checkmarksElement);
+    const innerText = intention + ' ' + repetitionSymbol.repeat(repetitionsOnDate) + requirementSymbol.repeat(repetitionsLeftToDo);
+    return innerText;
 }
 
 function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
@@ -106,10 +114,8 @@ document.getElementById('express-intentions-button').addEventListener('click',  
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
 const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
-console.log('thing to check', intentionsRepetitionsPerDate);
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
-console.log(requiredRepetitionsPerIntention);
-displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsLog);
+displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
