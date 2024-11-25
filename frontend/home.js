@@ -41,6 +41,10 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
                 intentionBox.style.backgroundColor = '#E53935 ';
             }
         });        
+
+        const streakElement = document.createElement('p');
+        streakElement.innerText = "Streak: ";
+
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
         intentionBox.appendChild(requiredRepetitionsTextElement);
@@ -48,6 +52,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         intentionBox.appendChild(successTextElement);
         intentionBox.appendChild(successButton);
         intentionBox.appendChild(failureButton);
+        intentionBox.appendChild(streakElement);
 
         console.log(intention, repetitions);
     }
