@@ -64,7 +64,12 @@ function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPe
       });
     */
     const date = (new Date()).toLocaleDateString();
-    const repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
+    let repetitionsOnDate;
+    if (date in intentionsRepetitionsPerDate) {
+        repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
+    } else {
+        repetitionsOnDate = 0;
+    }
 
     let repetitionsLeftToDo = requiredRepetitions - repetitionsOnDate;
     if (repetitionsLeftToDo < 0) {
