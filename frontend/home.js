@@ -13,7 +13,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         intentionTextElement.innerText = intention;
         
         const requiredRepetitionsTextElement = document.createElement('p');
-        requiredRepetitionsTextElement.innerText = repetitions + ' repetitions';
+        requiredRepetitionsTextElement.innerText = 'x/' + repetitions + ' repetitions';
 
         const repetitionSquaresElement = document.createElement('p');
         //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
