@@ -29,6 +29,16 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         const successTextElement = document.createElement('p');
         successTextElement.innerText = 'Achievement Status';
 
+        // load achievementStatus for the day, and streaks; update both achievement status and streak
+        /*
+        const achievementStatuses = {
+            "10/31/2024":{"meditate":{"yes":true,"no":false}},
+            "11/1/2024":{"meditate":{"yes":true,"no":false},"weigh self":{"yes":false,"no":false},"drink more water":{"yes":false,"no":false}},
+            "11/18/2024":{"weigh self":{"yes":false,"no":false}}
+        };
+        */
+        let achievementStatuses = localStorage.getItem('achievementStatuses') || {};
+        let streaks = localStorage.getItem('streaks') || {};
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
         successButton.addEventListener('click', () => {
