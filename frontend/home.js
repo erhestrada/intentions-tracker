@@ -13,7 +13,14 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         intentionTextElement.innerText = intention;
         
         const requiredRepetitionsTextElement = document.createElement('p');
-        requiredRepetitionsTextElement.innerText = 'x/' + repetitions + ' repetitions';
+        const date = (new Date()).toLocaleDateString();
+        let repetitionsOnDate;
+        if (date in intentionsRepetitionsPerDate) {
+            repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
+        } else {
+            repetitionsOnDate = 0;
+        }
+        requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + repetitions + ' repetitions';
 
         const repetitionSquaresElement = document.createElement('p');
         //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
