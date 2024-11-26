@@ -42,6 +42,8 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
         successButton.addEventListener('click', () => {
+            //achievementStatus[date][intention] = true
+            achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, true);
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
             } else {
@@ -52,6 +54,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         const failureButton = document.createElement('button');
         failureButton.innerText = '❌';
         failureButton.addEventListener('click', () => {
+            //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 intentionBox.style.backgroundColor = 'lightblue';
             } else {
@@ -123,6 +126,10 @@ function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
         intentionsRepetitionsPerDate[date] = intentionsRepetitionsOnDate;
     }
     return intentionsRepetitionsPerDate;
+}
+
+function updateAchievementStatuses() {
+
 }
 
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
