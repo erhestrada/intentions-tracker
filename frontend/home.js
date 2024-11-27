@@ -46,6 +46,8 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
+                // change achievementStatus to default state - false
+                achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
             } else {
                 intentionBox.style.backgroundColor = '#81C784';
             }
