@@ -66,7 +66,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         });        
 
         const streakElement = document.createElement('p');
-        streakElement.innerText = "Streak: ";
+        streakElement.innerText = "Streak: " + 0;
 
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
