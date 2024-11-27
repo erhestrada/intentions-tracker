@@ -55,6 +55,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         failureButton.innerText = '❌';
         failureButton.addEventListener('click', () => {
             //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
+            achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 intentionBox.style.backgroundColor = 'lightblue';
             } else {
