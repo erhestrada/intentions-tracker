@@ -37,7 +37,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
             "11/18/2024":{"weigh self":{"yes":false,"no":false}}
         };
         */
-        let achievementStatuses = localStorage.getItem('achievementStatuses') || {};
+        let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
         let streaks = localStorage.getItem('streaks') || {};
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
@@ -130,7 +130,16 @@ function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
 }
 
 function updateAchievementStatuses(achievementStatuses, date, intention, achievementStatus) {
-
+    // Ensure the date is part of the object, creating it if necessary
+    if (!achievementStatuses[date]) {
+        achievementStatuses[date] = {};
+    }
+    console.log(achievementStatuses[date]);
+    achievementStatuses[date][intention] = achievementStatus;
+    
+    localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
+    console.log(achievementStatuses[date]);
+    return achievementStatuses
 }
 
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
