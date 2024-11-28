@@ -44,10 +44,12 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
+            streaks = updateStreaks();
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
+                streaks = updateStreaks();
             } else {
                 intentionBox.style.backgroundColor = '#81C784';
             }
@@ -58,8 +60,10 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         failureButton.addEventListener('click', () => {
             //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
+            streaks = updateStreaks();
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 intentionBox.style.backgroundColor = 'lightblue';
+                streaks = updateStreaks();
             } else {
                 intentionBox.style.backgroundColor = '#E53935 ';
             }
@@ -142,6 +146,10 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
     localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
     console.log(achievementStatuses[date]);
     return achievementStatuses
+}
+
+function updateStreaks() {
+    
 }
 
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
