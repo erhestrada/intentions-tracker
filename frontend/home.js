@@ -44,12 +44,12 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
-            streaks = updateStreaks();
+            streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
-                streaks = updateStreaks();
+                streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             } else {
                 intentionBox.style.backgroundColor = '#81C784';
             }
@@ -60,10 +60,10 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         failureButton.addEventListener('click', () => {
             //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
-            streaks = updateStreaks();
+            streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 intentionBox.style.backgroundColor = 'lightblue';
-                streaks = updateStreaks();
+                streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             } else {
                 intentionBox.style.backgroundColor = '#E53935 ';
             }
@@ -148,7 +148,7 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
     return achievementStatuses
 }
 
-function updateStreaks() {
+function updateStreaks(streaks, date, intention, achievementStatuses) {
     
 }
 
