@@ -2,7 +2,6 @@ import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepet
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 
 function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    console.log('intentions rep per date', intentionsRepetitionsPerDate);
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
     for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
@@ -44,6 +43,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
+            console.log('achievement statuses', achievementStatuses);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
@@ -80,8 +80,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         intentionBox.appendChild(successButton);
         intentionBox.appendChild(failureButton);
         intentionBox.appendChild(streakElement);
-
-        console.log(intention, repetitions);
     }
 }
 
@@ -149,29 +147,40 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
 }
 
 function updateStreaks(streaks, date, intention, achievementStatuses) {
+    const yesterdaysDate = getYesterdaysDate(date);
+    const achievementStatus = achievementStatuses[date][intention];
+
+    if (!streaks[yesterdaysDate]) {
+        streaks[date] = 0;
+    }
+
+    if (achievementStatus === true) {
+        streaks[date] += 1;
+    } else {
+        if (streaks[date] > 0) {
+            streaks[date] -= 1;
+        }
+    }
     
+    console.log('streaks', streaks);
+    return streaks;
 }
 
-function datesAreConsecutive(dateStr1, dateStr2) {
-    // Parse the date strings into Date objects
-    const date1 = new Date(dateStr1);
-    const date2 = new Date(dateStr2);
+function getYesterdaysDate(dateStr) {
+    // Create a Date object from the given date string (MM/DD/YYYY)
+    const dateParts = dateStr.split('/');
+    const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Months are 0-based in JavaScript
     
-    // Adjust both dates to the same time (midnight) by setting hours, minutes, seconds, and milliseconds to 0
-    date1.setHours(0, 0, 0, 0);
-    date2.setHours(0, 0, 0, 0);
+    // Subtract one day to get yesterday's date
+    date.setDate(date.getDate() - 1);
     
-    // Check if date2 is exactly one day after date1
-    const differenceInMillis = date2 - date1; // Difference in milliseconds
+    // Format the new date as MM/DD/YYYY
+    const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
-    // One day in milliseconds (24 hours * 60 minutes * 60 seconds * 1000 milliseconds)
-    const oneDayInMillis = 24 * 60 * 60 * 1000;
-    
-    return differenceInMillis === oneDayInMillis;
+    return yesterday;
 }
 
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-console.log(intentions);
 document.addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
