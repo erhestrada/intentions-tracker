@@ -50,6 +50,9 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
             console.log('achievement statuses', achievementStatuses);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+            console.log('streaksABC', streaks);
+            let streaksValue = streaks?.[date]?.[intention] ?? 0;
+            streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
@@ -66,6 +69,8 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
             //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+            let streaksValue = streaks?.[date]?.[intention] ?? 0;
+            streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 intentionBox.style.backgroundColor = 'lightblue';
                 streaks = updateStreaks(streaks, date, intention, achievementStatuses);
@@ -148,19 +153,26 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
     return achievementStatuses
 }
 
+// needs to be streaks[date][intention]
 function updateStreaks(streaks, date, intention, achievementStatuses) {
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
     if (!streaks[yesterdaysDate]) {
-        streaks[date] = 0;
+        if (date in streaks) {
+            streaks[date][intention] = 0;
+        } else {
+            streaks[date] = {[intention]: 0};
+        }
     }
 
+    let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+
     if (achievementStatus === true) {
-        streaks[date] += 1;
+        streaks[date][intention] = yesterdaysStreakValue + 1;
     } else {
-        if (streaks[date] > 0) {
-            streaks[date] -= 1;
+        if (yesterdaysStreakValue > 0) {
+            streaks[date] = yesterdaysStreakValue - 1;
         }
     }
     
