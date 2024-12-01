@@ -152,6 +152,24 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     
 }
 
+function datesAreConsecutive(dateStr1, dateStr2) {
+    // Parse the date strings into Date objects
+    const date1 = new Date(dateStr1);
+    const date2 = new Date(dateStr2);
+    
+    // Adjust both dates to the same time (midnight) by setting hours, minutes, seconds, and milliseconds to 0
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
+    
+    // Check if date2 is exactly one day after date1
+    const differenceInMillis = date2 - date1; // Difference in milliseconds
+    
+    // One day in milliseconds (24 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+    const oneDayInMillis = 24 * 60 * 60 * 1000;
+    
+    return differenceInMillis === oneDayInMillis;
+}
+
 const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 console.log(intentions);
 document.addEventListener('keydown', (e) => {
