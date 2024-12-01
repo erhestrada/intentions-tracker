@@ -40,6 +40,11 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         let streaks = localStorage.getItem('streaks') || {};
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
+
+        const streakElement = document.createElement('p');
+        let streaksValue = streaks?.[date]?.[intention] ?? 0;
+        streakElement.innerText = "Streak: " + streaksValue;
+
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
@@ -68,9 +73,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
                 intentionBox.style.backgroundColor = '#E53935 ';
             }
         });        
-
-        const streakElement = document.createElement('p');
-        streakElement.innerText = "Streak: " + 0;
 
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
