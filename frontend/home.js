@@ -37,7 +37,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         };
         */
         let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
-        let streaks = localStorage.getItem('streaks') || {};
+        let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
 
@@ -66,12 +66,12 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         const failureButton = document.createElement('button');
         failureButton.innerText = '❌';
         failureButton.addEventListener('click', () => {
-            //achievementStatuses = updateAchievementStatuses(achievementStatuses, intention, date, false);
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             let streaksValue = streaks?.[date]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
+                // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
                 intentionBox.style.backgroundColor = 'lightblue';
                 streaks = updateStreaks(streaks, date, intention, achievementStatuses);
             } else {
@@ -153,7 +153,6 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
     return achievementStatuses
 }
 
-// needs to be streaks[date][intention]
 function updateStreaks(streaks, date, intention, achievementStatuses) {
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
@@ -176,6 +175,7 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
         }
     }
     
+    localStorage.setItem('streaks', JSON.stringify(streaks));
     console.log('streaks', streaks);
     return streaks;
 }
