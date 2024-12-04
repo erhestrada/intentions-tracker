@@ -48,9 +48,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
-            console.log('achievement statuses', achievementStatuses);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
-            console.log('streaksABC', streaks);
             let streaksValue = streaks?.[date]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
@@ -58,6 +56,8 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
                 streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+                let streaksValue = streaks?.[date]?.[intention] ?? 0;
+                streakElement.innerText = "Streak: " + streaksValue;
             } else {
                 intentionBox.style.backgroundColor = '#81C784';
             }
