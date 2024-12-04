@@ -167,7 +167,9 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     if (!(date in streaks)) {
         streaks[date] = {[intention]: false};
     } else {
-        streaks[date][intention] = false;
+        if (!(intention in streaks[date])) {
+            streaks[date][intention] = false;
+        }
     }
 
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
