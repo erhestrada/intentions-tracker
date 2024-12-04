@@ -150,12 +150,22 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
+    // if yesterday's date not in streaks, today's streak for the intention is at 0
     if (!streaks[yesterdaysDate]) {
+        // if streaks[date] already initialized as an object, set streaks[date][intention] to 0
         if (date in streaks) {
             streaks[date][intention] = 0;
         } else {
+            // initialize streaks[date] as an object with key intention and value 0
             streaks[date] = {[intention]: 0};
         }
+    }
+
+    // placeholder streak value of false
+    if (!(date in streaks)) {
+        streaks[date] = {[intention]: false};
+    } else {
+        streaks[date][intention] = false;
     }
 
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
