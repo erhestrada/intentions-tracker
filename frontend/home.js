@@ -3,6 +3,11 @@ import { typeIntentions, handleKeydown } from "./typeIntentions";
 
 function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+
+    let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
+    let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
+    console.log('streaks initial', streaks);
+
     for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
@@ -28,16 +33,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         const successTextElement = document.createElement('p');
         successTextElement.innerText = 'Achievement Status';
 
-        // load achievementStatus for the day, and streaks; update both achievement status and streak
-        /*
-        const achievementStatuses = {
-            "10/31/2024":{"meditate":{"yes":true,"no":false}},
-            "11/1/2024":{"meditate":{"yes":true,"no":false},"weigh self":{"yes":false,"no":false},"drink more water":{"yes":false,"no":false}},
-            "11/18/2024":{"weigh self":{"yes":false,"no":false}}
-        };
-        */
-        let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
-        let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
         const successButton = document.createElement('button');
         successButton.innerText = '✔️';
 
@@ -145,11 +140,9 @@ function updateAchievementStatuses(achievementStatuses, date, intention, achieve
     if (!achievementStatuses[date]) {
         achievementStatuses[date] = {};
     }
-    console.log(achievementStatuses[date]);
     achievementStatuses[date][intention] = achievementStatus;
     
     localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
-    console.log(achievementStatuses[date]);
     return achievementStatuses
 }
 
