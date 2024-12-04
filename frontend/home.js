@@ -8,6 +8,9 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
     let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
 
+    const date = (new Date()).toLocaleDateString();
+    const yesterdaysDate = getYesterdaysDate(date);
+
     for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
@@ -17,7 +20,6 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         intentionTextElement.innerText = intention;
         
         const requiredRepetitionsTextElement = document.createElement('p');
-        const date = (new Date()).toLocaleDateString();
         let repetitionsOnDate;
         if (date in intentionsRepetitionsPerDate) {
             repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
@@ -37,21 +39,21 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         successButton.innerText = '✔️';
 
         const streakElement = document.createElement('p');
-        let streaksValue = streaks?.[date]?.[intention] ?? 0;
+        let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
         streakElement.innerText = "Streak: " + streaksValue;
 
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, true);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
-            let streaksValue = streaks?.[date]?.[intention] ?? 0;
+            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
                 streaks = updateStreaks(streaks, date, intention, achievementStatuses);
-                let streaksValue = streaks?.[date]?.[intention] ?? 0;
+                let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
                 streakElement.innerText = "Streak: " + streaksValue;
             } else {
                 intentionBox.style.backgroundColor = '#81C784';
@@ -63,7 +65,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
         failureButton.addEventListener('click', () => {
             achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
             streaks = updateStreaks(streaks, date, intention, achievementStatuses);
-            let streaksValue = streaks?.[date]?.[intention] ?? 0;
+            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
