@@ -172,13 +172,14 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
         }
     }
 
+    //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
     if (achievementStatus === true) {
         streaks[date][intention] = yesterdaysStreakValue + 1;
     } else {
         if (yesterdaysStreakValue > 0) {
-            streaks[date] = yesterdaysStreakValue - 1;
+            streaks[date][intention] = yesterdaysStreakValue - 1;
         }
     }
     
