@@ -175,12 +175,27 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
+    /*
+    yesterday | today 
+	1 no click
+	2 checkmark clicked
+	3 x cllicked
+
+	case no click
+		streak = yesterdaysStreak + 1
+		streak = 0
+	case checkmark clicked (streak[date][intention] exists and is non zero and !== yesterday's streak)
+		streak = yesterday's streak
+	case x clicked
+		checkmark clicked - streak = yesterday's streak + 1
+		x clicked - streak stays 0
+    */
+
     if (achievementStatus === true) {
         streaks[date][intention] = yesterdaysStreakValue + 1;
     } else {
-        if (yesterdaysStreakValue > 0) {
-            streaks[date][intention] = yesterdaysStreakValue - 1;
-        }
+        // streak resets to 0 if failed
+        streaks[date][intention] = 0;
     }
     
     localStorage.setItem('streaks', JSON.stringify(streaks));
