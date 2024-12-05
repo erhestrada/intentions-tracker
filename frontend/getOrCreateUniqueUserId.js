@@ -4,7 +4,7 @@ export function getOrCreateUniqueId() {
       id = generateUUID();
       localStorage.setItem('uniqueId', id);
     }
-    alert(id);
+    console.log('user id: ', id);
     return id;
   }
 
