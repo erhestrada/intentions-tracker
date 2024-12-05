@@ -52,7 +52,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(achievementStatuses, date, intention, false);
-                streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+                streaks = undoStreakUpdate(streaks, date, intention);
                 let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
                 streakElement.innerText = "Streak: " + streaksValue;
             } else {
@@ -70,7 +70,9 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
                 intentionBox.style.backgroundColor = 'lightblue';
-                streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+                streaks = undoStreakUpdate(streaks, date, intention);
+                let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+                streakElement.innerText = "Streak: " + streaksValue;
             } else {
                 intentionBox.style.backgroundColor = '#E53935 ';
             }
@@ -175,22 +177,6 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
-    /*
-    yesterday | today 
-	1 no click
-	2 checkmark clicked
-	3 x cllicked
-
-	case no click
-		streak = yesterdaysStreak + 1
-		streak = 0
-	case checkmark clicked (streak[date][intention] exists and is non zero and !== yesterday's streak)
-		streak = yesterday's streak
-	case x clicked
-		checkmark clicked - streak = yesterday's streak + 1
-		x clicked - streak stays 0
-    */
-
     if (achievementStatus === true) {
         streaks[date][intention] = yesterdaysStreakValue + 1;
     } else {
@@ -201,6 +187,13 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     localStorage.setItem('streaks', JSON.stringify(streaks));
     console.log('streaks', streaks);
     return streaks;
+}
+
+function undoStreakUpdate(streaks, date, intention) {
+    const yesterdaysDate = getYesterdaysDate(date);
+    streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    localStorage.setItem('streaks', JSON.stringify(streaks));
+    return streaks
 }
 
 function getYesterdaysDate(dateStr) {
