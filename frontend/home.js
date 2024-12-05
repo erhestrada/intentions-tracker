@@ -7,6 +7,7 @@ function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepeti
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
     let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
+    // reset streak to 0 if missed a day
 
     const date = (new Date()).toLocaleDateString();
     const yesterdaysDate = getYesterdaysDate(date);
