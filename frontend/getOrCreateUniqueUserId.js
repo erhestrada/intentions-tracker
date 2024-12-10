@@ -1,11 +1,14 @@
+import { storeUser } from "./storeUser";
+
 export function getOrCreateUniqueId() {
-    let id = localStorage.getItem('uniqueId');
-    if (!id) {
-      id = generateUUID();
-      localStorage.setItem('uniqueId', id);
+    let uuid = localStorage.getItem('uniqueId');
+    if (!uuid) {
+      uuid = generateUUID();
+      localStorage.setItem('uniqueId', uuid);
+      storeUser(uuid);
     }
-    console.log('user id: ', id);
-    return id;
+    console.log('user id: ', uuid);
+    return uuid;
   }
 
 function generateUUID() {
