@@ -17,6 +17,7 @@ db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGE
 db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL)');
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention_new (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, intention TEXT, repetitions INTEGER)');
 db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
+db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, date TEXT, action TEXT, streak INTEGER)');
 //db.run('DROP TABLE store_required_repetitions_per_intention');
 //db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
 
