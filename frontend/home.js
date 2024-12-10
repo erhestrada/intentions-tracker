@@ -226,6 +226,7 @@ document.getElementById('express-intentions-button').addEventListener('click',  
 const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
 const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+console.log('il', intentionsLog);
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
