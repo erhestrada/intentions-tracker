@@ -8,7 +8,7 @@ export async function storeUser(uuid) {
         const result = await response.json();
         console.log('Data Stored:', result);
 
-        } catch (error) {
-            console.error('Error storing data:', error);
-        }
+    } catch (error) {
+        console.error('Error storing data:', error);
+    }
 };

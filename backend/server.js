@@ -24,7 +24,7 @@ db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT UN
 // users routes
 app.post('/storeUser', (req, res) => {
   const { uuid } = req.body;
-  console.log(uuid);
+  console.log('uuid', uuid);
   db.run('INSERT INTO users (uuid) VALUES (?)', [uuid], function (err) {
     if (err) {
       return res.status(500).json({ error: 'Failed to store data' });
