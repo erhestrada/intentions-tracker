@@ -23,11 +23,10 @@ db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT UN
 
 // users routes
 app.post('/storeUser', (req, res) => {
-  const { intention, repetitions } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
-  console.log(intention, repetitions);
-  db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
+  const { uuid } = req.body;
+  console.log(uuid);
+  db.run('INSERT INTO users (uuid) VALUES (?)', [uuid], function (err) {
     if (err) {
-      console.log('hello!');
       return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
