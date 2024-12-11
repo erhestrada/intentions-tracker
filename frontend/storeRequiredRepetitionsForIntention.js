@@ -15,16 +15,18 @@ export async function storeRequiredRepetitionsForIntention(uuid, intention, repe
   }
 };
 
-///*
-storeRequiredRepetitionsForIntention('weigh self', 1);
-storeRequiredRepetitionsForIntention('drink more water', 3);
-storeRequiredRepetitionsForIntention('meditate', 1);
-storeRequiredRepetitionsForIntention("don't eat junk food", 3);
-storeRequiredRepetitionsForIntention('limit soda', 3);
-storeRequiredRepetitionsForIntention('say no to distractions, wait and wander instead', 6);
-storeRequiredRepetitionsForIntention('express intentions in morning check-in', 1);
-storeRequiredRepetitionsForIntention('lucid dream', 1);
-//*/
+
+/*
+const uuid = '59a75576-4ef2-48b4-9aa9-89d44bfc00db';
+storeRequiredRepetitionsForIntention(uuid, 'weigh self', 1);
+storeRequiredRepetitionsForIntention(uuid, 'drink more water', 3);
+storeRequiredRepetitionsForIntention(uuid, 'meditate', 1);
+storeRequiredRepetitionsForIntention(uuid, "don't eat junk food", 3);
+storeRequiredRepetitionsForIntention(uuid, 'limit soda', 3);
+storeRequiredRepetitionsForIntention(uuid, 'say no to distractions, wait and wander instead', 6);
+storeRequiredRepetitionsForIntention(uuid, 'express intentions in morning check-in', 1);
+storeRequiredRepetitionsForIntention(uuid, 'lucid dream', 1);
+*/
 
 
 /*
