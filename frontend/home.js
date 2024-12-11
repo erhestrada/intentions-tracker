@@ -3,6 +3,7 @@ import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequ
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
+import { retrieveStreaks } from "./retrieveStreaks";
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
@@ -230,12 +231,15 @@ document.getElementById('express-intentions-button').addEventListener('click',  
 
 const uuid = getOrCreateUniqueId();
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
-//const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'));
 console.log('rrpi', requiredRepetitionsPerIntention);
 const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
 const intentionsLog2 = await retrieveAndFormatIntentionsLog(uuid);
 console.log('il2', intentionsLog2);
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
+
+const streaks = await retrieveStreaks(uuid);
+console.log('streaks', streaks);
+
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
