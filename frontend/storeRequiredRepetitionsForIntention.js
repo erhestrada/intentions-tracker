@@ -1,11 +1,11 @@
 // Store data function
-export async function storeRequiredRepetitionsForIntention(intention, repetitions) {
+export async function storeRequiredRepetitionsForIntention(uuid, intention, repetitions) {
   //console.log(intention, repetitions);
   try {
     const response = await fetch('http://192.168.86.195:3000/storeRequiredRepetitionsForIntention', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ intention, repetitions })
+      body: JSON.stringify({ uuid, intention, repetitions })
     });
     const result = await response.json();
     console.log('Data Stored:', result);
@@ -15,7 +15,7 @@ export async function storeRequiredRepetitionsForIntention(intention, repetition
   }
 };
 
-/*
+///*
 storeRequiredRepetitionsForIntention('weigh self', 1);
 storeRequiredRepetitionsForIntention('drink more water', 3);
 storeRequiredRepetitionsForIntention('meditate', 1);
@@ -24,7 +24,7 @@ storeRequiredRepetitionsForIntention('limit soda', 3);
 storeRequiredRepetitionsForIntention('say no to distractions, wait and wander instead', 6);
 storeRequiredRepetitionsForIntention('express intentions in morning check-in', 1);
 storeRequiredRepetitionsForIntention('lucid dream', 1);
-*/
+//*/
 
 
 /*
