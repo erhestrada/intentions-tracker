@@ -1,13 +1,12 @@
 // Fetch and display data from SQLite database
-export async function retrieveAndFormatRequiredRepetitionsPerIntention(uuid) {
-    const requiredRepetitionsPerIntentionRows = await retrieveRequiredRepetitionsPerIntention(uuid);
-    const requiredRepetitionsPerIntention = makeRequiredRepetitionsPerIntentionFromRows(requiredRepetitionsPerIntentionRows);
-    return requiredRepetitionsPerIntention;
+export async function retrieveAndFormatIntentionsLog(uuid) {
+    const intentionsLogRows = await retrieveIntentionsLog(uuid);
+    const intentionsLog = makeIntentionsLogFromRows(intentionsLogRows);
+    return intentionsLog;
 }
   
 export async function retrieveIntentionsLog(uuid) {
     try {
-    //const response = await fetch('http://192.168.86.195:3000/retrieveRequiredRepetitionsPerIntention');
     const response = await fetch(`http://192.168.86.195:3000/retrieveIntentionsLog?uuid=${encodeURIComponent(uuid)}`);
     const data = await response.json();
     return data;
@@ -16,9 +15,11 @@ export async function retrieveIntentionsLog(uuid) {
     }
 }
 
-function makeRequiredRepetitionsPerIntentionFromRows(rows) {
-    const requiredRepetitionsPerIntention = rows.reduce((accumulator, row) => {
-        accumulator[row['intention']] = row['repetitions'];
+// expected intentionsLog format
+// {date: [[intention, timestamp], ...]}
+function makeIntentionsLogFromRows(rows) {
+    const intentionsLog = rows.reduce((accumulator, row) => {
+        accumulator[row['date']] = [row['intention'], row[timestamp]];
         return accumulator;
     }, {});
     return requiredRepetitionsPerIntention;
