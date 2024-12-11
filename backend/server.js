@@ -42,7 +42,6 @@ app.post('/storeIntentionsLog', (req, res) => {
   console.log(intention, repetitions);
   db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
     if (err) {
-      console.log('hello!');
       return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
@@ -68,7 +67,6 @@ app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
   console.log(intention, repetitions);
   db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
     if (err) {
-      console.log('hello!');
       return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
@@ -94,7 +92,6 @@ app.post('/storeAchievementStatuses', (req, res) => {
   console.log(intention, repetitions);
   db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
     if (err) {
-      console.log('hello!');
       return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
@@ -120,7 +117,6 @@ app.post('/storeStreaks', (req, res) => {
   console.log(intention, repetitions);
   db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
     if (err) {
-      console.log('hello!');
       return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
