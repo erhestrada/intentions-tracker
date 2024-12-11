@@ -84,6 +84,8 @@ app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
 
 // Route to retrieve data
 app.get('/retrieveRequiredRepetitionsPerIntention', (req, res) => {
+  const { uuid } = req.query; // Extract uuid from the query string
+
   db.all('SELECT * FROM required_repetitions_per_intention WHERE uuid = ?', [uuid], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to retrieve data' });
