@@ -1,13 +1,19 @@
+import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { typeIntentions, handleKeydown } from "./typeIntentions";
+import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 
-function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+async function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+    const uuid = getOrCreateUniqueId();
 
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
+    let achievementStatuses2 = await retrieveAchievementStatuses(uuid);
+    console.log('1', achievementStatuses);
+    //console.log('2', achievementStatuses2);
     let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
-    // reset streak to 0 if missed a day
+
+    const intentionBoxesContainer = document.getElementById('intention-boxes-container');
 
     const date = (new Date()).toLocaleDateString();
     const yesterdaysDate = getYesterdaysDate(date);
