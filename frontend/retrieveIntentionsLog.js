@@ -22,5 +22,5 @@ function makeIntentionsLogFromRows(rows) {
         accumulator[row['date']] = [row['intention'], row[timestamp]];
         return accumulator;
     }, {});
-    return requiredRepetitionsPerIntention;
+    return intentionsLog;
 }
