@@ -1,6 +1,5 @@
 
-//db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
-
+//const uuid = '59a75576-4ef2-48b4-9aa9-89d44bfc00db';
 export async function initializeAchievementStatuses(uuid) {
     const dates = [
         '11/27/2024',
@@ -42,6 +41,3 @@ function makeAchievementStatusesRows(uuid, dates, actions) {
     }
     return achievementStatusesRows;
 }
-
-const uuid = '59a75576-4ef2-48b4-9aa9-89d44bfc00db';
-initializeAchievementStatuses(uuid);
