@@ -26,6 +26,7 @@ storeRequiredRepetitionsForIntention(uuid, 'limit soda', 3);
 storeRequiredRepetitionsForIntention(uuid, 'say no to distractions, wait and wander instead', 6);
 storeRequiredRepetitionsForIntention(uuid, 'express intentions in morning check-in', 1);
 storeRequiredRepetitionsForIntention(uuid, 'lucid dream', 1);
+storeRequiredRepetitionsForIntention(uuid, 'dream', 1);
 */
 
 
