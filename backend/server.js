@@ -14,10 +14,10 @@ app.use(express.json());
 const db = new sqlite3.Database('./data.db');
 
 db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL)');
-db.run('CREATE TABLE IF NOT EXISTS intentions_log (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, date TEXT, intention TEXT, timestamp TEXT)');
-db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, intention TEXT, repetitions INTEGER)');
-db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
-db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, date TEXT, action TEXT, streak INTEGER)');
+db.run('CREATE TABLE IF NOT EXISTS intentions_log (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, intention TEXT, timestamp TEXT)');
+db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, intention TEXT, repetitions INTEGER)');
+db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
+db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, streak INTEGER)');
 //db.run('DROP TABLE store_required_repetitions_per_intention');
 //db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
 
@@ -67,8 +67,8 @@ app.post('/storeRequiredRepetitionsForIntention', (req, res) => {
   console.log(uuid, intention, repetitions);
   db.run('INSERT INTO required_repetitions_per_intention (uuid, intention, repetitions) VALUES (?, ?, ?)', [uuid, intention, repetitions], function (err) {
     if (err) {
-      console.log('error storing intention and repetitions')
-      return res.status(500).json({ error: 'Failed to store data' });
+      console.log('Error storing intention and repetitions:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
   });
