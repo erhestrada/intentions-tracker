@@ -1,11 +1,9 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
+import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 
-async function displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    const uuid = getOrCreateUniqueId();
-
+async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
     let achievementStatuses2 = await retrieveAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
@@ -18,7 +16,7 @@ async function displayIntentionBoxes(requiredRepetitionsPerIntention, intentions
     const date = (new Date()).toLocaleDateString();
     const yesterdaysDate = getYesterdaysDate(date);
 
-    for (const {id, intention, repetitions} of requiredRepetitionsPerIntention) {
+    for (const [intention, repetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
         intentionBox.id = intention;
@@ -229,12 +227,12 @@ document.getElementById('express-intentions-button').addEventListener('click',  
     typeIntentions(intentions)
 });
 
-const requiredRepetitionsPerIntention = await retrieveRequiredRepetitionsPerIntention();
+const uuid = getOrCreateUniqueId();
+const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
+//const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'));
+console.log('rrpi', requiredRepetitionsPerIntention);
 const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
-//const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}]
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
-//const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
-//const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
-displayIntentionBoxes(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
+displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
