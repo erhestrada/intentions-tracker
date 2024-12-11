@@ -96,17 +96,17 @@ app.get('/retrieveRequiredRepetitionsPerIntention', (req, res) => {
 
 // ---------------------
 
-// achievement_statuses routes
-// Route to store data
-app.post('/storeAchievementStatuses', (req, res) => {
-  const { intention, repetitions } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
-  console.log(intention, repetitions);
-  db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to store data' });
-    }
-    res.json({ message: 'Data stored successfully', id: this.lastID });
-  });
+app.post('/initializeAchievementStatuses', (req, res) => {
+  const { achievementStatusesRows } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
+  console.log(achievementStatusesRows);
+  for (const row of achievementStatusesRows) {
+    db.run('INSERT INTO achievement_statuses (uuid, date, action, achievement_status) VALUES (?, ?, ?, ?)', row, function (err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to store data' });
+      }
+      res.json({ message: 'Data stored successfully', id: this.lastID });
+    });    
+  }
 });
 
 // Route to retrieve data
