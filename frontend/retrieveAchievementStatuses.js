@@ -8,6 +8,3 @@ export async function retrieveAchievementStatuses(uuid) {
       console.error('Error retrieving data:', error);
     }
 }
-
-const uuid = '59a75576-4ef2-48b4-9aa9-89d44bfc00db';
-console.log(await retrieveAchievementStatuses(uuid));
