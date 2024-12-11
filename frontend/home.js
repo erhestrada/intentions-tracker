@@ -2,6 +2,7 @@ import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
+import { retrieveIntentionsLog } from "./retrieveIntentionsLog";
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
@@ -232,6 +233,8 @@ const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitio
 //const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention'));
 console.log('rrpi', requiredRepetitionsPerIntention);
 const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
+const intentionsLog2 = await retrieveIntentionsLog(uuid);
+console.log('il2', intentionsLog2);
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
