@@ -125,14 +125,18 @@ app.get('/retrieveAchievementStatuses', (req, res) => {
 
 //db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
 app.post('/storeAchievementStatus', (req, res) => {
-  const { uuid, date, intention, achievementStatus } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
-  console.log(uuid, date, intention, achievementStatus);
-  db.run('INSERT INTO achievement_statuses (uuid, date, action, achievementStatus) VALUES (?, ?, ?, ?)', [uuid, date, intention, achievementStatus], function (err) {
+  const { uuid, date, intention, achievementStatus } = req.body;
+  console.log('abc', uuid, date, intention, achievementStatus);
+  
+  db.run('INSERT INTO achievement_statuses (uuid, date, action, achievement_status) VALUES (?, ?, ?, ?)', [uuid, date, intention, achievementStatus], function (err) {
     if (err) {
-      return res.status(500).json({ error: 'Failed to store data' });
+      console.log('Error storing achievement status:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+      //return res.status(500).json({ error: 'Failed to store data' });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
   });
+  
 });
 
 // ---------------------
