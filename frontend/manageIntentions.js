@@ -3,6 +3,7 @@ import { displaySquares } from "./displaySquares";
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
 import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
+import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 
 const uuid = getOrCreateUniqueId();
 const form = document.getElementById('myForm');
