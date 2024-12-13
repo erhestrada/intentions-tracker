@@ -5,6 +5,7 @@ import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
+import { storeStreak } from "./storeStreak";
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
@@ -53,7 +54,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         successButton.addEventListener('click', () => {
             //achievementStatus[date][intention] = true
             achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
-            streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+            streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
             let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
@@ -72,7 +73,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         failureButton.innerText = '❌';
         failureButton.addEventListener('click', () => {
             achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
-            streaks = updateStreaks(streaks, date, intention, achievementStatuses);
+            streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
             let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
             streakElement.innerText = "Streak: " + streaksValue;
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
@@ -159,7 +160,7 @@ function updateAchievementStatuses(uuid, achievementStatuses, date, intention, a
     return achievementStatuses
 }
 
-function updateStreaks(streaks, date, intention, achievementStatuses) {
+function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
@@ -184,15 +185,19 @@ function updateStreaks(streaks, date, intention, achievementStatuses) {
     }
 
     //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    let streak;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
     if (achievementStatus === true) {
-        streaks[date][intention] = yesterdaysStreakValue + 1;
+        streak = yesterdaysStreakValue + 1
+        streaks[date][intention] = streak;
     } else {
         // streak resets to 0 if failed
-        streaks[date][intention] = 0;
+        streak = 0;
+        streaks[date][intention] = streak;
     }
     
+    storeStreak(uuid, date, intention, streak);
     localStorage.setItem('streaks', JSON.stringify(streaks));
     console.log('streaks', streaks);
     return streaks;
