@@ -243,7 +243,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
-    handleKeydown(e, intentions)
+    handleKeydown(e, uuid, intentions)
 });
 
 document.getElementById('express-intentions-button').addEventListener('click',  function() {

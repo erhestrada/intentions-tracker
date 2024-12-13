@@ -1,4 +1,5 @@
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
+import { storeIntentionsLogEntry } from "./storeIntentionsLogEntry";
 
 let currentIndex = 0;
 let currentIntentionIndex = 0;
@@ -82,7 +83,7 @@ function updateCaret() {
     caret.style.left = `${textToType.offsetLeft + caretOffset}px`;
 }
 
-export async function handleKeydown(e, intentions) {
+export async function handleKeydown(e, uuid, intentions) {
     const textToType = document.getElementById('text-to-type');
     const originalText = textToType.textContent;
     if (e.key === originalText[currentIndex]) {
@@ -98,13 +99,16 @@ export async function handleKeydown(e, intentions) {
             console.log(window.currentIntention);
             let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
             //let intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
-            const intentionEntry = [window.currentIntention, dateTime.toISOString()]
+            const intention = window.currentIntention;
+            const timestamp = dateTime.toISOString();
+            const intentionEntry = [intention, timestamp]
             if (!(date in intentionsLog)) {
                 intentionsLog[date] = [intentionEntry];
             } else {
                 intentionsLog[date].push(intentionEntry);
             }
-            localStorage.setItem('intentionsLog', JSON.stringify(intentionsLog));
+            storeIntentionsLogEntry(uuid, date, intention, timestamp);
+            //localStorage.setItem('intentionsLog', JSON.stringify(intentionsLog));
             
             setTimeout(typeNextIntention(intentions), 500); // Wait for 500ms before moving to the next intention
         }
