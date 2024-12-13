@@ -8,11 +8,13 @@ import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
-    let achievementStatuses2 = await retrieveAchievementStatuses(uuid);
+    //let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
+    let achievementStatuses = await retrieveAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
     //console.log('2', achievementStatuses2);
-    let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
+
+    const streaks = await retrieveStreaks(uuid);
+    //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
 
     const intentionBoxesContainer = document.getElementById('intention-boxes-container');
@@ -61,7 +63,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
                 intentionBox.style.backgroundColor = 'lightblue';
                 // change achievementStatus to default state - false
                 achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
-                streaks = undoStreakUpdate(streaks, date, intention);
+                streaks = undoStreakUpdate(uuid, streaks, date, intention);
                 let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
                 streakElement.innerText = "Streak: " + streaksValue;
             } else {
@@ -79,7 +81,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
             if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
                 // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
                 intentionBox.style.backgroundColor = 'lightblue';
-                streaks = undoStreakUpdate(streaks, date, intention);
+                streaks = undoStreakUpdate(uuid, streaks, date, intention);
                 let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
                 streakElement.innerText = "Streak: " + streaksValue;
             } else {
@@ -156,7 +158,7 @@ function updateAchievementStatuses(uuid, achievementStatuses, date, intention, a
     achievementStatuses[date][intention] = achievementStatus;
     storeAchievementStatus(uuid, date, intention, achievementStatus);
     
-    localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
+    //localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
     return achievementStatuses
 }
 
@@ -198,15 +200,17 @@ function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
     }
     
     storeStreak(uuid, date, intention, streak);
-    localStorage.setItem('streaks', JSON.stringify(streaks));
+    //localStorage.setItem('streaks', JSON.stringify(streaks));
     console.log('streaks', streaks);
     return streaks;
 }
 
-function undoStreakUpdate(streaks, date, intention) {
+function undoStreakUpdate(uuid, streaks, date, intention) {
     const yesterdaysDate = getYesterdaysDate(date);
-    streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
-    localStorage.setItem('streaks', JSON.stringify(streaks));
+    //streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    const streak = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    storeStreak(uuid, date, intention, streak);
+    //localStorage.setItem('streaks', JSON.stringify(streaks));
     return streaks
 }
 
@@ -224,7 +228,8 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+//const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+const intentions = Object.keys(requiredRepetitionsPerIntention);
 document.addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
@@ -239,14 +244,11 @@ document.getElementById('express-intentions-button').addEventListener('click',  
 const uuid = getOrCreateUniqueId();
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
-const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
-const intentionsLog2 = await retrieveAndFormatIntentionsLog(uuid);
-console.log('il2', intentionsLog2);
+//const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
+const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+//console.log('il2', intentionsLog2);
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
-
-const streaks = await retrieveStreaks(uuid);
-console.log('streaks', streaks);
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
