@@ -99,6 +99,15 @@ app.post('/storeUser', (req, res) => {
   });
 });
 
+app.get('/retrieveUsers', (req, res) => {
+  db.all('SELECT * FROM users', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve data' });
+    }
+    res.json(rows);
+  });
+});
+
 // ----------------------------
 
 app.post('/storeIntentionsLogEntry', (req, res) => {
