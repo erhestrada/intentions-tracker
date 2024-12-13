@@ -13,7 +13,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     console.log('1', achievementStatuses);
     //console.log('2', achievementStatuses2);
 
-    const streaks = await retrieveStreaks(uuid);
+    let streaks = await retrieveStreaks(uuid);
     //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
 
@@ -207,7 +207,7 @@ function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
 
 function undoStreakUpdate(uuid, streaks, date, intention) {
     const yesterdaysDate = getYesterdaysDate(date);
-    //streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
     const streak = streaks?.[yesterdaysDate]?.[intention] ?? 0;
     storeStreak(uuid, date, intention, streak);
     //localStorage.setItem('streaks', JSON.stringify(streaks));
