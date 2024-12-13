@@ -82,16 +82,16 @@ nav li {
 }
 
 .intention-boxes-container {
-    display: flex;                          /* Enable Flexbox */
-    flex-wrap: wrap;                        /* Allow items to wrap to the next row if needed */
-    justify-content: center;                /* Center items horizontally */
-    align-items: center;                    /* Center items vertically */
-    gap: 20px;                              /* Space between boxes */
-    height: 100vh;                          /* Make container fill the height of the viewport */
-    padding: 20px;                          /* Optional padding around the container */
-    box-sizing: border-box;                 /* Include padding in width and height calculation */
-    overflow: hidden;                       /* Prevent scrolling */ 
+    display: flex;                          
+    flex-wrap: wrap;                        
+    justify-content: center;                
+    align-items: center;                    
+    gap: 20px;                              
+    padding: 20px;                          
+    box-sizing: border-box;                 
+    overflow: hidden;                        
 }
+
 
 .intention-box {
     background-color: lightblue;
