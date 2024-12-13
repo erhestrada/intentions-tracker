@@ -153,6 +153,18 @@ app.get('/retrieveRequiredRepetitionsPerIntention', (req, res) => {
   });
 });
 
+app.get('/removeIntentionFromRequiredRepetitionsPerIntention', (req, res) => {
+  const { uuid, intention } = req.query; // Extract uuid from the query string
+
+  db.run('DELETE FROM required_repetitions_per_intention WHERE uuid = ? AND intention = ?', [uuid, intention], function(err) {
+    if (err) {
+      console.log('Error removing intention and repetitions:', err.message);
+      return res.status(500).json({ error: 'Failed to remove data', details: err.message });
+    }
+    res.json(rows);
+  });
+});
+
 // ---------------------
 
 app.post('/initializeAchievementStatuses', (req, res) => {
