@@ -101,14 +101,13 @@ app.post('/storeUser', (req, res) => {
 
 // ----------------------------
 
-// intentions_log routes
-// Route to store data
-app.post('/storeIntentionsLog', (req, res) => {
-  const { intention, repetitions } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
-  console.log(intention, repetitions);
-  db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
+app.post('/storeIntentionsLogEntry', (req, res) => {
+  const { uuid, date, intention, timestamp } = req.body;
+  
+  db.run('INSERT INTO intentions_log (uuid, date, intention, timestamp) VALUES (?, ?, ?, ?)', [uuid, date, intention, timestamp], function (err) {
     if (err) {
-      return res.status(500).json({ error: 'Failed to store data' });
+      console.log('Error storing intention and repetitions:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
   });
