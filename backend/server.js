@@ -20,13 +20,72 @@ db.run('DROP TABLE achievement_statuses');
 db.run('DROP TABLE streaks');
 */
 
+/*
+db.run('DELETE FROM achievement_statuses WHERE date = ?', ['12/12/2024'], (err) => {
+  if (err) {
+    console.error('Error deleting row:', err);
+  } else {
+    console.log('Row deleted successfully');
+  }
+});
+*/
+
+
 db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL)');
 db.run('CREATE TABLE IF NOT EXISTS intentions_log (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, intention TEXT, timestamp TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, intention TEXT, repetitions INTEGER)');
 db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER)');
 db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, streak INTEGER)');
 
-//db.run('DROP TABLE streaks');
+/*
+// Step 1: Create the new table with the UNIQUE constraint
+db.run(`
+  CREATE TABLE IF NOT EXISTS new_achievement_statuses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uuid TEXT NOT NULL,
+    date TEXT,
+    action TEXT,
+    achievement_status INTEGER,
+    UNIQUE (uuid, date, action)  -- Add the UNIQUE constraint on uuid, date, and action
+  )
+`, function(err) {
+  if (err) {
+    console.error('Error creating new table:', err.message);
+    return;
+  }
+
+  // Step 2: Copy the data from the old table to the new table
+  db.run(`
+    INSERT INTO new_achievement_statuses (id, uuid, date, action, achievement_status)
+    SELECT id, uuid, date, action, achievement_status
+    FROM achievement_statuses
+  `, function(err) {
+    if (err) {
+      console.error('Error copying data to new table:', err.message);
+      return;
+    }
+
+    // Step 3: Drop the old table
+    db.run('DROP TABLE achievement_statuses', function(err) {
+      if (err) {
+        console.error('Error dropping old table:', err.message);
+        return;
+      }
+
+      // Step 4: Rename the new table to the original table name
+      db.run('ALTER TABLE new_achievement_statuses RENAME TO achievement_statuses', function(err) {
+        if (err) {
+          console.error('Error renaming new table:', err.message);
+          return;
+        }
+
+        console.log('Table updated successfully with UNIQUE constraint on (uuid, date, action)');
+      });
+    });
+  });
+});
+*/
+
 //db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
 
 // users routes
@@ -128,7 +187,10 @@ app.post('/storeAchievementStatus', (req, res) => {
   const { uuid, date, intention, achievementStatus } = req.body;
   console.log('abc', uuid, date, intention, achievementStatus);
   
-  db.run('INSERT INTO achievement_statuses (uuid, date, action, achievement_status) VALUES (?, ?, ?, ?)', [uuid, date, intention, achievementStatus], function (err) {
+  const query = 'INSERT OR REPLACE INTO achievement_statuses (uuid, date, action, achievement_status) VALUES (?, ?, ?, ?)';
+  //const query = 'INSERT INTO achievement_statuses (uuid, date, action, achievement_status) VALUES (?, ?, ?, ?)';
+
+  db.run(query, [uuid, date, intention, achievementStatus], function (err) {
     if (err) {
       console.log('Error storing achievement status:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store data', details: err.message });
