@@ -202,17 +202,19 @@ app.post('/storeAchievementStatus', (req, res) => {
 
 // ---------------------
 
-// streaks routes
-// Route to store data
-app.post('/storeStreaks', (req, res) => {
-  const { intention, repetitions } = req.body; // Assuming you're sending `intention` and `repetitions` in the request body
-  console.log(intention, repetitions);
-  db.run('INSERT INTO required_repetitions_per_intention (intention, repetitions) VALUES (?, ?)', [intention, repetitions], function (err) {
+app.post('/storeStreak', (req, res) => {
+  const { uuid, date, action, streak } = req.body;
+  
+  const query = 'INSERT OR REPLACE INTO streaks (uuid, date, action, streak) VALUES (?, ?, ?, ?)';
+
+  db.run(query, [uuid, date, action, streak], function (err) {
     if (err) {
-      return res.status(500).json({ error: 'Failed to store data' });
+      console.log('Error storing streak:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
   });
+  
 });
 
 // Route to retrieve data
