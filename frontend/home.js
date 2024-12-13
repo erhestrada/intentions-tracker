@@ -228,19 +228,6 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-//const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-const intentions = Object.keys(requiredRepetitionsPerIntention);
-document.addEventListener('keydown', (e) => {
-    if (e.key === ' ') {
-        e.preventDefault();  // Prevent the default spacebar action (scrolling)
-    }
-    handleKeydown(e, intentions)
-});
-document.getElementById('express-intentions-button').addEventListener('click',  function() {
-    this.blur();
-    typeIntentions(intentions)
-});
-
 const uuid = getOrCreateUniqueId();
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
@@ -249,6 +236,20 @@ const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
 //console.log('il2', intentionsLog2);
 const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
+
+//const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
+const intentions = Object.keys(requiredRepetitionsPerIntention);
+document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+        e.preventDefault();  // Prevent the default spacebar action (scrolling)
+    }
+    handleKeydown(e, intentions)
+});
+
+document.getElementById('express-intentions-button').addEventListener('click',  function() {
+    this.blur();
+    typeIntentions(intentions)
+});
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
