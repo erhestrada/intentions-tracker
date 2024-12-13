@@ -2,6 +2,7 @@
 export async function retrieveAndFormatIntentionsLog(uuid) {
     const intentionsLogRows = await retrieveIntentionsLog(uuid);
     const intentionsLog = makeIntentionsLogFromRows(intentionsLogRows);
+    console.log('intentions log:', intentionsLog);
     return intentionsLog;
 }
   
@@ -18,8 +19,18 @@ export async function retrieveIntentionsLog(uuid) {
 // expected intentionsLog format
 // {date: [[intention, timestamp], ...]}
 function makeIntentionsLogFromRows(rows) {
+    console.log('rows', rows);
     const intentionsLog = rows.reduce((accumulator, row) => {
-        accumulator[row['date']] = [row['intention'], row['timestamp']];
+        const rowDate = row['date'];
+        const rowIntention = row['intention'];
+        const rowTimestamp = row['timestamp'];
+        
+        if (!(rowDate in accumulator)) {
+            accumulator[rowDate] = [[rowIntention, rowTimestamp]];
+        } else {
+            accumulator[rowDate].push([rowIntention, rowTimestamp]);
+        }
+        
         return accumulator;
     }, {});
     return intentionsLog;
