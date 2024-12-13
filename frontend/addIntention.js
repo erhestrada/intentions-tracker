@@ -9,7 +9,7 @@ export function addIntention(uuid) {
   const requiredRepetitions = document.getElementById('required-repetitions-input').value;
   requiredRepetitionsPerIntention[intention] = requiredRepetitions;
   //localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(requiredRepetitionsPerIntention));
-  storeRequiredRepetitionsForIntention(intention, requiredRepetitions);
+  storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
   displaySquares({[intention]: requiredRepetitions});
   document.getElementById('add-intention-input').value = ''; // clear input when intention added
