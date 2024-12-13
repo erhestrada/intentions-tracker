@@ -81,6 +81,18 @@ nav li {
     overflow: hidden;                       /* Prevent scrolling */
 }
 
+.intention-boxes-container {
+    display: flex;                          /* Enable Flexbox */
+    flex-wrap: wrap;                        /* Allow items to wrap to the next row if needed */
+    justify-content: center;                /* Center items horizontally */
+    align-items: center;                    /* Center items vertically */
+    gap: 20px;                              /* Space between boxes */
+    height: 100vh;                          /* Make container fill the height of the viewport */
+    padding: 20px;                          /* Optional padding around the container */
+    box-sizing: border-box;                 /* Include padding in width and height calculation */
+    overflow: hidden;                       /* Prevent scrolling */ 
+}
+
 .intention-box {
     background-color: lightblue;
     width: 100%;                             /* Set width to 100% of available space */

@@ -19,22 +19,30 @@ export async function displayInformationForUser(uuid) {
     console.log('rrpi', requiredRepetitionsPerIntention);
     const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
     const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
-
     displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
 }
 
-
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    //let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
-    //console.log('2', achievementStatuses2);
 
     let streaks = await retrieveStreaks(uuid);
-    //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
 
-    const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+    const masterContainer = document.querySelector('.container');
+
+    const intentionBoxesContainer = document.createElement('div');
+    intentionBoxesContainer.id = 'intention-boxes-container-' + uuid;
+    intentionBoxesContainer.className = 'intention-boxes-container';
+    
+    masterContainer.appendChild(intentionBoxesContainer);
+
+    /*
+    const userElement = document.createElement('p');
+    userElement.innerText = uuid;
+    document.body.appendChild(userElement);
+    intentionBoxesContainer.appendChild(userElement);
+    */
 
     const date = (new Date()).toLocaleDateString();
     const yesterdaysDate = getYesterdaysDate(date);
@@ -77,6 +85,10 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         intentionBox.appendChild(successTextElement);
         intentionBox.appendChild(streakElement);
     }
+
+    const line = document.createElement('hr');
+    masterContainer.appendChild(line);
+
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
