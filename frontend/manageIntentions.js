@@ -1,8 +1,7 @@
 import { addIntention } from "./addIntention";
 import { displaySquares } from "./displaySquares";
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
-import { retrieveRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
+import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 
 const uuid = getOrCreateUniqueId();
@@ -20,7 +19,7 @@ document.body.addEventListener('click', (event) => {
     if (event.target.classList.contains('intention') && deleteButton.clicked) {
         const intention = event.target.textContent.split(':')[0].trim(); // Extract the key from the text
         //let requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
-        let requiredRepetitionsPerIntention = retrieveRequiredRepetitionsPerIntention(uuid);
+        let requiredRepetitionsPerIntention = retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 
         const { [intention]: _, ...updatedRequiredRepetitionsPerIntention } = requiredRepetitionsPerIntention;
         //localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(updatedRequiredRepetitionsPerIntention));
@@ -39,5 +38,6 @@ deleteButton.addEventListener('click', () => {
 });
 
 //const requiredRepetitionsPerIntention = JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {};
-const requiredRepetitionsPerIntention = retrieveRequiredRepetitionsPerIntention(uuid);
+const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
+console.log('rrpi:', requiredRepetitionsPerIntention);
 displaySquares(requiredRepetitionsPerIntention);
