@@ -15,8 +15,18 @@ export async function retrieveStreaks(uuid) {
 }
 
 function makeStreaksFromRows(rows) {
+    console.log('rows', rows);
     const streaks = rows.reduce((accumulator, row) => {
-        accumulator[row['date']] = [row['intention'], row[timestamp]];
+        const rowDate = row['date'];
+        const rowAction = row['action'];
+        const rowStreak = row['streak'];
+
+        if (!(rowDate in accumulator)) {
+            accumulator[rowDate] = {[rowAction]: rowStreak};
+        } else {
+            accumulator[rowDate][rowAction] = rowStreak;
+        }
+        
         return accumulator;
     }, {});
     return streaks;
