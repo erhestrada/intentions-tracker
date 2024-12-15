@@ -6,10 +6,14 @@ import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
+import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
+
+// i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     //let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
+    let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
     //console.log('2', achievementStatuses2);
 
@@ -26,6 +30,15 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
         intentionBox.id = intention;
+
+        const achievementStatus = formattedAchievementStatuses?.[date]?.[intention] ?? 0;
+
+        if (achievementStatus === 1) {
+            intentionBox.style.backgroundColor = 'rgb(129, 199, 132)';
+        } else {
+            //intentionBox.style.backgroundColor = 'rgb(229, 57, 53)';
+            intentionBox.style.backgroundColor = 'lightblue';
+        }
 
         const intentionTextElement = document.createElement('p');
         intentionTextElement.innerText = intention;
