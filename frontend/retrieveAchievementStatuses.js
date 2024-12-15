@@ -18,15 +18,18 @@ export async function retrieveAchievementStatuses(uuid) {
 // date, action, achievement_status
 function makeAchievementStatusesFromRows(rows) {
   const achievementStatuses = rows.reduce((accumulator, row) => {
+    console.log('row', row);
     const date = row['date'];
     const action = row['action'];
     const achievementStatus = row['achievement_status'];
 
     if (!(date in accumulator)) {
-      accumulator[date] = {action: achievementStatus};
+      accumulator[date] = {[action]: achievementStatus};
     } else {
       accumulator[date][action] = achievementStatus;
     }
+
+    console.log('accumulator', accumulator);
 
     return accumulator;
   }, {});
