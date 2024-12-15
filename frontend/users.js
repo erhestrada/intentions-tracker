@@ -7,6 +7,7 @@ import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
+import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 
 export async function displayInformationForUsers() {
     const users = (await retrieveUsers()).map(obj => obj.uuid);
@@ -24,6 +25,7 @@ export async function displayInformationForUser(uuid) {
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
+    let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
 
     let streaks = await retrieveAndFormatStreaks(uuid);
@@ -73,11 +75,15 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
 
         const achievementStatusElement = document.createElement('p');
         console.log('achievementstatuses', achievementStatuses);
-        if (achievementStatuses) {
+        // if achievementStatuses[date][action] === 1
+        /*
+        if (formattedAchievementStatuses[date][intention] === 1) {
             achievementStatusElement.innerText = '✔️';
         } else {
             achievementStatusElement.innerText = '❌';
         }
+        */
+       achievementStatusElement.innerText = '---';
 
         const streakElement = document.createElement('p');
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
