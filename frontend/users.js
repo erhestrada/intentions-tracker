@@ -75,6 +75,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         const achievementStatus = formattedAchievementStatuses?.[date]?.[intention] ?? 0;
         
         if (achievementStatus === 1) {
+            intentionBox.style.backgroundColor = 'rgb(129, 199, 132)';
             achievementStatusElement.innerText = '✔️';
         } else {
             achievementStatusElement.innerText = '❌';
