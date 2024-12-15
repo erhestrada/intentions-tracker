@@ -3,7 +3,7 @@ import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequ
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
-import { retrieveStreaks } from "./retrieveStreaks";
+import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 
@@ -13,7 +13,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     console.log('1', achievementStatuses);
     //console.log('2', achievementStatuses2);
 
-    let streaks = await retrieveStreaks(uuid);
+    let streaks = await retrieveAndFormatStreaks(uuid);
     //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
     console.log('streaks initial', streaks);
 
