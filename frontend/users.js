@@ -4,7 +4,7 @@ import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequ
 import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
-import { retrieveStreaks } from "./retrieveStreaks";
+import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 
@@ -26,7 +26,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     console.log('1', achievementStatuses);
 
-    let streaks = await retrieveStreaks(uuid);
+    let streaks = await retrieveAndFormatStreaks(uuid);
     console.log('streaks initial', streaks);
 
     const masterContainer = document.querySelector('.container');
