@@ -71,8 +71,13 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         const successTextElement = document.createElement('p');
         successTextElement.innerText = 'Achievement Status';
 
-        const successButton = document.createElement('button');
-        successButton.innerText = '✔️';
+        const achievementStatusElement = document.createElement('p');
+        console.log('achievementstatuses', achievementStatuses);
+        if (achievementStatuses) {
+            achievementStatusElement.innerText = '✔️';
+        } else {
+            achievementStatusElement.innerText = '❌';
+        }
 
         const streakElement = document.createElement('p');
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
@@ -83,6 +88,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         intentionBox.appendChild(requiredRepetitionsTextElement);
         intentionBox.appendChild(repetitionSquaresElement);
         intentionBox.appendChild(successTextElement);
+        intentionBox.appendChild(achievementStatusElement);
         intentionBox.appendChild(streakElement);
     }
 
