@@ -21,7 +21,7 @@ db.run('DROP TABLE streaks');
 */
 
 /*
-db.run('DELETE FROM achievement_statuses WHERE date = ?', ['12/12/2024'], (err) => {
+db.run('DELETE FROM users WHERE uuid = ?', ['37ddb973-131d-45c7-b814-c930b6d5cd67'], (err) => {
   if (err) {
     console.error('Error deleting row:', err);
   } else {
