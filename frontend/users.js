@@ -17,7 +17,6 @@ export async function displayInformationForUsers() {
 export async function displayInformationForUser(uuid) {
     console.log(uuid);
     const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
-    console.log('rrpi', requiredRepetitionsPerIntention);
     const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
     const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
     displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
@@ -26,10 +25,9 @@ export async function displayInformationForUser(uuid) {
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
-    console.log('1', achievementStatuses);
+    console.log('formatted as', formattedAchievementStatuses);
 
     let streaks = await retrieveAndFormatStreaks(uuid);
-    console.log('streaks initial', streaks);
 
     const masterContainer = document.querySelector('.container');
 
@@ -74,17 +72,14 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         successTextElement.innerText = 'Achievement Status';
 
         const achievementStatusElement = document.createElement('p');
-        console.log('achievementstatuses', achievementStatuses);
-        // if achievementStatuses[date][action] === 1
-        /*
-        if (formattedAchievementStatuses[date][intention] === 1) {
+        const achievementStatus = formattedAchievementStatuses?.[date]?.[intention] ?? 0;
+        
+        if (achievementStatus === 1) {
             achievementStatusElement.innerText = '✔️';
         } else {
             achievementStatusElement.innerText = '❌';
         }
-        */
-       achievementStatusElement.innerText = '---';
-
+        
         const streakElement = document.createElement('p');
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
         streakElement.innerText = "Streak: " + streaksValue;
@@ -204,7 +199,6 @@ function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
     
     storeStreak(uuid, date, intention, streak);
     //localStorage.setItem('streaks', JSON.stringify(streaks));
-    console.log('streaks', streaks);
     return streaks;
 }
 
