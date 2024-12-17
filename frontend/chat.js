@@ -8,5 +8,5 @@ form.addEventListener('submit', (e) => {
     sendChatMessage(uuid);
   });
 
-const chatHistory = await retrieveChatHistory();
-displayChatHistory(chatHistory);
+//const chatHistory = await retrieveChatHistory();
+//displayChatHistory(chatHistory);
