@@ -1,5 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { sendChatMessage } from "./addChatMessage";
+import { sendChatMessage } from "./sendChatMessage";
 
 const uuid = getOrCreateUniqueId();
 const form = document.getElementById('myForm');
