@@ -255,9 +255,10 @@ app.get('/retrieveStreaks', (req, res) => {
 app.post('/storeChatMessage', (req, res) => {
   const { uuid, chatMessage } = req.body;
   
-  db.run('INSERT INTO chat_history (uuid, chatMessage) VALUES (?, ?)', [uuid, chatMessage], function (err) {
+  db.run('INSERT INTO chat_history (uuid, chat_message) VALUES (?, ?)', [uuid, chatMessage], function (err) {
     if (err) {
-      return res.status(500).json({ error: 'Failed to store data' });
+      console.log('Error storing intention and repetitions:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
     }
     res.json({ message: 'Data stored successfully', id: this.lastID });
   });
