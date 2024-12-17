@@ -35,6 +35,7 @@ db.run('CREATE TABLE IF NOT EXISTS intentions_log (id INTEGER PRIMARY KEY, uuid 
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, intention TEXT, repetitions INTEGER)');
 db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER, UNIQUE (uuid, date, action) )');
 db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, streak INTEGER, UNIQUE (uuid, date, action))');
+db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, chat_message TEXT)');
 
 /*
 // Step 1: Create the new table with the UNIQUE constraint
@@ -250,6 +251,18 @@ app.get('/retrieveStreaks', (req, res) => {
 });
 
 // ---------------------
+
+app.get('/retrieveChatHistory', (req, res) => {
+  db.all('SELECT * FROM chat_history', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve data' });
+    }
+    res.json(rows);
+  });
+});
+
+// ---------------------
+
 
 // Start server
 app.listen(port, () => {
