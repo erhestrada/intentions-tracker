@@ -252,6 +252,17 @@ app.get('/retrieveStreaks', (req, res) => {
 
 // ---------------------
 
+app.post('/storeChatMessage', (req, res) => {
+  const { uuid, chatMessage } = req.body;
+  
+  db.run('INSERT INTO chat_history (uuid, chatMessage) VALUES (?, ?)', [uuid, chatMessage], function (err) {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to store data' });
+    }
+    res.json({ message: 'Data stored successfully', id: this.lastID });
+  });
+});
+
 app.get('/retrieveChatHistory', (req, res) => {
   db.all('SELECT * FROM chat_history', [], (err, rows) => {
     if (err) {
@@ -262,7 +273,6 @@ app.get('/retrieveChatHistory', (req, res) => {
 });
 
 // ---------------------
-
 
 // Start server
 app.listen(port, () => {
