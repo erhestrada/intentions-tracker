@@ -265,6 +265,10 @@ function openPopUp() {
     document.getElementById('popup').style.display = 'block';
 }
 
+function closePopUp() {
+    document.getElementById('popup').style.display = 'none';
+}
+
 const uuid = getOrCreateUniqueId();
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
