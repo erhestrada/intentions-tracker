@@ -111,6 +111,9 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         intentionBox.appendChild(failureButton);
         intentionBox.appendChild(streakElement);
     }
+
+    displayPlusMinusBox();
+    
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
@@ -239,6 +242,10 @@ function getYesterdaysDate(dateStr) {
     const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
     return yesterday;
+}
+
+function displayPlusMinusBox() {
+
 }
 
 const uuid = getOrCreateUniqueId();
