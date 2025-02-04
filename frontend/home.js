@@ -115,7 +115,19 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     const plusMinusBox = document.createElement('div');
     plusMinusBox.className = 'intention-box';
     plusMinusBox.id = 'plus-minus-box';
+
+    const plusMinusBoxLabel = document.createElement('p');
+    plusMinusBoxLabel.innerText = '+ / -';
+
+    const plusButtonElement = document.createElement('button');
+    plusButtonElement.innerText = '+';
+
+    const minusButtonElement = document.createElement('button');
+    minusButtonElement.innerText = '-';
+
     intentionBoxesContainer.appendChild(plusMinusBox);
+    plusMinusBox.appendChild(plusButtonElement);
+    plusMinusBox.appendChild(minusButtonElement);
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
