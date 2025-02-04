@@ -112,8 +112,10 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         intentionBox.appendChild(streakElement);
     }
 
-    displayPlusMinusBox();
-    
+    const plusMinusBox = document.createElement('div');
+    plusMinusBox.className = 'intention-box';
+    plusMinusBox.id = 'plus-minus-box';
+    intentionBoxesContainer.appendChild(plusMinusBox);
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
@@ -242,10 +244,6 @@ function getYesterdaysDate(dateStr) {
     const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
     return yesterday;
-}
-
-function displayPlusMinusBox() {
-
 }
 
 const uuid = getOrCreateUniqueId();
