@@ -125,6 +125,10 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     const minusButtonElement = document.createElement('button');
     minusButtonElement.innerText = '-';
 
+    plusButtonElement.addEventListener('click', () => {
+        console.log('hello!');
+    });
+
     intentionBoxesContainer.appendChild(plusMinusBox);
     plusMinusBox.appendChild(plusMinusBoxLabel);
     plusMinusBox.appendChild(plusButtonElement);
