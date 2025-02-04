@@ -127,6 +127,9 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
 
     plusButtonElement.addEventListener('click', openPopUp);
 
+    const closeButton = document.querySelector('.close');
+    closeButton.addEventListener('click', closePopUp);
+
     intentionBoxesContainer.appendChild(plusMinusBox);
     plusMinusBox.appendChild(plusMinusBoxLabel);
     plusMinusBox.appendChild(plusButtonElement);
