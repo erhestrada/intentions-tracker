@@ -117,7 +117,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.id = 'plus-minus-box';
 
     const plusMinusBoxLabel = document.createElement('p');
-    plusMinusBoxLabel.innerText = '+ / -';
+    plusMinusBoxLabel.innerText = 'Add / Remove Intention';
 
     const plusButtonElement = document.createElement('button');
     plusButtonElement.innerText = '+';
@@ -126,6 +126,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     minusButtonElement.innerText = '-';
 
     intentionBoxesContainer.appendChild(plusMinusBox);
+    plusMinusBox.appendChild(plusMinusBoxLabel);
     plusMinusBox.appendChild(plusButtonElement);
     plusMinusBox.appendChild(minusButtonElement);
 }
