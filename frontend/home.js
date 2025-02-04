@@ -125,9 +125,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     const minusButtonElement = document.createElement('button');
     minusButtonElement.innerText = '-';
 
-    plusButtonElement.addEventListener('click', () => {
-        console.log('hello!');
-    });
+    plusButtonElement.addEventListener('click', openPopUp);
 
     intentionBoxesContainer.appendChild(plusMinusBox);
     plusMinusBox.appendChild(plusMinusBoxLabel);
@@ -261,6 +259,10 @@ function getYesterdaysDate(dateStr) {
     const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
     return yesterday;
+}
+
+function openPopUp() {
+    document.getElementById('popup').style.display = 'block';
 }
 
 const uuid = getOrCreateUniqueId();
