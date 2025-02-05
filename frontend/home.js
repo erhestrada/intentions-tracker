@@ -7,6 +7,7 @@ import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
+import { addIntention } from "./addIntention";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -293,6 +294,13 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('express-intentions-button').addEventListener('click',  function() {
     this.blur();
     typeIntentions(intentions)
+});
+
+// addIntention when add intention button clicked in popup
+const form = document.getElementById('myForm');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addIntention(uuid);
 });
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
