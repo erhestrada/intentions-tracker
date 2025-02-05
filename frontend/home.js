@@ -103,6 +103,10 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
             }
         });        
 
+        const removeIntentionBoxElement = document.createElement('button');
+        removeIntentionBoxElement.innerText = 'Remove Intention';
+        removeIntentionBoxElement.style.display = 'none';
+
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
         intentionBox.appendChild(requiredRepetitionsTextElement);
@@ -111,6 +115,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         intentionBox.appendChild(successButton);
         intentionBox.appendChild(failureButton);
         intentionBox.appendChild(streakElement);
+        intentionBox.appendChild(removeIntentionBoxElement);
     }
 
     const plusMinusBox = document.createElement('div');
