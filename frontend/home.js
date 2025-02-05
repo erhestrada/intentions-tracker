@@ -104,6 +104,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         });        
 
         const removeIntentionBoxElement = document.createElement('button');
+        removeIntentionBoxElement.className = 'remove-intention-button';
         removeIntentionBoxElement.innerText = 'Remove Intention';
         removeIntentionBoxElement.style.display = 'none';
 
@@ -127,11 +128,18 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
 
     const plusButtonElement = document.createElement('button');
     plusButtonElement.innerText = '+';
+    plusButtonElement.addEventListener('click', openPopUp);
 
     const minusButtonElement = document.createElement('button');
     minusButtonElement.innerText = '-';
+    minusButtonElement.addEventListener('click', () => {
+        const removeIntentionButtons = document.querySelectorAll('.remove-intention-button');
 
-    plusButtonElement.addEventListener('click', openPopUp);
+        removeIntentionButtons.forEach(button => {
+            button.style.display = 'block';    
+        });
+    });
+
 
     const closeButton = document.querySelector('.close');
     closeButton.addEventListener('click', closePopUp);
