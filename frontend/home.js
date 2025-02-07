@@ -8,6 +8,8 @@ import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { addIntention } from "./addIntention";
+import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
+
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -108,6 +110,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         removeIntentionBoxElement.innerText = 'Remove Intention';
         removeIntentionBoxElement.style.display = 'none';
         removeIntentionBoxElement.addEventListener('click', () => {
+            removeIntentionFromRequiredRepetitionsPerIntention(uuid, intention);
             intentionBox.remove();
         });
 
