@@ -107,6 +107,9 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         removeIntentionBoxElement.className = 'remove-intention-button';
         removeIntentionBoxElement.innerText = 'Remove Intention';
         removeIntentionBoxElement.style.display = 'none';
+        removeIntentionBoxElement.addEventListener('click', () => {
+            intentionBox.remove();
+        });
 
         intentionBoxesContainer.appendChild(intentionBox);
         intentionBox.appendChild(intentionTextElement);
