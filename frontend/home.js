@@ -313,9 +313,16 @@ document.addEventListener('keydown', (e) => {
     handleKeydown(e, uuid, intentions)
 });
 
-document.getElementById('express-intentions-button').addEventListener('click',  function() {
-    this.blur();
-    typeIntentions(intentions)
+const expressIntentionsButton = document.getElementById('express-intentions-button');
+expressIntentionsButton.addEventListener('click',  function() {
+    expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
+    console.log(expressIntentionsButton.clicked);
+    
+    if (expressIntentionsButton.clicked) {
+        this.blur();
+        typeIntentions(intentions)
+    }
+
 });
 
 // addIntention when add intention button clicked in popup
