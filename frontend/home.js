@@ -321,6 +321,9 @@ expressIntentionsButton.addEventListener('click',  function() {
     if (expressIntentionsButton.clicked) {
         this.blur();
         typeIntentions(intentions)
+    } else {
+        const container = document.querySelector('.container');
+        container.innerHTML = ''; // Clear previous content
     }
 
 });
