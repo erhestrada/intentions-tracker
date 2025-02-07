@@ -139,10 +139,13 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     const minusButtonElement = document.createElement('button');
     minusButtonElement.innerText = '-';
     minusButtonElement.addEventListener('click', () => {
+        minusButtonElement.clicked = !minusButtonElement.clicked;
+        console.log(minusButtonElement.clicked);
+
         const removeIntentionButtons = document.querySelectorAll('.remove-intention-button');
 
         removeIntentionButtons.forEach(button => {
-            button.style.display = 'block';    
+            button.style.display = minusButtonElement.clicked ? 'block' : 'none';
         });
     });
 
