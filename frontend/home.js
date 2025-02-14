@@ -7,7 +7,7 @@ import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
-import { addIntention } from "./addIntention";
+import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
@@ -335,7 +335,16 @@ expressIntentionsButton.addEventListener('click',  function() {
 const form = document.getElementById('myForm');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    addIntention(uuid);
+
+    //let requiredRepetitionsPerIntention = retrieveRequiredRepetitionsPerIntention(uuid);
+    const intention = document.getElementById('add-intention-input').value.trim();
+    const requiredRepetitions = document.getElementById('required-repetitions-input').value;
+    requiredRepetitionsPerIntention[intention] = requiredRepetitions;
+    //localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(requiredRepetitionsPerIntention));
+    storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
+
+    displaySquares({[intention]: requiredRepetitions});
+    document.getElementById('add-intention-input').value = ''; // clear input when intention added
 });
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
