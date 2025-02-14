@@ -10,7 +10,6 @@ import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatu
 import { addIntention } from "./addIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 
-
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
@@ -30,99 +29,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     const yesterdaysDate = getYesterdaysDate(date);
 
     for (const [intention, repetitions] of Object.entries(requiredRepetitionsPerIntention)) {
-        const intentionBox = document.createElement('div');
-        intentionBox.className = 'intention-box';
-        intentionBox.id = intention;
-
-        const achievementStatus = formattedAchievementStatuses?.[date]?.[intention] ?? 0;
-
-        if (achievementStatus === 1) {
-            intentionBox.style.backgroundColor = 'rgb(129, 199, 132)';
-        } else {
-            //intentionBox.style.backgroundColor = 'rgb(229, 57, 53)';
-            intentionBox.style.backgroundColor = 'lightblue';
-        }
-
-        const intentionTextElement = document.createElement('p');
-        intentionTextElement.innerText = intention;
-        
-        const requiredRepetitionsTextElement = document.createElement('p');
-        let repetitionsOnDate;
-        if (date in intentionsRepetitionsPerDate) {
-            repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
-        } else {
-            repetitionsOnDate = 0;
-        }
-        requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + repetitions + ' repetitions';
-
-        const repetitionSquaresElement = document.createElement('p');
-        //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
-        repetitionSquaresElement.innerText = displayProgress(intention, repetitions, intentionsRepetitionsPerDate);
-
-        const successTextElement = document.createElement('p');
-        successTextElement.innerText = 'Achievement Status';
-
-        const successButton = document.createElement('button');
-        successButton.innerText = '✔️';
-
-        const streakElement = document.createElement('p');
-        let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-        streakElement.innerText = "Streak: " + streaksValue;
-
-        successButton.addEventListener('click', () => {
-            //achievementStatus[date][intention] = true
-            achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
-            streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
-            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-            streakElement.innerText = "Streak: " + streaksValue;
-            if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
-                intentionBox.style.backgroundColor = 'lightblue';
-                // change achievementStatus to default state - false
-                achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
-                streaks = undoStreakUpdate(uuid, streaks, date, intention);
-                let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-                streakElement.innerText = "Streak: " + streaksValue;
-            } else {
-                intentionBox.style.backgroundColor = '#81C784';
-            }
-        });
-
-        const failureButton = document.createElement('button');
-        failureButton.innerText = '❌';
-        failureButton.addEventListener('click', () => {
-            achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
-            streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
-            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-            streakElement.innerText = "Streak: " + streaksValue;
-            if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
-                // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
-                intentionBox.style.backgroundColor = 'lightblue';
-                streaks = undoStreakUpdate(uuid, streaks, date, intention);
-                let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-                streakElement.innerText = "Streak: " + streaksValue;
-            } else {
-                intentionBox.style.backgroundColor = '#E53935 ';
-            }
-        });        
-
-        const removeIntentionBoxElement = document.createElement('button');
-        removeIntentionBoxElement.className = 'remove-intention-button';
-        removeIntentionBoxElement.innerText = 'Remove Intention';
-        removeIntentionBoxElement.style.display = 'none';
-        removeIntentionBoxElement.addEventListener('click', () => {
-            removeIntentionFromRequiredRepetitionsPerIntention(uuid, intention);
-            intentionBox.remove();
-        });
-
-        intentionBoxesContainer.appendChild(intentionBox);
-        intentionBox.appendChild(intentionTextElement);
-        intentionBox.appendChild(requiredRepetitionsTextElement);
-        intentionBox.appendChild(repetitionSquaresElement);
-        intentionBox.appendChild(successTextElement);
-        intentionBox.appendChild(successButton);
-        intentionBox.appendChild(failureButton);
-        intentionBox.appendChild(streakElement);
-        intentionBox.appendChild(removeIntentionBoxElement);
+        displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -157,6 +64,102 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.appendChild(plusMinusBoxLabel);
     plusMinusBox.appendChild(plusButtonElement);
     plusMinusBox.appendChild(minusButtonElement);
+}
+
+function displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer) {
+    const intentionBox = document.createElement('div');
+    intentionBox.className = 'intention-box';
+    intentionBox.id = intention;
+
+    const achievementStatus = formattedAchievementStatuses?.[date]?.[intention] ?? 0;
+
+    if (achievementStatus === 1) {
+        intentionBox.style.backgroundColor = 'rgb(129, 199, 132)';
+    } else {
+        //intentionBox.style.backgroundColor = 'rgb(229, 57, 53)';
+        intentionBox.style.backgroundColor = 'lightblue';
+    }
+
+    const intentionTextElement = document.createElement('p');
+    intentionTextElement.innerText = intention;
+    
+    const requiredRepetitionsTextElement = document.createElement('p');
+    let repetitionsOnDate;
+    if (date in intentionsRepetitionsPerDate) {
+        repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
+    } else {
+        repetitionsOnDate = 0;
+    }
+    requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + repetitions + ' repetitions';
+
+    const repetitionSquaresElement = document.createElement('p');
+    //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
+    repetitionSquaresElement.innerText = displayProgress(intention, repetitions, intentionsRepetitionsPerDate);
+
+    const successTextElement = document.createElement('p');
+    successTextElement.innerText = 'Achievement Status';
+
+    const successButton = document.createElement('button');
+    successButton.innerText = '✔️';
+
+    const streakElement = document.createElement('p');
+    let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    streakElement.innerText = "Streak: " + streaksValue;
+
+    successButton.addEventListener('click', () => {
+        //achievementStatus[date][intention] = true
+        achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
+        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
+        let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+        streakElement.innerText = "Streak: " + streaksValue;
+        if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
+            intentionBox.style.backgroundColor = 'lightblue';
+            // change achievementStatus to default state - false
+            achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
+            streaks = undoStreakUpdate(uuid, streaks, date, intention);
+            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+            streakElement.innerText = "Streak: " + streaksValue;
+        } else {
+            intentionBox.style.backgroundColor = '#81C784';
+        }
+    });
+
+    const failureButton = document.createElement('button');
+    failureButton.innerText = '❌';
+    failureButton.addEventListener('click', () => {
+        achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
+        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
+        let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+        streakElement.innerText = "Streak: " + streaksValue;
+        if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
+            // the default achievement status for the day is false so no doing anything here... what if the streak was like 3
+            intentionBox.style.backgroundColor = 'lightblue';
+            streaks = undoStreakUpdate(uuid, streaks, date, intention);
+            let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+            streakElement.innerText = "Streak: " + streaksValue;
+        } else {
+            intentionBox.style.backgroundColor = '#E53935 ';
+        }
+    });        
+
+    const removeIntentionBoxElement = document.createElement('button');
+    removeIntentionBoxElement.className = 'remove-intention-button';
+    removeIntentionBoxElement.innerText = 'Remove Intention';
+    removeIntentionBoxElement.style.display = 'none';
+    removeIntentionBoxElement.addEventListener('click', () => {
+        removeIntentionFromRequiredRepetitionsPerIntention(uuid, intention);
+        intentionBox.remove();
+    });
+
+    intentionBoxesContainer.appendChild(intentionBox);
+    intentionBox.appendChild(intentionTextElement);
+    intentionBox.appendChild(requiredRepetitionsTextElement);
+    intentionBox.appendChild(repetitionSquaresElement);
+    intentionBox.appendChild(successTextElement);
+    intentionBox.appendChild(successButton);
+    intentionBox.appendChild(failureButton);
+    intentionBox.appendChild(streakElement);
+    intentionBox.appendChild(removeIntentionBoxElement);
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
