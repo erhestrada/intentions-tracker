@@ -12,22 +12,23 @@ import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeInte
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
+const uuid = getOrCreateUniqueId();
+//let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
+let achievementStatuses = await retrieveAchievementStatuses(uuid);
+let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
+console.log('1', achievementStatuses);
+//console.log('2', achievementStatuses2);
+
+let streaks = await retrieveAndFormatStreaks(uuid);
+//let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
+console.log('streaks initial', streaks);
+
+const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+
+const date = (new Date()).toLocaleDateString();
+const yesterdaysDate = getYesterdaysDate(date);
+
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    //let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
-    let achievementStatuses = await retrieveAchievementStatuses(uuid);
-    let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
-    console.log('1', achievementStatuses);
-    //console.log('2', achievementStatuses2);
-
-    let streaks = await retrieveAndFormatStreaks(uuid);
-    //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
-    console.log('streaks initial', streaks);
-
-    const intentionBoxesContainer = document.getElementById('intention-boxes-container');
-
-    const date = (new Date()).toLocaleDateString();
-    const yesterdaysDate = getYesterdaysDate(date);
-
     for (const [intention, repetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer);
     }
@@ -298,7 +299,6 @@ function closePopUp() {
     document.getElementById('popup').style.display = 'none';
 }
 
-const uuid = getOrCreateUniqueId();
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
 //const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
@@ -342,6 +342,7 @@ form.addEventListener('submit', (e) => {
     storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
     document.getElementById('add-intention-input').value = ''; // clear input when intention added
+    displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer);
 });
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
