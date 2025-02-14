@@ -336,14 +336,11 @@ const form = document.getElementById('myForm');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    //let requiredRepetitionsPerIntention = retrieveRequiredRepetitionsPerIntention(uuid);
     const intention = document.getElementById('add-intention-input').value.trim();
     const requiredRepetitions = document.getElementById('required-repetitions-input').value;
     requiredRepetitionsPerIntention[intention] = requiredRepetitions;
-    //localStorage.setItem('requiredRepetitionsPerIntention', JSON.stringify(requiredRepetitionsPerIntention));
     storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
-    displaySquares({[intention]: requiredRepetitions});
     document.getElementById('add-intention-input').value = ''; // clear input when intention added
 });
 
