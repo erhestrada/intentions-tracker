@@ -30,7 +30,7 @@ const yesterdaysDate = getYesterdaysDate(date);
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     for (const [intention, repetitions] of Object.entries(requiredRepetitionsPerIntention)) {
-        displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer);
+        displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -67,7 +67,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.appendChild(minusButtonElement);
 }
 
-function displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer) {
+function displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
     const intentionBox = document.createElement('div');
     intentionBox.className = 'intention-box';
     intentionBox.id = intention;
@@ -152,7 +152,14 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
         intentionBox.remove();
     });
 
-    intentionBoxesContainer.appendChild(intentionBox);
+    if (initialize) {
+        intentionBoxesContainer.appendChild(intentionBox);
+    } else {
+        const plusMinusBox = document.querySelector('#plus-minus-box');
+        const parent = plusMinusBox.parentNode;
+        parent.insertBefore(intentionBox, plusMinusBox);
+    }
+
     intentionBox.appendChild(intentionTextElement);
     intentionBox.appendChild(requiredRepetitionsTextElement);
     intentionBox.appendChild(repetitionSquaresElement);
@@ -161,6 +168,7 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
     intentionBox.appendChild(failureButton);
     intentionBox.appendChild(streakElement);
     intentionBox.appendChild(removeIntentionBoxElement);
+
 }
 
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
@@ -342,7 +350,7 @@ form.addEventListener('submit', (e) => {
     storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
     document.getElementById('add-intention-input').value = ''; // clear input when intention added
-    displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer);
+    displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
 //const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
