@@ -85,6 +85,7 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
     intentionTextElement.innerText = intention;
     
     const requiredRepetitionsTextElement = document.createElement('p');
+    requiredRepetitionsTextElement.id = intention + '-requiredRepetitionsText';
     let repetitionsOnDate;
     if (date in intentionsRepetitionsPerDate) {
         repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
