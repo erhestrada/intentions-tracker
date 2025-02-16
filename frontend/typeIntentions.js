@@ -108,8 +108,13 @@ export async function handleKeydown(e, uuid, intentions) {
                 intentionsLog[date].push(intentionEntry);
             }
             storeIntentionsLogEntry(uuid, date, intention, timestamp);
+            update_intention_expression_display();
             
             setTimeout(typeNextIntention(intentions), 500); // Wait for 500ms before moving to the next intention
         }
     }
+}
+
+function update_intention_expression_display() {
+
 }
