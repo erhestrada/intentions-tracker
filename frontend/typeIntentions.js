@@ -119,6 +119,7 @@ function update_intention_expression_display(intention) {
     const id = intention.replace(/ /g, '-') + '-requiredRepetitionsText';
     console.log(id);
     const requiredRepetitionsTextElement = document.getElementById(id);
-    console.log(requiredRepetitionsTextElement);
-    console.log(requiredRepetitionsTextElement.innerText);
+    const a = requiredRepetitionsTextElement.innerText.split('/');
+    const updatedCount = Number(a[0]) + 1;
+    requiredRepetitionsTextElement.innerText = updatedCount + '/' + a[1];
 }
