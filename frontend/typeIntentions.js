@@ -108,13 +108,17 @@ export async function handleKeydown(e, uuid, intentions) {
                 intentionsLog[date].push(intentionEntry);
             }
             storeIntentionsLogEntry(uuid, date, intention, timestamp);
-            update_intention_expression_display();
+            update_intention_expression_display(intention);
             
             setTimeout(typeNextIntention(intentions), 500); // Wait for 500ms before moving to the next intention
         }
     }
 }
 
-function update_intention_expression_display() {
-
+function update_intention_expression_display(intention) {
+    const id = intention.replace(/ /g, '-') + '-requiredRepetitionsText';
+    console.log(id);
+    const requiredRepetitionsTextElement = document.getElementById(id);
+    console.log(requiredRepetitionsTextElement);
+    console.log(requiredRepetitionsTextElement.innerText);
 }
