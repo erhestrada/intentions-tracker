@@ -11,8 +11,6 @@ export function typeIntentions(intentions) {
         const container = document.querySelector('.container');
         container.innerHTML = ''; // Clear previous content
         typeNextIntention(intentions);
-    } else {
-        console.log('this is the problem?');
     }
 }
 
