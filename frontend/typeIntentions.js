@@ -124,9 +124,15 @@ function update_intention_expression_display(intention) {
     requiredRepetitionsTextElement.innerText = updatedCount + '/' + a[1];
 
     const repetitionSymbol = '✅';
+    const requirementSymbol = '⬜';
+
     const squaresId = intention.replace(/ /g, '-') + '-repetitionSquares';
     const repetitionSquaresElement = document.getElementById(squaresId);
-    repetitionSquaresElement.innerText += repetitionSymbol;
 
+    if (!(repetitionSquaresElement.innerText.includes(requirementSymbol))) {
+        repetitionSquaresElement.innerText += repetitionSymbol
+    } else {
+        repetitionSquaresElement.innerText = repetitionSquaresElement.innerText.replace(requirementSymbol, repetitionSymbol);
+    }
 
 }
