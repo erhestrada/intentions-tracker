@@ -16,7 +16,8 @@ function typeNextIntention(intentions) {
     if (currentIntentionIndex < intentions.length) {
         typeIntention(intentions[currentIntentionIndex]);
     } else {
-        
+        const container = document.querySelector('.container');
+        container.innerHTML = '';
     }
 }
 
