@@ -5,10 +5,14 @@ let currentIndex = 0;
 let currentIntentionIndex = 0;
 
 export function typeIntentions(intentions) {
+    currentIntentionIndex = 0;
+    
     if (intentions.length > 0) {
         const container = document.querySelector('.container');
         container.innerHTML = ''; // Clear previous content
         typeNextIntention(intentions);
+    } else {
+        console.log('this is the problem?');
     }
 }
 
