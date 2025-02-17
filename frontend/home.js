@@ -97,6 +97,7 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
     requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + repetitions + ' repetitions';
 
     const repetitionSquaresElement = document.createElement('p');
+    repetitionSquaresElement.id = intention.replace(/ /g, '-') + '-repetitionSquares';
     //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
     repetitionSquaresElement.innerText = displayProgress(intention, repetitions, intentionsRepetitionsPerDate);
 
