@@ -16,7 +16,7 @@ function typeNextIntention(intentions) {
     if (currentIntentionIndex < intentions.length) {
         typeIntention(intentions[currentIntentionIndex]);
     } else {
-        alert('All intentions completed!');
+        
     }
 }
 
