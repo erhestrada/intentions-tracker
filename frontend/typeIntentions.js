@@ -123,7 +123,10 @@ function update_intention_expression_display(intention) {
     const updatedCount = Number(a[0]) + 1;
     requiredRepetitionsTextElement.innerText = updatedCount + '/' + a[1];
 
+    const repetitionSymbol = '✅';
     const squaresId = intention.replace(/ /g, '-') + '-repetitionSquares';
     const repetitionSquaresElement = document.getElementById(squaresId);
+    repetitionSquaresElement.innerText += repetitionSymbol;
+
 
 }
