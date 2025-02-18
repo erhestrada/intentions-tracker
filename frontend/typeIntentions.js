@@ -20,6 +20,9 @@ function typeNextIntention(intentions) {
     } else {
         const container = document.querySelector('.container');
         container.innerHTML = '';
+
+        const expressIntentionsButton = document.getElementById('express-intentions-button');
+        expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     }
 }
 
