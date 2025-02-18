@@ -336,7 +336,7 @@ expressIntentionsButton.addEventListener('click',  function() {
     if (expressIntentionsButton.clicked) {
         this.blur();
         typeIntentions(intentions);
-        expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
+        //expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     } else {
         const container = document.querySelector('.container');
         container.innerHTML = ''; // Clear previous content
