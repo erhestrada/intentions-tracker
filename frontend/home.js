@@ -354,6 +354,8 @@ form.addEventListener('submit', (e) => {
     storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
     document.getElementById('add-intention-input').value = ''; // clear input when intention added
+    document.getElementById('required-repetitions-input').value = ''; // clear input when intention added
+
     displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
