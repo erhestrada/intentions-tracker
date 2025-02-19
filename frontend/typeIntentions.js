@@ -4,8 +4,9 @@ import { storeIntentionsLogEntry } from "./storeIntentionsLogEntry";
 let currentIndex = 0;
 let currentIntentionIndex = 0;
 
-export function typeIntentions(intentions) {
+export function typeIntentions(requiredRepetitionsPerIntention) {
     currentIntentionIndex = 0;
+    const intentions = Object.keys(requiredRepetitionsPerIntention);
     
     if (intentions.length > 0) {
         const container = document.querySelector('.container');
