@@ -6,6 +6,7 @@ let currentIntentionIndex = 0;
 
 export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     currentIntentionIndex = 0;
+    const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
     const intentions = Object.keys(requiredRepetitionsPerIntention);
     
     if (intentions.length > 0) {
@@ -142,4 +143,18 @@ function update_intention_expression_display(intention) {
         repetitionSquaresElement.innerText = repetitionSquaresElement.innerText.replace(requirementSymbol, repetitionSymbol);
     }
 
+}
+
+function calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+    let intentionsRepetitionsToday;
+
+    const date = (new Date()).toLocaleDateString();
+
+    if (date in intentionsRepetitionsPerDate) {
+        intentionsRepetitionsToday = intentionsRepetitionsPerDate[date] || {};
+    } else {
+        intentionsRepetitionsToday = {};
+    }
+
+    console.log(intentionsRepetitionsToday);
 }
