@@ -325,7 +325,9 @@ document.addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
-    handleKeydown(e, uuid, intentions)
+    if (expressIntentionsButton.clicked) {
+        handleKeydown(e, uuid, intentions)
+    }
 });
 
 const expressIntentionsButton = document.getElementById('express-intentions-button');
