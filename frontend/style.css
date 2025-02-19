@@ -78,7 +78,6 @@ nav li {
     height: 100vh;                          /* Make container fill the height of the viewport */
     padding: 20px;                          /* Optional padding around the container */
     box-sizing: border-box;                 /* Include padding in width and height calculation */
-    overflow: hidden;                       /* Prevent scrolling */
 }
 
 .intention-boxes-container {
