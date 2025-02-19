@@ -322,7 +322,7 @@ console.log('il', intentionsLog);
 //const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 const intentions = Object.keys(requiredRepetitionsPerIntention);
 document.addEventListener('keydown', (e) => {
-    if (e.key === ' ') {
+    if (e.key === ' ' && document.activeElement !== document.getElementById('add-intention-input')) {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
     if (expressIntentionsButton.clicked) {
