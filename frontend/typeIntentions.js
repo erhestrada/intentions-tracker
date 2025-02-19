@@ -4,7 +4,7 @@ import { storeIntentionsLogEntry } from "./storeIntentionsLogEntry";
 let currentIndex = 0;
 let currentIntentionIndex = 0;
 
-export function typeIntentions(requiredRepetitionsPerIntention) {
+export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     currentIntentionIndex = 0;
     const intentions = Object.keys(requiredRepetitionsPerIntention);
     

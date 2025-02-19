@@ -337,7 +337,7 @@ expressIntentionsButton.addEventListener('click',  function() {
     
     if (expressIntentionsButton.clicked) {
         this.blur();
-        typeIntentions(requiredRepetitionsPerIntention);
+        typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
         //expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     } else {
         const container = document.querySelector('.container');
