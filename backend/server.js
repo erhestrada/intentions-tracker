@@ -135,6 +135,18 @@ app.get('/retrieveIntentionsLog', (req, res) => {
   });
 });
 
+app.delete('/removeIntentionFromIntentionsLog', (req, res) => {
+  const { uuid, intention } = req.body;
+
+  db.run('DELETE FROM intentions_log WHERE uuid = ? AND intention = ?', [uuid, intention], function(err) {
+    if (err) {
+      console.log('Error removing intention entries:', err.message);
+      return res.status(500).json({ error: 'Failed to remove data', details: err.message });
+    }
+    res.json({ message: 'Intention entries removed successfully', changes: this.changes });
+  });
+});
+
 // ----------------------------
 
 // required_repetitions_per_intention routes
