@@ -1,4 +1,4 @@
-export async function removeIntentionFromIntentionsLog() {
+export async function removeIntentionFromIntentionsLog(uuid, intention) {
     try {
         const response = await fetch('http://192.168.86.195:3000/removeIntentionFromIntentionsLog', {
             method: 'DELETE',
