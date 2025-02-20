@@ -315,9 +315,9 @@ function closePopUp() {
 const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
 //const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
-const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
 //console.log('il2', intentionsLog2);
-const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
 
 //const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
@@ -334,12 +334,14 @@ document.addEventListener('keydown', (e) => {
 });
 
 const expressIntentionsButton = document.getElementById('express-intentions-button');
-expressIntentionsButton.addEventListener('click',  function() {
+expressIntentionsButton.addEventListener('click',  async function() {
     expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     console.log(expressIntentionsButton.clicked);
     
     if (expressIntentionsButton.clicked) {
         this.blur();
+        let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+        let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
         typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
         //expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     } else {
