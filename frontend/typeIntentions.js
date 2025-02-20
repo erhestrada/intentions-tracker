@@ -157,4 +157,14 @@ function calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPe
     }
 
     console.log(intentionsRepetitionsToday);
+
+    let requiredRepetitionsRemainingPerIntention = {...requiredRepetitionsPerIntention};
+    Object.entries(intentionsRepetitionsToday).forEach(([intention, repetitionsDoneToday]) => {
+        const requiredRepetitionsForIntention = requiredRepetitionsPerIntention[intention];
+        remainingRepetitions = requiredRepetitionsForIntention - repetitionsDoneToday;
+        requiredRepetitionsRemainingPerIntention[intention] = remainingRepetitions;
+    });
+
+    console.log(requiredRepetitionsRemainingPerIntention)
+    return requiredRepetitionsRemainingPerIntention
 }
