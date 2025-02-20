@@ -8,6 +8,8 @@ export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepeti
     currentIntentionIndex = 0;
     const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
     const intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
+
+    console.log(intentionsWithRepetitionsRemaining);
     
     if (intentionsWithRepetitionsRemaining.length > 0) {
         const container = document.querySelector('.container');
@@ -18,6 +20,8 @@ export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepeti
 
 function typeNextIntention(intentions) {
     if (currentIntentionIndex < intentions.length) {
+        console.log(currentIntentionIndex);
+        console.log(intentions);
         typeIntention(intentions[currentIntentionIndex]);
     } else {
         const container = document.querySelector('.container');
@@ -145,7 +149,7 @@ function update_intention_expression_display(intention) {
 
 }
 
-function calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+export function calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let intentionsRepetitionsToday;
 
     const date = (new Date()).toLocaleDateString();

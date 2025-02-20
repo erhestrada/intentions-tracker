@@ -9,6 +9,7 @@ import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
+import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -326,7 +327,9 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
     if (expressIntentionsButton.clicked) {
-        handleKeydown(e, uuid, intentions)
+        const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
+        const intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
+        handleKeydown(e, uuid, intentionsWithRepetitionsRemaining)
     }
 });
 
