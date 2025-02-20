@@ -341,6 +341,7 @@ expressIntentionsButton.addEventListener('click',  async function() {
     if (expressIntentionsButton.clicked) {
         this.blur();
         let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+        console.log('intentions log', intentionsLog);
         let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
         typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
         //expressIntentionsButton.clicked = !expressIntentionsButton.clicked;

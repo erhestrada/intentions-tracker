@@ -165,10 +165,14 @@ export function calculateRequiredRepetitionsRemainingPerIntention(requiredRepeti
     let requiredRepetitionsRemainingPerIntention = {...requiredRepetitionsPerIntention};
     Object.entries(intentionsRepetitionsToday).forEach(([intention, repetitionsDoneToday]) => {
         const requiredRepetitionsForIntention = requiredRepetitionsPerIntention[intention];
-        const remainingRepetitions = requiredRepetitionsForIntention - repetitionsDoneToday;
-        requiredRepetitionsRemainingPerIntention[intention] = remainingRepetitions;
+
+        // handles the case where i expressed an intention then removed it
+        if (requiredRepetitionsForIntention) {
+            const remainingRepetitions = requiredRepetitionsForIntention - repetitionsDoneToday;
+            requiredRepetitionsRemainingPerIntention[intention] = remainingRepetitions;
+        }
     });
 
-    console.log(requiredRepetitionsRemainingPerIntention)
+    console.log('check', requiredRepetitionsRemainingPerIntention);
     return requiredRepetitionsRemainingPerIntention
 }
