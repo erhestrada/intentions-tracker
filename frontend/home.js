@@ -9,6 +9,7 @@ import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
+import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
@@ -154,6 +155,7 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
     removeIntentionBoxElement.style.display = 'none';
     removeIntentionBoxElement.addEventListener('click', () => {
         removeIntentionFromRequiredRepetitionsPerIntention(uuid, intention);
+        removeIntentionFromIntentionsLog(uuid, intention);
         intentionBox.remove();
     });
 
