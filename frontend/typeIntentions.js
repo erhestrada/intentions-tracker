@@ -9,7 +9,7 @@ export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepeti
     const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
     const intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
 
-    console.log(intentionsWithRepetitionsRemaining);
+    console.log('intentionsWithRepetitionsRemaining', intentionsWithRepetitionsRemaining);
     
     if (intentionsWithRepetitionsRemaining.length > 0) {
         const container = document.querySelector('.container');
@@ -20,8 +20,6 @@ export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepeti
 
 function typeNextIntention(intentions) {
     if (currentIntentionIndex < intentions.length) {
-        console.log(currentIntentionIndex);
-        console.log(intentions);
         typeIntention(intentions[currentIntentionIndex]);
     } else {
         const container = document.querySelector('.container');
@@ -107,8 +105,6 @@ export async function handleKeydown(e, uuid, intentions) {
             currentIntentionIndex++;
             const dateTime = new Date();
             const date = dateTime.toLocaleDateString();
-            console.log(date);
-            console.log(window.currentIntention);
             let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
             //let intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
             const intention = window.currentIntention;
@@ -129,7 +125,6 @@ export async function handleKeydown(e, uuid, intentions) {
 
 function update_intention_expression_display(intention) {
     const id = intention.replace(/ /g, '-') + '-requiredRepetitionsText';
-    console.log(id);
     const requiredRepetitionsTextElement = document.getElementById(id);
     const a = requiredRepetitionsTextElement.innerText.split('/');
     const updatedCount = Number(a[0]) + 1;
@@ -160,8 +155,6 @@ export function calculateRequiredRepetitionsRemainingPerIntention(requiredRepeti
         intentionsRepetitionsToday = {};
     }
 
-    console.log(intentionsRepetitionsToday);
-
     let requiredRepetitionsRemainingPerIntention = {...requiredRepetitionsPerIntention};
     Object.entries(intentionsRepetitionsToday).forEach(([intention, repetitionsDoneToday]) => {
         const requiredRepetitionsForIntention = requiredRepetitionsPerIntention[intention];
@@ -173,6 +166,6 @@ export function calculateRequiredRepetitionsRemainingPerIntention(requiredRepeti
         }
     });
 
-    console.log('check', requiredRepetitionsRemainingPerIntention);
+    console.log('requiredRepetitionsRemainingPerIntention', requiredRepetitionsRemainingPerIntention);
     return requiredRepetitionsRemainingPerIntention
 }
