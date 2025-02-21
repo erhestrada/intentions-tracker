@@ -2,7 +2,6 @@
 export async function retrieveAndFormatIntentionsLog(uuid) {
     const intentionsLogRows = await retrieveIntentionsLog(uuid);
     const intentionsLog = makeIntentionsLogFromRows(intentionsLogRows);
-    console.log('intentions log:', intentionsLog);
     return intentionsLog;
 }
   
