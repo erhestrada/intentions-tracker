@@ -19,6 +19,9 @@ export function typeIntentions(requiredRepetitionsPerIntention, intentionsRepeti
 }
 
 function typeNextIntention(intentions) {
+    console.log('currentIntentionIndex', currentIntentionIndex);
+    console.log('intentions.length', intentions.length);
+
     if (currentIntentionIndex < intentions.length) {
         typeIntention(intentions[currentIntentionIndex]);
     } else {

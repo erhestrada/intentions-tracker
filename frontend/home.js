@@ -323,15 +323,12 @@ console.log('il', intentionsLog);
 
 //const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
 const intentions = Object.keys(requiredRepetitionsPerIntention);
+let intentionsWithRepetitionsRemaining;
 document.addEventListener('keydown', async (e) => {
     if (e.key === ' ' && document.activeElement !== document.getElementById('add-intention-input')) {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
     if (expressIntentionsButton.clicked) {
-        let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
-        let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
-        const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
-        const intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
         console.log('call handleKeyDown');
         console.log('intentionsWithRepetitionsRemaining', intentionsWithRepetitionsRemaining);
         handleKeydown(e, uuid, intentionsWithRepetitionsRemaining)
@@ -342,6 +339,11 @@ const expressIntentionsButton = document.getElementById('express-intentions-butt
 expressIntentionsButton.addEventListener('click',  async function() {
     expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     console.log(expressIntentionsButton.clicked);
+
+    let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+    let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+    const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
+    intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
     
     if (expressIntentionsButton.clicked) {
         this.blur();
