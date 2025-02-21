@@ -88,7 +88,6 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
     
     const requiredRepetitionsTextElement = document.createElement('p');
     requiredRepetitionsTextElement.id = intention.replace(/ /g, '-') + '-requiredRepetitionsText';
-    console.log(requiredRepetitionsTextElement.id);
 
     let repetitionsOnDate;
     if (date in intentionsRepetitionsPerDate) {
@@ -333,6 +332,8 @@ document.addEventListener('keydown', async (e) => {
         let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
         const requiredRepetitionsRemainingPerIntention = calculateRequiredRepetitionsRemainingPerIntention(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate)
         const intentionsWithRepetitionsRemaining = Object.keys(requiredRepetitionsRemainingPerIntention).filter(intention => requiredRepetitionsRemainingPerIntention[intention] > 0);
+        console.log('call handleKeyDown');
+        console.log('intentionsWithRepetitionsRemaining', intentionsWithRepetitionsRemaining);
         handleKeydown(e, uuid, intentionsWithRepetitionsRemaining)
     }
 });
@@ -347,6 +348,7 @@ expressIntentionsButton.addEventListener('click',  async function() {
         let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
         console.log('intentions log', intentionsLog);
         let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+        console.log('call typeIntentions');
         typeIntentions(requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
         //expressIntentionsButton.clicked = !expressIntentionsButton.clicked;
     } else {
