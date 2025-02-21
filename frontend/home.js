@@ -31,8 +31,8 @@ const date = (new Date()).toLocaleDateString();
 const yesterdaysDate = getYesterdaysDate(date);
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
-    for (const [intention, repetitions] of Object.entries(requiredRepetitionsPerIntention)) {
-        displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
+    for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
+        displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -366,6 +366,7 @@ form.addEventListener('submit', (e) => {
     document.getElementById('add-intention-input').value = ''; // clear input when intention added
     document.getElementById('required-repetitions-input').value = ''; // clear input when intention added
 
+    // this shouldn't be requiredRepetitions this should be repetitionsOnDate (?) (actually don't think so)
     displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
