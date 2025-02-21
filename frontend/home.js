@@ -69,7 +69,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.appendChild(minusButtonElement);
 }
 
-function displayIntentionBox(intention, repetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
+function displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
     const intentionBox = document.createElement('div');
     intentionBox.className = 'intention-box';
     intentionBox.id = intention;
@@ -96,12 +96,12 @@ function displayIntentionBox(intention, repetitions, achievementStatuses, format
     } else {
         repetitionsOnDate = 0;
     }
-    requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + repetitions + ' repetitions';
+    requiredRepetitionsTextElement.innerText = repetitionsOnDate + '/' + requiredRepetitions + ' repetitions';
 
     const repetitionSquaresElement = document.createElement('p');
     repetitionSquaresElement.id = intention.replace(/ /g, '-') + '-repetitionSquares';
     //repetitionSquaresElement.innerText = '⬜'.repeat(repetitions);
-    repetitionSquaresElement.innerText = displayProgress(intention, repetitions, intentionsRepetitionsPerDate);
+    repetitionSquaresElement.innerText = displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate);
 
     const successTextElement = document.createElement('p');
     successTextElement.innerText = 'Achievement Status';
