@@ -18,7 +18,6 @@ export async function retrieveIntentionsLog(uuid) {
 // expected intentionsLog format
 // {date: [[intention, timestamp], ...]}
 function makeIntentionsLogFromRows(rows) {
-    console.log('rows', rows);
     const intentionsLog = rows.reduce((accumulator, row) => {
         const rowDate = row['date'];
         const rowIntention = row['intention'];
