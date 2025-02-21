@@ -359,7 +359,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const intention = document.getElementById('add-intention-input').value.trim();
-    const requiredRepetitions = document.getElementById('required-repetitions-input').value;
+    const requiredRepetitions = Number(document.getElementById('required-repetitions-input').value);
     requiredRepetitionsPerIntention[intention] = requiredRepetitions;
     storeRequiredRepetitionsForIntention(uuid, intention, requiredRepetitions);
 
