@@ -1,3 +1,5 @@
+import { retrieveUsers } from "./retrieveUsers"
+
 function getAndDisplayAllUsers() {
 
 }
