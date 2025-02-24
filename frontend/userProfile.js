@@ -11,7 +11,7 @@ import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitions
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
-import { getYesterdaysDate } from "./home";
+import { displayIntentionBoxes, getYesterdaysDate, makeIntentionsRepetitionsPerDateFromIntentionsLog } from "./displayIntentionBoxes";
 
 const urlParams = new URLSearchParams(window.location.search);
 const uuid = urlParams.get('uuid');
@@ -34,4 +34,4 @@ let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
 let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
 
-displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
+displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, streaks, date, yesterdaysDate, intentionBoxesContainer);
