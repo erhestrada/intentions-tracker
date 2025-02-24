@@ -12,9 +12,9 @@ import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeInte
 import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 
-export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, yesterdaysDate) {
+export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, streaks, date, yesterdaysDate, intentionBoxesContainer) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
-        displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
+        displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -51,7 +51,7 @@ export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntentio
     plusMinusBox.appendChild(minusButtonElement);
 }
 
-function displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
+function displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
     const intentionBox = document.createElement('div');
     intentionBox.className = 'intention-box';
     intentionBox.id = intention;
