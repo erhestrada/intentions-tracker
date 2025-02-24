@@ -10,7 +10,7 @@ async function getAndDisplayAllUsers() {
         userElement.className = 'clickable';
         userElement.style.display = 'block';
         userElement.style.marginBottom = "10px";
-        userElement.href = "userProfile.html";
+        userElement.href = `userProfile.html?uuid=${userData.uuid}`;
         userElement.innerText = userData.uuid;
         parentElement.appendChild(userElement);
     });
