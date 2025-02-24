@@ -10,6 +10,9 @@ async function getAndDisplayAllUsers() {
         userElement.className = 'clickable';
         userElement.style.display = 'block';
         userElement.style.marginBottom = "10px";
+        userElement.style.color = "inherit";
+        userElement.style.textDecoration = "none";
+        userElement.href = "progress.html";
         userElement.innerText = userData.uuid;
 
         userElement.addEventListener('click', () => {
