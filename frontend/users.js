@@ -10,6 +10,10 @@ async function getAndDisplayAllUsers() {
         const userElement = document.createElement('p');
         userElement.innerText = userData.uuid;
 
+        userElement.addEventListener('click', () => {
+            console.log('hello');
+        });
+
         parentElement.appendChild(userElement);
     });
 }
