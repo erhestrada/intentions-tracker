@@ -6,6 +6,7 @@ export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntentio
         displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
+    /*
     const plusMinusBox = document.createElement('div');
     plusMinusBox.className = 'intention-box';
     plusMinusBox.id = 'plus-minus-box';
@@ -38,6 +39,7 @@ export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntentio
     plusMinusBox.appendChild(plusMinusBoxLabel);
     plusMinusBox.appendChild(plusButtonElement);
     plusMinusBox.appendChild(minusButtonElement);
+    */
 }
 
 function displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
@@ -118,7 +120,6 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
             intentionBox.style.backgroundColor = '#E53935 ';
         }
     });        
-    */
 
     const removeIntentionBoxElement = document.createElement('button');
     removeIntentionBoxElement.className = 'remove-intention-button';
@@ -129,13 +130,16 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
         removeIntentionFromIntentionsLog(uuid, intention);
         intentionBox.remove();
     });
+    */
 
     if (initialize) {
         intentionBoxesContainer.appendChild(intentionBox);
     } else {
+        /*
         const plusMinusBox = document.querySelector('#plus-minus-box');
         const parent = plusMinusBox.parentNode;
         parent.insertBefore(intentionBox, plusMinusBox);
+        */
     }
 
     intentionBox.appendChild(intentionTextElement);
@@ -145,7 +149,7 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
     //intentionBox.appendChild(successButton);
     //intentionBox.appendChild(failureButton);
     intentionBox.appendChild(streakElement);
-    intentionBox.appendChild(removeIntentionBoxElement);
+    //intentionBox.appendChild(removeIntentionBoxElement);
 
 }
 
@@ -174,13 +178,7 @@ export function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog)
 function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
     const requirementSymbol = '⬜';
     const repetitionSymbol = '✅';
-    /*
-    let date = (new Date()).toLocaleDateString('en-US', {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit'
-      });
-    */
+
     const date = (new Date()).toLocaleDateString();
     let repetitionsOnDate;
     if (date in intentionsRepetitionsPerDate) {
