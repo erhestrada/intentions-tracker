@@ -79,13 +79,13 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
     const successTextElement = document.createElement('p');
     successTextElement.innerText = 'Achievement Status';
 
-    const successButton = document.createElement('button');
-    successButton.innerText = '✔️';
-
     const streakElement = document.createElement('p');
     let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
     streakElement.innerText = "Streak: " + streaksValue;
 
+    /*
+    const successButton = document.createElement('button');
+    successButton.innerText = '✔️';
     successButton.addEventListener('click', () => {
         //achievementStatus[date][intention] = true
         achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
@@ -121,6 +121,7 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
             intentionBox.style.backgroundColor = '#E53935 ';
         }
     });        
+    */
 
     const removeIntentionBoxElement = document.createElement('button');
     removeIntentionBoxElement.className = 'remove-intention-button';
@@ -144,8 +145,8 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
     intentionBox.appendChild(requiredRepetitionsTextElement);
     intentionBox.appendChild(repetitionSquaresElement);
     intentionBox.appendChild(successTextElement);
-    intentionBox.appendChild(successButton);
-    intentionBox.appendChild(failureButton);
+    //intentionBox.appendChild(successButton);
+    //intentionBox.appendChild(failureButton);
     intentionBox.appendChild(streakElement);
     intentionBox.appendChild(removeIntentionBoxElement);
 
