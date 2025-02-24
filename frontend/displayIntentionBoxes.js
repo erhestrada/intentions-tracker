@@ -12,7 +12,7 @@ import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeInte
 import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 
-async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, yesterdaysDate) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
@@ -159,8 +159,27 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
 
 }
 
+export function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
+    const intentionsRepetitionsPerDate = {};
+    for (const [date, intentionsAndDateTimes] of Object.entries(intentionsLog)) {
+        // just store intentionsExpressedOnDate in main.js in the first place
+        const intentionsExpressedOnDate = intentionsAndDateTimes.filter(intentionAndDateTime => {
+            const [intention, isoDateTime] = intentionAndDateTime;
+            const abc = new Date(isoDateTime);
+            if (abc.toLocaleDateString() === date) {
+                return true;
+            } 
+        }).map(element => element[0]);
+        
+        const intentionsRepetitionsOnDate = intentionsExpressedOnDate.reduce((acc, element) => {
+            acc[element] = (acc[element] || 0) + 1;
+            return acc;
+        }, {});
 
-
+        intentionsRepetitionsPerDate[date] = intentionsRepetitionsOnDate;
+    }
+    return intentionsRepetitionsPerDate;
+}
 
 function updateAchievementStatuses(uuid, achievementStatuses, date, intention, achievementStatus) {
     // Ensure the date is part of the object, creating it if necessary
