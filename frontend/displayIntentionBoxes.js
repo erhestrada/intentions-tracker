@@ -1,16 +1,8 @@
-import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
-import { typeIntentions, handleKeydown } from "./typeIntentions";
-import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
-import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
-import { retrieveAndFormatStreaks } from "./retrieveStreaks";
+
 import { storeAchievementStatus } from "./storeAchievementStatus";
 import { storeStreak } from "./storeStreak";
-import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
-import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitionsForIntention";
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
-import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 
 export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, streaks, date, yesterdaysDate, intentionBoxesContainer) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
@@ -32,7 +24,6 @@ export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntentio
     minusButtonElement.innerText = '-';
     minusButtonElement.addEventListener('click', () => {
         minusButtonElement.clicked = !minusButtonElement.clicked;
-        console.log(minusButtonElement.clicked);
 
         const removeIntentionButtons = document.querySelectorAll('.remove-intention-button');
 
@@ -41,9 +32,10 @@ export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntentio
         });
     });
 
-
     const closeButton = document.querySelector('.close');
-    closeButton.addEventListener('click', closePopUp);
+    if (closeButton) {
+        closeButton.addEventListener('click', closePopUp);
+    }
 
     intentionBoxesContainer.appendChild(plusMinusBox);
     plusMinusBox.appendChild(plusMinusBoxLabel);
@@ -181,6 +173,34 @@ export function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog)
     return intentionsRepetitionsPerDate;
 }
 
+function displayProgress(intention, requiredRepetitions, intentionsRepetitionsPerDate) {
+    const requirementSymbol = '⬜';
+    const repetitionSymbol = '✅';
+    /*
+    let date = (new Date()).toLocaleDateString('en-US', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    */
+    const date = (new Date()).toLocaleDateString();
+    let repetitionsOnDate;
+    if (date in intentionsRepetitionsPerDate) {
+        repetitionsOnDate = intentionsRepetitionsPerDate[date][intention] || 0;
+    } else {
+        repetitionsOnDate = 0;
+    }
+
+    let repetitionsLeftToDo = requiredRepetitions - repetitionsOnDate;
+    if (repetitionsLeftToDo < 0) {
+        repetitionsLeftToDo = 0;
+    }
+
+    // display all checkmarks
+    const innerText = intention + ' ' + repetitionSymbol.repeat(repetitionsOnDate) + requirementSymbol.repeat(repetitionsLeftToDo);
+    return innerText;
+}
+
 function updateAchievementStatuses(uuid, achievementStatuses, date, intention, achievementStatus) {
     // Ensure the date is part of the object, creating it if necessary
     if (!achievementStatuses[date]) {
@@ -231,8 +251,6 @@ function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
     }
     
     storeStreak(uuid, date, intention, streak);
-    //localStorage.setItem('streaks', JSON.stringify(streaks));
-    console.log('streaks', streaks);
     return streaks;
 }
 
