@@ -291,7 +291,7 @@ function undoStreakUpdate(uuid, streaks, date, intention) {
     return streaks
 }
 
-function getYesterdaysDate(dateStr) {
+export function getYesterdaysDate(dateStr) {
     // Create a Date object from the given date string (MM/DD/YYYY)
     const dateParts = dateStr.split('/');
     const date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Months are 0-based in JavaScript
