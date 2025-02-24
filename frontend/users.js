@@ -10,13 +10,8 @@ async function getAndDisplayAllUsers() {
         userElement.className = 'clickable';
         userElement.style.display = 'block';
         userElement.style.marginBottom = "10px";
-        userElement.href = "progress.html";
+        userElement.href = "userProfile.html";
         userElement.innerText = userData.uuid;
-
-        userElement.addEventListener('click', () => {
-            console.log('hello');
-        });
-
         parentElement.appendChild(userElement);
     });
 }
