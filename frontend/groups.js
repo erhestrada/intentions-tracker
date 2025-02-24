@@ -1,12 +1,8 @@
 import { retrieveUsers } from "./retrieveUsers";
-import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
-import { typeIntentions, handleKeydown } from "./typeIntentions";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
-import { storeAchievementStatus } from "./storeAchievementStatus";
-import { storeStreak } from "./storeStreak";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 
 export async function displayInformationForUsers() {
@@ -147,69 +143,6 @@ function makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog) {
         intentionsRepetitionsPerDate[date] = intentionsRepetitionsOnDate;
     }
     return intentionsRepetitionsPerDate;
-}
-
-function updateAchievementStatuses(uuid, achievementStatuses, date, intention, achievementStatus) {
-    // Ensure the date is part of the object, creating it if necessary
-    if (!achievementStatuses[date]) {
-        achievementStatuses[date] = {};
-    }
-    achievementStatuses[date][intention] = achievementStatus;
-    storeAchievementStatus(uuid, date, intention, achievementStatus);
-    
-    //localStorage.setItem('achievementStatuses', JSON.stringify(achievementStatuses));
-    return achievementStatuses
-}
-
-function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
-    const yesterdaysDate = getYesterdaysDate(date);
-    const achievementStatus = achievementStatuses[date][intention];
-
-    // if yesterday's date not in streaks, today's streak for the intention is at 0
-    if (!streaks[yesterdaysDate]) {
-        // if streaks[date] already initialized as an object, set streaks[date][intention] to 0
-        if (date in streaks) {
-            streaks[date][intention] = 0;
-        } else {
-            // initialize streaks[date] as an object with key intention and value 0
-            streaks[date] = {[intention]: 0};
-        }
-    }
-
-    // placeholder streak value of false
-    if (!(date in streaks)) {
-        streaks[date] = {[intention]: false};
-    } else {
-        if (!(intention in streaks[date])) {
-            streaks[date][intention] = false;
-        }
-    }
-
-    //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
-    let streak;
-    let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
-
-    if (achievementStatus === true) {
-        streak = yesterdaysStreakValue + 1
-        streaks[date][intention] = streak;
-    } else {
-        // streak resets to 0 if failed
-        streak = 0;
-        streaks[date][intention] = streak;
-    }
-    
-    storeStreak(uuid, date, intention, streak);
-    //localStorage.setItem('streaks', JSON.stringify(streaks));
-    return streaks;
-}
-
-function undoStreakUpdate(uuid, streaks, date, intention) {
-    const yesterdaysDate = getYesterdaysDate(date);
-    streaks[date][intention] = streaks?.[yesterdaysDate]?.[intention] ?? 0;
-    const streak = streaks?.[yesterdaysDate]?.[intention] ?? 0;
-    storeStreak(uuid, date, intention, streak);
-    //localStorage.setItem('streaks', JSON.stringify(streaks));
-    return streaks
 }
 
 function getYesterdaysDate(dateStr) {
