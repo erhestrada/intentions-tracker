@@ -141,3 +141,7 @@ nav li {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .clickable {
+    cursor: pointer;
+  }
