@@ -1,6 +1,3 @@
-import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
-import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
-
 export async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, achievementStatuses, formattedAchievementStatuses, streaks, date, yesterdaysDate, intentionBoxesContainer) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
@@ -209,12 +206,4 @@ export function getYesterdaysDate(dateStr) {
     const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
     return yesterday;
-}
-
-function openPopUp() {
-    document.getElementById('popup').style.display = 'block';
-}
-
-function closePopUp() {
-    document.getElementById('popup').style.display = 'none';
 }
