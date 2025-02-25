@@ -170,11 +170,13 @@ bondRequestButton.addEventListener('click', () => {
         bondRequestButton.innerText = 'Send Bond Request';
         intentionBoxes.forEach(intentionBox => {
             intentionBox.style.opacity = '0.5';
+            intentionBox.classList.add('clickable');
         });
     } else {
         bondRequestButton.innerText = 'Bond Request';
         intentionBoxes.forEach(intentionBox => {
             intentionBox.style.opacity = '1';
+            intentionBox.classList.remove('clickable');
         });
     }
 
