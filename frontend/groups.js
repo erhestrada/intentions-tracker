@@ -159,6 +159,8 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
+let count = 0;
+
 function setupBondRequestButton() {
     const bondRequestButton = document.getElementById('bond-request-button');
     bondRequestButton.clicked = false;
@@ -190,11 +192,14 @@ function handleIntentionBoxClick(event) {
     event.currentTarget.clicked = !event.currentTarget.clicked;
     if (event.currentTarget.clicked) {
         event.currentTarget.style.opacity = '1';
+        const intention = event.currentTarget.querySelector('p').innerText;
+        console.log(intention);
     } else {
         event.currentTarget.style.opacity = '0.5';
     }
+    count++;
+    console.log(count);
 }
-
 
 setupBondRequestButton();
 displayInformationForUsers();
