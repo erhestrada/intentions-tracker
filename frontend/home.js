@@ -156,6 +156,9 @@ function displayIntentionBox(intention, requiredRepetitions, achievementStatuses
         removeIntentionFromRequiredRepetitionsPerIntention(uuid, intention);
         removeIntentionFromIntentionsLog(uuid, intention);
         intentionBox.remove();
+
+        delete requiredRepetitionsPerIntention[intention];
+        // delete intentinos log entries here too? might not be necessary
     });
 
     if (initialize) {
@@ -313,11 +316,9 @@ function closePopUp() {
     document.getElementById('popup').style.display = 'none';
 }
 
-const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
+let requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
-//const intentionsLog = JSON.parse(localStorage.getItem('intentionsLog')) || {};
 let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
-//console.log('il2', intentionsLog2);
 let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
 
