@@ -172,6 +172,7 @@ function setupBondRequestButton() {
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '0.5';
                 intentionBox.classList.add('clickable');
+                intentionBox.clicked = false;
                 intentionBox.addEventListener('click', handleIntentionBoxClick);
             });
         } else {
@@ -186,7 +187,12 @@ function setupBondRequestButton() {
 }
 
 function handleIntentionBoxClick(event) {
-    event.target.style.opacity = '1';
+    event.target.clicked = !event.target.clicked;
+    if (event.target.clicked) {
+        event.target.style.opacity = '1';
+    } else {
+        event.target.style.opacity = '0.5';
+    }
 }
 
 
