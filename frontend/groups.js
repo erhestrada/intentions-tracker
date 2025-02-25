@@ -172,16 +172,23 @@ function setupBondRequestButton() {
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '0.5';
                 intentionBox.classList.add('clickable');
+                intentionBox.addEventListener('click', handleIntentionBoxClick);
             });
         } else {
             bondRequestButton.innerText = 'Bond Request';
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '1';
                 intentionBox.classList.remove('clickable');
+                intentionBox.removeEventListener('click', handleIntentionBoxClick)
             });
         }
     });
 }
+
+function handleIntentionBoxClick() {
+    console.log('hi');
+}
+
 
 setupBondRequestButton();
 displayInformationForUsers();
