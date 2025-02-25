@@ -163,13 +163,23 @@ const bondRequestButton = document.getElementById('bond-request-button');
 bondRequestButton.clicked = false;
 bondRequestButton.addEventListener('click', () => {
     bondRequestButton.clicked = !bondRequestButton.clicked;
-    console.log(bondRequestButton.clicked);
+
+    const intentionBoxes = document.querySelectorAll('.intention-box');
 
     if (bondRequestButton.clicked) {
         bondRequestButton.innerText = 'Send Bond Request';
+        intentionBoxes.forEach(intentionBox => {
+            intentionBox.style.opacity = '0.5';
+        });
     } else {
         bondRequestButton.innerText = 'Bond Request';
+        intentionBoxes.forEach(intentionBox => {
+            intentionBox.style.opacity = '1';
+        });
     }
+
+
+
 
 });
 
