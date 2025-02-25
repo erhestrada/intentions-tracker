@@ -187,11 +187,11 @@ function setupBondRequestButton() {
 }
 
 function handleIntentionBoxClick(event) {
-    event.target.clicked = !event.target.clicked;
-    if (event.target.clicked) {
-        event.target.style.opacity = '1';
+    event.currentTarget.clicked = !event.currentTarget.clicked;
+    if (event.currentTarget.clicked) {
+        event.currentTarget.style.opacity = '1';
     } else {
-        event.target.style.opacity = '0.5';
+        event.currentTarget.style.opacity = '0.5';
     }
 }
 
