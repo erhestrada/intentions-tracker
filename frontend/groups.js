@@ -159,5 +159,18 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
+const bondRequestButton = document.getElementById('bond-request-button');
+bondRequestButton.clicked = false;
+bondRequestButton.addEventListener('click', () => {
+    bondRequestButton.clicked = !bondRequestButton.clicked;
+    console.log(bondRequestButton.clicked);
+
+    if (bondRequestButton.clicked) {
+        bondRequestButton.innerText = 'Send Bond Request';
+    } else {
+        bondRequestButton.innerText = 'Bond Request';
+    }
+
+});
 
 displayInformationForUsers();
