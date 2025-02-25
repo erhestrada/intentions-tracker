@@ -159,30 +159,29 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-const bondRequestButton = document.getElementById('bond-request-button');
-bondRequestButton.clicked = false;
-bondRequestButton.addEventListener('click', () => {
-    bondRequestButton.clicked = !bondRequestButton.clicked;
+function setupBondRequestButton() {
+    const bondRequestButton = document.getElementById('bond-request-button');
+    bondRequestButton.clicked = false;
+    bondRequestButton.addEventListener('click', () => {
+        bondRequestButton.clicked = !bondRequestButton.clicked;
+    
+        const intentionBoxes = document.querySelectorAll('.intention-box');
+    
+        if (bondRequestButton.clicked) {
+            bondRequestButton.innerText = 'Send Bond Request';
+            intentionBoxes.forEach(intentionBox => {
+                intentionBox.style.opacity = '0.5';
+                intentionBox.classList.add('clickable');
+            });
+        } else {
+            bondRequestButton.innerText = 'Bond Request';
+            intentionBoxes.forEach(intentionBox => {
+                intentionBox.style.opacity = '1';
+                intentionBox.classList.remove('clickable');
+            });
+        }
+    });
+}
 
-    const intentionBoxes = document.querySelectorAll('.intention-box');
-
-    if (bondRequestButton.clicked) {
-        bondRequestButton.innerText = 'Send Bond Request';
-        intentionBoxes.forEach(intentionBox => {
-            intentionBox.style.opacity = '0.5';
-            intentionBox.classList.add('clickable');
-        });
-    } else {
-        bondRequestButton.innerText = 'Bond Request';
-        intentionBoxes.forEach(intentionBox => {
-            intentionBox.style.opacity = '1';
-            intentionBox.classList.remove('clickable');
-        });
-    }
-
-
-
-
-});
-
+setupBondRequestButton();
 displayInformationForUsers();
