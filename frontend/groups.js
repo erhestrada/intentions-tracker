@@ -159,7 +159,7 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-let count = 0;
+let bondedIntentions = [];
 
 function setupBondRequestButton() {
     const bondRequestButton = document.getElementById('bond-request-button');
@@ -170,6 +170,8 @@ function setupBondRequestButton() {
         const intentionBoxes = document.querySelectorAll('.intention-box');
     
         if (bondRequestButton.clicked) {
+            // reset bondedIntentions
+            bondedIntentions = [];
             bondRequestButton.innerText = 'Send Bond Request';
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '0.5';
@@ -190,15 +192,16 @@ function setupBondRequestButton() {
 
 function handleIntentionBoxClick(event) {
     event.currentTarget.clicked = !event.currentTarget.clicked;
+    const intention = event.currentTarget.querySelector('p').innerText;
+
     if (event.currentTarget.clicked) {
         event.currentTarget.style.opacity = '1';
-        const intention = event.currentTarget.querySelector('p').innerText;
-        console.log(intention);
+        bondedIntentions.push(intention);
+        console.log(bondedIntentions);
     } else {
         event.currentTarget.style.opacity = '0.5';
+        bondedIntentions = bondedIntentions.filter(element => element != intention);
     }
-    count++;
-    console.log(count);
 }
 
 setupBondRequestButton();
