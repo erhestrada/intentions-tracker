@@ -185,8 +185,8 @@ function setupBondRequestButton() {
     });
 }
 
-function handleIntentionBoxClick() {
-    console.log('hi');
+function handleIntentionBoxClick(event) {
+    event.target.style.opacity = '1';
 }
 
 
