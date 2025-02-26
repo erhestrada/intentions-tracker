@@ -164,7 +164,7 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-let bondedIntentions = [];
+let bondedIntentions = {};
 
 function setupBondRequestButton() {
     const bondRequestButton = document.getElementById('bond-request-button');
@@ -176,7 +176,7 @@ function setupBondRequestButton() {
     
         if (bondRequestButton.clicked) {
             // reset bondedIntentions
-            bondedIntentions = [];
+            bondedIntentions = {};
             bondRequestButton.innerText = 'Send Bond Request';
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '0.5';
@@ -205,11 +205,20 @@ function handleIntentionBoxClick(event) {
 
     if (event.currentTarget.clicked) {
         event.currentTarget.style.opacity = '1';
-        bondedIntentions.push(intention);
+        //bondedIntentions.push(intention);
+        updateBrain(event.currentTarget.uuid, intention, bondedIntentions);
         console.log(bondedIntentions);
     } else {
         event.currentTarget.style.opacity = '0.5';
         bondedIntentions = bondedIntentions.filter(element => element != intention);
+    }
+}
+
+function updateBrain(genus, species, brain) {
+    if (!(genus in brain)) {
+        brain[genus] = [species];
+    } else {
+        brain[genus].push(species)
     }
 }
 
