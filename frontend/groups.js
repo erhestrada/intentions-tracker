@@ -4,6 +4,7 @@ import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
+import { sendBondRequest } from "./sendBondRequest";
 
 export async function displayInformationForUsers() {
     const users = (await retrieveUsers()).map(obj => obj.uuid);
@@ -180,7 +181,9 @@ function setupBondRequestButton() {
                 intentionBox.addEventListener('click', handleIntentionBoxClick);
             });
         } else {
-            alert('bond request sent');
+            sendBondRequest(uuid, bondedIntentions);
+            alert(bondedIntentions);
+            //alert('bond request sent', bondedIntentions);
             bondRequestButton.innerText = 'Bond Request';
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '1';
