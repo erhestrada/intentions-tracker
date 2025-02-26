@@ -13,6 +13,10 @@ nav li {
     margin-right: 2rem;
 }
 
+nav ul li:last-child {
+    margin-left: auto;  /* Push the last item (Inbox) to the right */
+}
+
 .container {
     width: 50%;
     margin: 40px auto;
