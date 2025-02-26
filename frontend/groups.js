@@ -186,7 +186,7 @@ function setupBondRequestButton() {
             });
         } else {
             sendBondRequest(uuid, bondedIntentions);
-            alert(bondedIntentions);
+            alert(JSON.stringify(bondedIntentions));
             //alert('bond request sent', bondedIntentions);
             bondRequestButton.innerText = 'Bond Request';
             intentionBoxes.forEach(intentionBox => {
@@ -210,7 +210,7 @@ function handleIntentionBoxClick(event) {
         console.log(bondedIntentions);
     } else {
         event.currentTarget.style.opacity = '0.5';
-        bondedIntentions = bondedIntentions.filter(element => element != intention);
+        bondedIntentions[event.currentTarget.uuid] = bondedIntentions[event.currentTarget.uuid].filter(element => element != intention);
     }
 }
 
