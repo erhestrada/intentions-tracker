@@ -186,7 +186,7 @@ function setupBondRequestButton() {
             });
         } else {
             sendBondRequest(uuid, bondedIntentions);
-            alert(JSON.stringify(bondedIntentions));
+            //alert(JSON.stringify(bondedIntentions));
             //alert('bond request sent', bondedIntentions);
             bondRequestButton.innerText = 'Bond Request';
             intentionBoxes.forEach(intentionBox => {
