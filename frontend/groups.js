@@ -1,3 +1,4 @@
+import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsers } from "./retrieveUsers";
 import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
@@ -5,6 +6,8 @@ import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { sendBondRequest } from "./sendBondRequest";
+
+const uuid = getOrCreateUniqueId();
 
 export async function displayInformationForUsers() {
     const users = (await retrieveUsers()).map(obj => obj.uuid);
