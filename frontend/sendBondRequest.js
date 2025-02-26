@@ -1,3 +1,3 @@
-export function sendBondRequest() {
-    
+export function sendBondRequest(senderId, bondedIntentions) {
+
 }
