@@ -180,6 +180,7 @@ function setupBondRequestButton() {
                 intentionBox.addEventListener('click', handleIntentionBoxClick);
             });
         } else {
+            alert('bond request sent');
             bondRequestButton.innerText = 'Bond Request';
             intentionBoxes.forEach(intentionBox => {
                 intentionBox.style.opacity = '1';
