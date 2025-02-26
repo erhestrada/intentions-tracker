@@ -48,6 +48,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         const intentionBox = document.createElement('div');
         intentionBox.className = 'intention-box';
         intentionBox.id = intention;
+        intentionBox.uuid = uuid;
 
         const intentionTextElement = document.createElement('p');
         intentionTextElement.innerText = intention;
@@ -197,6 +198,7 @@ function setupBondRequestButton() {
 function handleIntentionBoxClick(event) {
     event.currentTarget.clicked = !event.currentTarget.clicked;
     const intention = event.currentTarget.querySelector('p').innerText;
+    console.log(event.currentTarget.uuid);
 
     if (event.currentTarget.clicked) {
         event.currentTarget.style.opacity = '1';
