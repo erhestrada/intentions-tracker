@@ -288,7 +288,7 @@ app.get('/retrieveChatHistory', (req, res) => {
 // ---------------------
 
 app.post('/storeBondRequest', (req, res) => {
-  res.send('POST request received');
+  res.send({'message': 'POST request received'});
 });
 
 /*
