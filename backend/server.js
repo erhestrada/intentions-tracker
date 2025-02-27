@@ -288,6 +288,12 @@ app.get('/retrieveChatHistory', (req, res) => {
 // ---------------------
 
 app.post('/storeBondRequest', (req, res) => {
+  //console.log('request body', req.body);
+  const { senderId, receiverId, bondedIntentions, acceptanceStatus } = req.body;
+  console.log(senderId);
+  console.log(receiverId);
+  console.log(bondedIntentions);
+  console.log(acceptanceStatus);
   res.send({'message': 'POST request received'});
 });
 
