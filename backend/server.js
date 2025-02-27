@@ -287,6 +287,24 @@ app.get('/retrieveChatHistory', (req, res) => {
 
 // ---------------------
 
+app.post('/storeBondRequest', (req, res) => {
+  res.send('POST request received');
+});
+
+/*
+app.post('/storeChatMessage', (req, res) => {
+  const { uuid, chatMessage } = req.body;
+  
+  db.run('INSERT INTO chat_history (uuid, chat_message) VALUES (?, ?)', [uuid, chatMessage], function (err) {
+    if (err) {
+      console.log('Error storing intention and repetitions:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+    }
+    res.json({ message: 'Data stored successfully', id: this.lastID });
+  });
+});
+*/
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
