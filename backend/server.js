@@ -297,7 +297,7 @@ app.post('/storeBondRequest', (req, res) => {
 
   const bondedIntentionsJson = JSON.stringify(bondedIntentions);
 
-  db.run('INSERT INTO bond_requests (senderId, receiverId, bondedIntentions, acceptanceStatus) VALUES (?, ?, ?, ?)', [senderId, receiverId, bondedIntentionsJson, acceptanceStatus], function (err) {
+  db.run('INSERT OR IGNORE INTO bond_requests (senderId, receiverId, bondedIntentions, acceptanceStatus) VALUES (?, ?, ?, ?)', [senderId, receiverId, bondedIntentionsJson, acceptanceStatus], function (err) {
     if (err) {
       console.log('Error storing bond request:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store data', details: err.message });
