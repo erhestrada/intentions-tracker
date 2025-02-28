@@ -294,7 +294,14 @@ app.post('/storeBondRequest', (req, res) => {
   console.log(receiverId);
   console.log(bondedIntentions);
   console.log(acceptanceStatus);
-  res.send({'message': 'POST request received'});
+
+  db.run('INSERT INTO bond_requests (senderId, receiverId, bondedIntentions, acceptanceStatus) VALUES (?, ?, ?, ?)', [senderId, receiverId, bondedIntentions, acceptanceStatus], function (err) {
+    if (err) {
+      console.log('Error storing bond request:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+    }
+    res.json({ message: 'Bond request stored successfully', id: this.lastID });
+  });
 });
 
 /*
