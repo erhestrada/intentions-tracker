@@ -1,7 +1,8 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 
-function retrieveAndDisplayBondRequestsForUser(uuid) {
-    const bondRequests = retrieveBondRequestsForUser(uuid);
+async function retrieveAndDisplayBondRequestsForUser(uuid) {
+    const bondRequests = await retrieveBondRequestsForUser(uuid);
+    console.log(bondRequests);
 
 }
 
