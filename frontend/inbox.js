@@ -4,6 +4,10 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
     console.log(bondRequests);
 
+    bondRequests.forEach((element) => {
+        console.log(element);
+    })
+
 }
 
 async function retrieveBondRequestsForUser(uuid) {
