@@ -87,7 +87,7 @@ db.run(`
 });
 */
 
-//db.run('DELETE FROM required_repetitions_per_intention'); // Deletes all rows
+//db.run('DELETE FROM bond_requests'); // Deletes all rows
 
 // users routes
 app.post('/storeUser', (req, res) => {
