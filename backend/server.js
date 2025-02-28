@@ -302,14 +302,11 @@ app.post('/storeBondRequest', (req, res) => {
 });
 
 app.get('/retrieveBondRequestsForUser', (req, res) => {
-  console.log('endpoint hit');
-});
+  const { uuid } = req.query;
 
-
-app.get('/retrieveChatHistory', (req, res) => {
-  db.all('SELECT * FROM chat_history', [], (err, rows) => {
+  db.all('SELECT * FROM bond_requests WHERE receiver_id = ?', [uuid], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to retrieve data' });
+      return res.status(500).json({ error: 'Failed to retrieve data'});
     }
     res.json(rows);
   });
