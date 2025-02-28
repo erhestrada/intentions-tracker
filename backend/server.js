@@ -36,6 +36,7 @@ db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGE
 db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER, UNIQUE (uuid, date, action) )');
 db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, streak INTEGER, UNIQUE (uuid, date, action))');
 db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, chat_message TEXT)');
+db.run('CREATE TABLE IF NOT EXISTS bond_requests (id INTEGER PRIMARY KEY, receiver_id TEXT, sender_id TEXT, bonded_intentions TEXT, acceptance_status TEXT)');
 
 /*
 // Step 1: Create the new table with the UNIQUE constraint
