@@ -1,4 +1,7 @@
-function retrieveAndDisplayBondRequestsForUser() {
+import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
+
+function retrieveAndDisplayBondRequestsForUser(uuid) {
+    const bondRequests = retrieveBondRequestsForUser(uuid);
 
 }
 
@@ -11,3 +14,6 @@ async function retrieveBondRequestsForUser(uuid) {
         console.error('Error retrieving data:', error);
     }
 }
+
+const uuid = getOrCreateUniqueId();
+retrieveAndDisplayBondRequestsForUser(uuid);
