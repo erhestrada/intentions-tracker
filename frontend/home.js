@@ -11,6 +11,7 @@ import { storeRequiredRepetitionsForIntention } from "./storeRequiredRepetitions
 import { removeIntentionFromRequiredRepetitionsPerIntention } from "./removeIntentionFromRequiredRepetitionsPerIntention";
 import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntentionsLog";
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
+import { setupLogInButton } from "./setupLogInButton";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -377,5 +378,5 @@ form.addEventListener('submit', (e) => {
     displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
-//const requiredRepetitionsPerIntention = [{id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}, {id: 1, intention: 'x', repetitions: 1}]
+setupLogInButton();
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
