@@ -288,16 +288,10 @@ app.get('/retrieveChatHistory', (req, res) => {
 // ---------------------
 
 app.post('/storeBondRequest', (req, res) => {
-  //console.log('request body', req.body);
   const { senderId, receiverId, bondedIntentions, acceptanceStatus } = req.body;
-  console.log(senderId);
-  console.log(receiverId);
-  console.log(bondedIntentions);
-  console.log(acceptanceStatus);
-
   const bondedIntentionsJson = JSON.stringify(bondedIntentions);
 
-  db.run('INSERT OR IGNORE INTO bond_requests (senderId, receiverId, bondedIntentions, acceptanceStatus) VALUES (?, ?, ?, ?)', [senderId, receiverId, bondedIntentionsJson, acceptanceStatus], function (err) {
+  db.run('INSERT OR IGNORE INTO bond_requests (receiverId, senderId, bondedIntentions, acceptanceStatus) VALUES (?, ?, ?, ?)', [senderId, receiverId, bondedIntentionsJson, acceptanceStatus], function (err) {
     if (err) {
       console.log('Error storing bond request:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store data', details: err.message });
@@ -306,19 +300,7 @@ app.post('/storeBondRequest', (req, res) => {
   });
 });
 
-/*
-app.post('/storeChatMessage', (req, res) => {
-  const { uuid, chatMessage } = req.body;
-  
-  db.run('INSERT INTO chat_history (uuid, chat_message) VALUES (?, ?)', [uuid, chatMessage], function (err) {
-    if (err) {
-      console.log('Error storing intention and repetitions:', err.message); // Log the specific error message
-      return res.status(500).json({ error: 'Failed to store data', details: err.message });
-    }
-    res.json({ message: 'Data stored successfully', id: this.lastID });
-  });
-});
-*/
+// ---------------------
 
 // Start server
 app.listen(port, () => {
