@@ -2,15 +2,11 @@ import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
-    console.log(bondRequests);
 
     const bondRequestsContainer = document.getElementById('inbox-container');
     
-    bondRequests.forEach((element) => {
-        console.log(element);
-
-        const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = element;
-        console.log(receiverId);
+    bondRequests.forEach((bondRequest) => {
+        const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
 
         const bondRequestContainer = document.createElement('p');
         bondRequestContainer.innerText = `receiver: ${receiverId} | sender: ${senderId} | bond: ${bondedIntentionsJson} | acceptance status: ${acceptanceStatus}`;
