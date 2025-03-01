@@ -14,7 +14,7 @@ async function setUsername(username) {
         const response = fetch('http://192.168.86.195:3000/storeUsername', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: { username }
+            body: JSON.stringify({ username })
         });
         const result = await response.json();
         console.log('Username Stored', result);
