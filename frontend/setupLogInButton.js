@@ -11,7 +11,7 @@ export function setupLogInButton() {
 // need api function and api for setting username
 async function setUsername(username) {
     try {
-        const response = fetch('http://192.168.86.195:3000/storeUsername', {
+        const response = await fetch('http://192.168.86.195:3000/storeUsername', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ username })

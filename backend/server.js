@@ -110,7 +110,16 @@ app.get('/retrieveUsers', (req, res) => {
   });
 });
 
-// ----------------------------
+// ---------------------
+
+app.post('/storeUsername', (req, res) => {
+  const { username } = req.body;
+  console.log(username);
+  res.json({'username': 'username'});
+});
+
+
+// ---------------------
 
 app.post('/storeIntentionsLogEntry', (req, res) => {
   const { uuid, date, intention, timestamp } = req.body;
