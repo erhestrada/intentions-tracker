@@ -127,12 +127,12 @@ app.post('/storeUsername', (req, res) => {
 
 app.get('/retrieveUsername', (req, res) => {
   const { uuid } = req.body;  
-  db.get('SELECT * FROM usernames WHERE uuid = ?', [uuid], function(err) {
+  db.get('SELECT * FROM usernames WHERE uuid = ?', [uuid], function(err, row) {
     if (err) {
       console.log('Error retrieving username:', err.message);
       return res.status(500).json({ error: 'Failed to retrieve data', details: err.message });
     }
-    res.json({'message': 'username retrieved successfully'});
+    res.json(row);
   });
 });
 
