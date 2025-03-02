@@ -114,10 +114,14 @@ app.get('/retrieveUsers', (req, res) => {
 // ---------------------
 
 app.post('/storeUsername', (req, res) => {
-  const { username } = req.body;
-  console.log(username);
-  db.run('INSERT INTO usernames (')
-  res.json({'username': 'username'});
+  const { uuid, username } = req.body;
+  db.run('INSERT INTO usernames (uuid, username) VALUES (?, ?', [uuid, username], function(err) {
+    if (err) {
+      console.log('Error storing bond request:', err.message);
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+    }
+    res.json({'message': `username: ${username} stored successfully`});
+  });
 });
 
 
