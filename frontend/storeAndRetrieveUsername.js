@@ -17,11 +17,6 @@ export async function storeUsername(uuid, username) {
 export async function retrieveUsername(uuid) {
     try {
         const response = await fetch(`http://192.168.86.195:3000/retrieveUsername?uuid=${encodeURIComponent(uuid)}`);
-        console.log('response', response);
-
-        const rawText = await response.text(); // Get the raw response text
-        console.log(rawText); // Log it for debugging
-
         const data = await response.json();
         return data
     } catch(error) {
