@@ -16,17 +16,10 @@ export async function storeUsername(uuid, username) {
 
 export async function retrieveUsername(uuid) {
     try {
-        const response = await fetch('http://192.168.86.195:3000/retrieveUsername', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ uuid })
-        });
-
+        const response = await fetch(`http://192.168.86.195:3000/retrieveUsername?uuid=${encodeURIComponent(uuid)}`);
         const data = await response.json();
-        return data;
-    } catch (error) {
+        return data
+    } catch(error) {
         console.error("Error retrieving username", error);
     }
 }
