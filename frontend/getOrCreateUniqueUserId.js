@@ -7,7 +7,6 @@ export function getOrCreateUniqueId() {
       localStorage.setItem('uniqueId', uuid);
       storeUser(uuid);
     }
-    console.log('user id: ', uuid);
     return uuid;
   }
 
