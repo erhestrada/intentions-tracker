@@ -116,7 +116,7 @@ app.get('/retrieveUsers', (req, res) => {
 app.post('/storeUsername', (req, res) => {
   const { username } = req.body;
   console.log(username);
-  //db.run('INSERT INTO usernames (')
+  db.run('INSERT INTO usernames (')
   res.json({'username': 'username'});
 });
 
