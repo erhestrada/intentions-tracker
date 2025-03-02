@@ -3,7 +3,7 @@ export function setupLogInButton() {
 
     logInButton.addEventListener('click', async () => {
         const username = document.getElementById('username-input').value.trim();
-        setUsername(username);
+        setUsername(uuid, username);
         console.log(username);
     });
 }
