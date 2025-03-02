@@ -31,6 +31,7 @@ db.run('DELETE FROM users WHERE uuid = ?', ['37ddb973-131d-45c7-b814-c930b6d5cd6
 */
 
 db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL)');
+db.run('CREATE TABLE IF NOT EXISTS usernames (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, username TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS intentions_log (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, intention TEXT, timestamp TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS required_repetitions_per_intention (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, intention TEXT, repetitions INTEGER)');
 db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, achievement_status INTEGER, UNIQUE (uuid, date, action) )');
@@ -115,6 +116,7 @@ app.get('/retrieveUsers', (req, res) => {
 app.post('/storeUsername', (req, res) => {
   const { username } = req.body;
   console.log(username);
+  //db.run('INSERT INTO usernames (')
   res.json({'username': 'username'});
 });
 
