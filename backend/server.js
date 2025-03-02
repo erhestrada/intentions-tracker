@@ -132,7 +132,7 @@ app.get('/retrieveUsername', (req, res) => {
       console.log('Error retrieving username:', err.message);
       return res.status(500).json({ error: 'Failed to retrieve data', details: err.message });
     }
-    res.json({'message': `username: ${username} retrieved successfully`});
+    res.json({'message': 'username retrieved successfully'});
   });
 });
 
