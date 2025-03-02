@@ -118,15 +118,22 @@ app.post('/storeUsername', (req, res) => {
   const { uuid, username } = req.body;
   db.run('INSERT OR IGNORE INTO usernames (uuid, username) VALUES (?, ?)', [uuid, username], function(err) {
     if (err) {
-      console.log('Error storing bond request:', err.message);
-      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+      console.log('Error storing username:', err.message);
+      return res.status(500).json({ error: 'Failed to store username', details: err.message });
     }
     res.json({'message': `username: ${username} stored successfully`});
   });
 });
 
 app.get('/retrieveUsername', (req, res) => {
-  console.log('hello');
+  const { uuid } = req.body;  
+  db.get('SELECT * FROM usernames WHERE uuid = ?', [uuid], function(err) {
+    if (err) {
+      console.log('Error retrieving username:', err.message);
+      return res.status(500).json({ error: 'Failed to retrieve data', details: err.message });
+    }
+    res.json({'message': `username: ${username} retrieved successfully`});
+  });
 });
 
 // ---------------------
