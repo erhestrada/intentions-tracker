@@ -378,5 +378,5 @@ form.addEventListener('submit', (e) => {
     displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
-setupLogInButton();
+setupLogInButton(uuid);
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
