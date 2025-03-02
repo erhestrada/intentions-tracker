@@ -89,6 +89,7 @@ db.run(`
 */
 
 //db.run('DELETE FROM bond_requests'); // Deletes all rows
+//db.run('DELETE FROM usernames WHERE id = ?', [2] );
 
 // users routes
 app.post('/storeUser', (req, res) => {
