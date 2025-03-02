@@ -125,6 +125,9 @@ app.post('/storeUsername', (req, res) => {
   });
 });
 
+app.get('/retrieveUsername', (req, res) => {
+  console.log('hello');
+});
 
 // ---------------------
 
