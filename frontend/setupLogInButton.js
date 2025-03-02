@@ -1,4 +1,4 @@
-export function setupLogInButton() {
+export function setupLogInButton(uuid) {
     const logInButton = document.getElementById('log-in-button');
 
     logInButton.addEventListener('click', async () => {
