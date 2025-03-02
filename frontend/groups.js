@@ -6,6 +6,7 @@ import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { sendBondRequest } from "./sendBondRequest";
+import { retrieveUsername } from "./storeAndRetrieveUsername";
 
 const uuid = getOrCreateUniqueId();
 
@@ -15,7 +16,8 @@ export async function displayInformationForUsers() {
 }
 
 export async function displayInformationForUser(uuid) {
-    console.log(uuid);
+    const username = await retrieveUsername(uuid);
+    console.log('HELLO', uuid, username);
     const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
     const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
     const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
@@ -25,7 +27,6 @@ export async function displayInformationForUser(uuid) {
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
-    console.log('formatted as', formattedAchievementStatuses);
 
     let streaks = await retrieveAndFormatStreaks(uuid);
 
@@ -201,13 +202,11 @@ function setupBondRequestButton() {
 function handleIntentionBoxClick(event) {
     event.currentTarget.clicked = !event.currentTarget.clicked;
     const intention = event.currentTarget.querySelector('p').innerText;
-    console.log(event.currentTarget.uuid);
 
     if (event.currentTarget.clicked) {
         event.currentTarget.style.opacity = '1';
         //bondedIntentions.push(intention);
         updateBrain(event.currentTarget.uuid, intention, bondedIntentions);
-        console.log(bondedIntentions);
     } else {
         event.currentTarget.style.opacity = '0.5';
         bondedIntentions[event.currentTarget.uuid] = bondedIntentions[event.currentTarget.uuid].filter(element => element != intention);
