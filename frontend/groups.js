@@ -16,9 +16,6 @@ export async function displayInformationForUsers() {
 }
 
 export async function displayInformationForUser(uuid) {
-    console.log('uuid', uuid);
-    const username = await retrieveUsername(uuid);
-    console.log('username', username);
     const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
     const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
     const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
@@ -26,6 +23,8 @@ export async function displayInformationForUser(uuid) {
 }
 
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+    const username = await retrieveUsername(uuid);
+
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
 
@@ -38,7 +37,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     intentionBoxesContainer.className = 'intention-boxes-container';
 
     const usernameElement = document.createElement('p');
-    usernameElement.innerText = 'username';
+    usernameElement.innerText = username;
     
     masterContainer.appendChild(usernameElement);
     masterContainer.appendChild(intentionBoxesContainer);
