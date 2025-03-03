@@ -1,4 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
+import { retrieveUsername } from "./storeAndRetrieveUsername";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
@@ -7,8 +8,12 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
 
     for (const bondRequest of bondRequests) {
         const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
+
+        const receiverUsername = await retrieveUsername(receiverId);
+        const senderUsername = await retrieveUsername(senderId);
+
         const bondRequestContainer = document.createElement('p');
-        bondRequestContainer.innerText = `receiver: ${receiverId} | sender: ${senderId} | bond: ${bondedIntentionsJson} | acceptance status: ${acceptanceStatus}`;
+        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsJson} | acceptance status: ${acceptanceStatus}`;
 
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
