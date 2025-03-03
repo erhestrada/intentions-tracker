@@ -12,8 +12,20 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const receiverUsername = await retrieveUsername(receiverId);
         const senderUsername = await retrieveUsername(senderId);
 
+        const bondedIntentions = JSON.parse(bondedIntentionsJson);
+        
+        
+        const bondedIntentionsByUsername = {};
+
+        for (const [userId, userIntentions] of Object.entries(bondedIntentions)) {
+            const username = await retrieveUsername(userId);
+            bondedIntentionsByUsername[username] = userIntentions;
+        }
+
+        const bondedIntentionsByUsernameJson = JSON.stringify(bondedIntentionsByUsername);
+
         const bondRequestContainer = document.createElement('p');
-        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsJson} | acceptance status: ${acceptanceStatus}`;
+        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson} | acceptance status: ${acceptanceStatus}`;
 
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
