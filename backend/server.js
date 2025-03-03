@@ -141,6 +141,19 @@ app.get('/retrieveUsername', (req, res) => {
 
 // ---------------------
 
+app.get('/retrieveAcceptanceStatuses', (req, res) => {
+  const { bondedIntentionsJson } = req.query;
+
+  db.all('SELECT * FROM bond_requests WHERE bonded_intentions = ?', [bondedIntentionsJson], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve data' });
+    }
+    res.json(rows);
+  });
+});
+
+// ---------------------
+
 app.post('/storeIntentionsLogEntry', (req, res) => {
   const { uuid, date, intention, timestamp } = req.body;
   
