@@ -18,7 +18,8 @@ export async function retrieveUsername(uuid) {
     try {
         const response = await fetch(`http://192.168.86.195:3000/retrieveUsername?uuid=${encodeURIComponent(uuid)}`);
         const data = await response.json();
-        return data
+        const username = data.username;
+        return username
     } catch(error) {
         console.error("Error retrieving username", error);
     }
