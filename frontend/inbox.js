@@ -4,17 +4,14 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
 
     const bondRequestsContainer = document.getElementById('inbox-container');
-    
-    bondRequests.forEach((bondRequest) => {
-        const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
 
+    for (const bondRequest of bondRequests) {
+        const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
         const bondRequestContainer = document.createElement('p');
         bondRequestContainer.innerText = `receiver: ${receiverId} | sender: ${senderId} | bond: ${bondedIntentionsJson} | acceptance status: ${acceptanceStatus}`;
 
         bondRequestsContainer.appendChild(bondRequestContainer);
-
-    })
-
+    }
 }
 
 async function retrieveBondRequestsForUser(uuid) {
