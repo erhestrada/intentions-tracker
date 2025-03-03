@@ -1,5 +1,6 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
+import { retrieveAcceptanceStatuses } from "./retrieveAcceptanceStatuses";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
@@ -13,6 +14,8 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const senderUsername = await retrieveUsername(senderId);
 
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson);
+        const acceptanceStatuses = await retrieveAcceptanceStatuses(bondedIntentionsJson);
+        console.log(acceptanceStatuses);
 
         const bondRequestContainer = document.createElement('p');
         bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson} | acceptance status: ${acceptanceStatus}`;
