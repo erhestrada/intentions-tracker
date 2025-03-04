@@ -353,6 +353,10 @@ app.post('/storeBondRequest', (req, res) => {
   });
 });
 
+app.post('/updateBondRequest', (req, res) => {
+  console.log('update bond request');
+});
+
 app.get('/retrieveBondRequestsForUser', (req, res) => {
   const { uuid } = req.query;
 
