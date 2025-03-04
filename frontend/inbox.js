@@ -14,10 +14,19 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const senderUsername = await retrieveUsername(senderId);
 
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson);
-        const acceptanceStatusPerReceiverId = getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
+        const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
+        console.log(acceptanceStatusPerReceiverId);
 
         const bondRequestContainer = document.createElement('p');
-        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson} | acceptance status: ${acceptanceStatus}`;
+        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
+
+        const bondedIntentions = JSON.parse(bondedIntentionsJson);
+
+        for (const [userId, userIntentions] of Object.entries(bondedIntentions)) {
+            const username = await retrieveUsername(userId);
+            const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
+            bondRequestContainer.innerText += ` | ${username}: ${acceptanceStatus}`
+        }
 
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
@@ -37,7 +46,6 @@ async function convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson) {
     return bondedIntentionsByUsernameJson;
 }
 
-// wnat {receiverId: acceptanceStatus}
 async function getAcceptanceStatusPerReceiverId(bondedIntentionsJson) {
     const bondedIntentionRows = await retrieveAcceptanceStatuses(bondedIntentionsJson);
 
