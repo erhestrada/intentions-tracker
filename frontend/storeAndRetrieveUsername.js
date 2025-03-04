@@ -30,12 +30,13 @@ export async function retrieveUsernames() {
         const response = await fetch(`http://192.168.86.195:3000/retrieveUsernames`);
         const usernameRows = await response.json();
 
-        const usernamePerId = usernameRows.filter((accumulator, row) => {
+        const usernamePerId = usernameRows.reduce((accumulator, row) => {
             const uuid = row.uuid;
             const username = row.username;
             accumulator[uuid] = username;
+            return accumulator
         }, {});
-        
+
         return usernamePerId;
 
     } catch(error) {
