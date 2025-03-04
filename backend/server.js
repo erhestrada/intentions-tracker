@@ -139,6 +139,16 @@ app.get('/retrieveUsername', (req, res) => {
   });
 });
 
+app.get('/retrieveUsernames', (req, res) => {
+  db.all('SELECT * FROM usernames', [], function(err, rows) {
+    if (err) {
+      console.log('Error retrieving usernames:', err.message);
+      return res.status(500).json({ error: 'Failed to retrieve data', details: err.message });
+    }
+    res.json(rows);
+  });
+});
+
 // ---------------------
 
 app.get('/retrieveAcceptanceStatuses', (req, res) => {
