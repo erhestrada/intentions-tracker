@@ -32,6 +32,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
             acceptButton.style.marginLeft = '10px';
+            setupAcceptButton(acceptButton);
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
@@ -42,6 +43,16 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
 
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
+}
+
+function setupAcceptButton(button) {
+    button.addEventListener('click', () => {
+        console.log('yo');
+    });
+}
+
+function setupDeclineButton() {
+
 }
 
 async function convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId) {
