@@ -17,7 +17,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
         const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
 
-        const bondRequestElement = document.createElement('p');
+        let bondRequestElement = document.createElement('p');
         bondRequestElement.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
 
         const bondedIntentions = JSON.parse(bondedIntentionsJson);
@@ -32,7 +32,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
             acceptButton.style.marginLeft = '10px';
-            setupAcceptButton(acceptButton);
+            setupAcceptButton(acceptButton, bondRequestElement);
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
@@ -45,11 +45,13 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     }
 }
 
-function setupAcceptButton(button) {
+function setupAcceptButton(button, bondRequestElement) {
     button.addEventListener('click', () => {
-        // 1 change display to 'accepted'
+        bondRequestElement.innerHTML = bondRequestElement.innerHTML.replace('pending', 'accepted');
+        const buttons = bondRequestElement.querySelectorAll('button');
+        buttons.forEach(button => button.remove());     
+
         // 2 update acceptance status in backend
-        console.log('yo');
     });
 }
 
