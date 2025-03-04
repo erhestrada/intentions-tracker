@@ -12,7 +12,6 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     for (const bondRequest of bondRequests) {
         const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
 
-        const receiverUsername = usernamePerId[receiverId];
         const senderUsername = usernamePerId[senderId];
 
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
