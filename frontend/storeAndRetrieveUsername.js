@@ -24,3 +24,13 @@ export async function retrieveUsername(uuid) {
         console.error("Error retrieving username", error);
     }
 }
+
+export async function retrieveUsernames() {
+    try {
+        const response = await fetch(`http://192.168.86.195:3000/retrieveUsernames`);
+        const data = await response.json();
+        return data
+    } catch(error) {
+        console.error("Error retrieving usernames", error);
+    }    
+}
