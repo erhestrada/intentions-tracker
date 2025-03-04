@@ -28,6 +28,17 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             bondRequestContainer.innerText += ` | ${username}: ${acceptanceStatus}`
         });
 
+        if (acceptanceStatus === 'pending') {
+            const acceptButton = document.createElement('button');
+            acceptButton.innerText = 'accept';
+
+            const declineButton = document.createElement('button');
+            declineButton.innerText = 'decline';
+            
+            bondRequestContainer.appendChild(acceptButton);
+            bondRequestContainer.appendChild(declineButton);
+        }
+
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
 }
