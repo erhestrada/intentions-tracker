@@ -1,11 +1,14 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveUsername } from "./storeAndRetrieveUsername";
+import { retrieveUsername, retrieveUsernames } from "./storeAndRetrieveUsername";
 import { retrieveAcceptanceStatuses } from "./retrieveAcceptanceStatuses";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
 
     const bondRequestsContainer = document.getElementById('inbox-container');
+
+    const usernamePerId = await retrieveUsernames();
+    console.log('usernamePerId', usernamePerId);
 
     for (const bondRequest of bondRequests) {
         const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
