@@ -19,7 +19,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
 
         const bondRequestContainer = document.createElement('p');
-        bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
+        bondRequestContainer.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
 
         const bondedIntentions = JSON.parse(bondedIntentionsJson);
 
