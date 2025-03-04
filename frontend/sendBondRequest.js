@@ -21,6 +21,6 @@ async function storeBondRequest(senderId, receiverId, bondedIntentions, acceptan
       }
 }
 
-export async function updateBondRequest() {
+export async function updateBondRequest(receiverId, bondedIntentionsJson, updatedStatus) {
 
 }
