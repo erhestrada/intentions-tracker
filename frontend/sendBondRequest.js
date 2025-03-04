@@ -22,5 +22,16 @@ async function storeBondRequest(senderId, receiverId, bondedIntentions, acceptan
 }
 
 export async function updateBondRequest(receiverId, bondedIntentionsJson, updatedStatus) {
-
+    try {
+        const response = await fetch('http://192.168.86.195:3000/updateBondRequest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ receiverId, bondedIntentionsJson, updatedStatus })
+        });
+          const result = await response.json();
+          console.log('Data Stored:', result);
+    
+      } catch (error) {
+          console.error('Error storing data:', error);
+      }
 }
