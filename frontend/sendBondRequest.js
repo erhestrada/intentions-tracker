@@ -20,3 +20,7 @@ async function storeBondRequest(senderId, receiverId, bondedIntentions, acceptan
           console.error('Error storing data:', error);
       }
 }
+
+async function updateBondRequest() {
+    
+}
