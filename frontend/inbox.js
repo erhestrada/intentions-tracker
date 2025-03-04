@@ -1,5 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveUsername, retrieveUsernames } from "./storeAndRetrieveUsername";
+import { retrieveUsernames } from "./storeAndRetrieveUsername";
 import { retrieveAcceptanceStatuses } from "./retrieveAcceptanceStatuses";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
@@ -13,10 +13,10 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     for (const bondRequest of bondRequests) {
         const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
 
-        const receiverUsername = await retrieveUsername(receiverId);
-        const senderUsername = await retrieveUsername(senderId);
+        const receiverUsername = usernamePerId[receiverId];
+        const senderUsername = usernamePerId[senderId];
 
-        const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson);
+        const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
         const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
         console.log(acceptanceStatusPerReceiverId);
 
@@ -26,7 +26,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const bondedIntentions = JSON.parse(bondedIntentionsJson);
 
         for (const [userId, userIntentions] of Object.entries(bondedIntentions)) {
-            const username = await retrieveUsername(userId);
+            const username = usernamePerId[userId];
             const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
             bondRequestContainer.innerText += ` | ${username}: ${acceptanceStatus}`
         }
@@ -35,12 +35,12 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     }
 }
 
-async function convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson) {
+async function convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId) {
     const bondedIntentions = JSON.parse(bondedIntentionsJson);
     const bondedIntentionsByUsername = {};
 
     for (const [userId, userIntentions] of Object.entries(bondedIntentions)) {
-        const username = await retrieveUsername(userId);
+        const username = usernamePerId[userId];
         bondedIntentionsByUsername[username] = userIntentions;
     }
 
