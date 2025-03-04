@@ -31,6 +31,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         if (acceptanceStatus === 'pending') {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
+            acceptButton.style.marginLeft = '10px';
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
