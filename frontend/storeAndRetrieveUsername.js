@@ -28,8 +28,16 @@ export async function retrieveUsername(uuid) {
 export async function retrieveUsernames() {
     try {
         const response = await fetch(`http://192.168.86.195:3000/retrieveUsernames`);
-        const data = await response.json();
-        return data
+        const usernameRows = await response.json();
+
+        const usernamePerId = usernameRows.filter((accumulator, row) => {
+            const uuid = row.uuid;
+            const username = row.username;
+            accumulator[uuid] = username;
+        }, {});
+        
+        return usernamePerId;
+
     } catch(error) {
         console.error("Error retrieving usernames", error);
     }    
