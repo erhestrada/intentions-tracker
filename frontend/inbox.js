@@ -8,7 +8,6 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequestsContainer = document.getElementById('inbox-container');
 
     const usernamePerId = await retrieveUsernames();
-    console.log('usernamePerId', usernamePerId);
 
     for (const bondRequest of bondRequests) {
         const {receiver_id: receiverId, sender_id: senderId, bonded_intentions: bondedIntentionsJson, acceptance_status: acceptanceStatus} = bondRequest;
@@ -18,18 +17,17 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
 
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
         const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
-        console.log(acceptanceStatusPerReceiverId);
 
         const bondRequestContainer = document.createElement('p');
         bondRequestContainer.innerText = `receiver: ${receiverUsername} | sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
 
         const bondedIntentions = JSON.parse(bondedIntentionsJson);
 
-        for (const [userId, userIntentions] of Object.entries(bondedIntentions)) {
+        Object.keys(bondedIntentions).forEach(userId => {
             const username = usernamePerId[userId];
             const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
             bondRequestContainer.innerText += ` | ${username}: ${acceptanceStatus}`
-        }
+        });
 
         bondRequestsContainer.appendChild(bondRequestContainer);
     }
