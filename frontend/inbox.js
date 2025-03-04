@@ -17,15 +17,15 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
         const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
 
-        const bondRequestContainer = document.createElement('p');
-        bondRequestContainer.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
+        const bondRequestElement = document.createElement('p');
+        bondRequestElement.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
 
         const bondedIntentions = JSON.parse(bondedIntentionsJson);
 
         Object.keys(bondedIntentions).forEach(userId => {
             const username = usernamePerId[userId];
             const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
-            bondRequestContainer.innerText += ` | ${username}: ${acceptanceStatus}`
+            bondRequestElement.innerText += ` | ${username}: ${acceptanceStatus}`
         });
 
         if (acceptanceStatus === 'pending') {
@@ -37,16 +37,18 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
             
-            bondRequestContainer.appendChild(acceptButton);
-            bondRequestContainer.appendChild(declineButton);
+            bondRequestElement.appendChild(acceptButton);
+            bondRequestElement.appendChild(declineButton);
         }
 
-        bondRequestsContainer.appendChild(bondRequestContainer);
+        bondRequestsContainer.appendChild(bondRequestElement);
     }
 }
 
 function setupAcceptButton(button) {
     button.addEventListener('click', () => {
+        // 1 change display to 'accepted'
+        // 2 update acceptance status in backend
         console.log('yo');
     });
 }
