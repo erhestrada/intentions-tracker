@@ -37,7 +37,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
-            setupStatusButton(declineButton, 'declined', bondRequestElement);
+            setupStatusButton(declineButton, bondRequestElement, receiverId, bondedIntentionsJson, 'declined');
             
             bondRequestElement.appendChild(acceptButton);
             bondRequestElement.appendChild(declineButton);
@@ -47,12 +47,12 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     }
 }
 
-function setupStatusButton(button, status, bondRequestElement) {
+function setupStatusButton(button, bondRequestElement, receiverId, bondedIntentionsJson, updatedStatus) {
     button.addEventListener('click', () => {
-        bondRequestElement.innerHTML = bondRequestElement.innerHTML.replace('pending', status);
+        bondRequestElement.innerHTML = bondRequestElement.innerHTML.replace('pending', updatedStatus);
         const buttons = bondRequestElement.querySelectorAll('button');
         buttons.forEach(button => button.remove());     
-        updateBondRequest();
+        updateBondRequest(receiverId, bondedIntentionsJson, updatedStatus);
     });
 }
 
