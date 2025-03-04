@@ -1,6 +1,7 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsernames } from "./storeAndRetrieveUsername";
 import { retrieveAcceptanceStatuses } from "./retrieveAcceptanceStatuses";
+import { updateBondRequest } from "./sendBondRequest";
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
@@ -51,8 +52,7 @@ function setupStatusButton(button, status, bondRequestElement) {
         bondRequestElement.innerHTML = bondRequestElement.innerHTML.replace('pending', status);
         const buttons = bondRequestElement.querySelectorAll('button');
         buttons.forEach(button => button.remove());     
-
-        // 2 update acceptance status in backend
+        updateBondRequest();
     });
 }
 
