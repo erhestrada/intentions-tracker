@@ -21,6 +21,6 @@ async function storeBondRequest(senderId, receiverId, bondedIntentions, acceptan
       }
 }
 
-async function updateBondRequest() {
-    
+export async function updateBondRequest() {
+
 }
