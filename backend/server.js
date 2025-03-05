@@ -354,7 +354,8 @@ app.post('/storeBondRequest', (req, res) => {
 });
 
 app.post('/updateBondRequest', (req, res) => {
-  console.log('update bond request');
+  const { receiverId, bondedIntentionsJson, updatedStatus } = req.body;
+  console.log(receiverId, bondedIntentionsJson, updatedStatus);
 });
 
 app.get('/retrieveBondRequestsForUser', (req, res) => {
