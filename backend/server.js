@@ -356,6 +356,23 @@ app.post('/storeBondRequest', (req, res) => {
 app.post('/updateBondRequest', (req, res) => {
   const { receiverId, bondedIntentionsJson, updatedStatus } = req.body;
   console.log(receiverId, bondedIntentionsJson, updatedStatus);
+
+  db.run(
+    'UPDATE bond_requests SET acceptance_status = ? WHERE receiver_id = ? AND bonded_intentions = ?',[updatedStatus, receiverId, bondedIntentionsJson], function (err) {
+      if (err) {
+        console.log('Error updating bond request:', err.message);
+        return res.status(500).json({ error: 'Failed to update bond request', details: err.message });
+      }
+
+      // Check if any rows were updated
+      if (this.changes === 0) {
+        // No rows were updated (meaning no matching record was found)
+        return res.status(404).json({ error: 'Bond request not found or no changes made' });
+      }
+
+      res.json({ message: 'Bond request updated successfully' });
+    }
+  );
 });
 
 app.get('/retrieveBondRequestsForUser', (req, res) => {
