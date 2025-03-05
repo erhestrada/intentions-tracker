@@ -65,3 +65,8 @@ export function getYesterdaysDate(dateStr) {
     
     return yesterday;
 }
+
+function getBondedIntentions(intention) {
+    // only +1 streak if every achievementStatus is True, else reset to 0
+
+}
