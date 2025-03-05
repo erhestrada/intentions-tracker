@@ -33,7 +33,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
             acceptButton.style.marginLeft = '10px';
-            setupStatusButton(acceptButton, 'accepted', bondRequestElement);
+            setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted');
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
