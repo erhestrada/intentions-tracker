@@ -2,6 +2,11 @@ import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsernames } from "./storeAndRetrieveUsername";
 import { retrieveAcceptanceStatuses } from "./retrieveAcceptanceStatuses";
 import { updateBondRequest } from "./sendBondRequest";
+import { storeBondedIntentions } from "./storeAndRetrieveBondedIntentions";
+
+// if acceptanceStatusPerReceiverId.values() all accepted
+// store bondedIntention
+
 
 async function retrieveAndDisplayBondRequestsForUser(uuid) {
     const bondRequests = await retrieveBondRequestsForUser(uuid);
@@ -16,7 +21,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const senderUsername = usernamePerId[senderId];
 
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
-        const acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
+        let acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
 
         let bondRequestElement = document.createElement('p');
         bondRequestElement.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
@@ -33,11 +38,11 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
             acceptButton.style.marginLeft = '10px';
-            setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted');
+            setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted', acceptanceStatusPerReceiverId);
 
             const declineButton = document.createElement('button');
             declineButton.innerText = 'decline';
-            setupStatusButton(declineButton, bondRequestElement, receiverId, bondedIntentionsJson, 'declined');
+            setupStatusButton(declineButton, bondRequestElement, receiverId, bondedIntentionsJson, 'declined', acceptanceStatusPerReceiverId);
             
             bondRequestElement.appendChild(acceptButton);
             bondRequestElement.appendChild(declineButton);
@@ -47,12 +52,18 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
     }
 }
 
-function setupStatusButton(button, bondRequestElement, receiverId, bondedIntentionsJson, updatedStatus) {
+function setupStatusButton(button, bondRequestElement, receiverId, bondedIntentionsJson, updatedStatus, acceptanceStatusPerReceiverId) {
     button.addEventListener('click', () => {
         bondRequestElement.innerHTML = bondRequestElement.innerHTML.replace('pending', updatedStatus);
         const buttons = bondRequestElement.querySelectorAll('button');
         buttons.forEach(button => button.remove());     
         updateBondRequest(receiverId, bondedIntentionsJson, updatedStatus);
+
+        if (updatedStatus === 'accepted') {
+            acceptanceStatusPerReceiverId[receiverId] = 'accepted';
+        } else {
+            acceptanceStatusPerReceiverId[receiverId] = 'declined';
+        }
     });
 }
 
