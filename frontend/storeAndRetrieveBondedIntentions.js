@@ -1,13 +1,22 @@
 // table userId column, intention column, bonded_intentions column
 export async function storeBondedIntentions(receiverId, bondedIntentionsJson) {
-    
+    try {
+        const response = await fetch('http://192.168.86.195:3000/storeBondedIntentions', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ receiverId, bondedIntentionsJson })
+        });
+        const result = await response.json();
+        console.log('Bonded intentions stored', result);
+
+    } catch(error) {
+        console.error("Error storing bonded intentions: ", error);
+    }
 }
 
 export async function retrieveBondedIntentions() {
 
 }
-
-
 
 // input: intention
 // output: intention it's bonded to
