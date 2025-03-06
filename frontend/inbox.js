@@ -38,6 +38,7 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
             const acceptButton = document.createElement('button');
             acceptButton.innerText = 'accept';
             acceptButton.style.marginLeft = '10px';
+            console.log(acceptanceStatusPerReceiverId);
             setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted', acceptanceStatusPerReceiverId);
 
             const declineButton = document.createElement('button');
@@ -61,6 +62,12 @@ function setupStatusButton(button, bondRequestElement, receiverId, bondedIntenti
 
         if (updatedStatus === 'accepted') {
             acceptanceStatusPerReceiverId[receiverId] = 'accepted';
+
+            const allAccepted = Object.values(acceptanceStatusPerReceiverId).every(value => value === 'accepted');
+            if (allAccepted) {
+                storeBondedIntentions(receiverId, bondedIntentionsJson);
+            }
+
         } else {
             acceptanceStatusPerReceiverId[receiverId] = 'declined';
         }
