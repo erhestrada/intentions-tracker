@@ -387,6 +387,24 @@ app.get('/retrieveBondRequestsForUser', (req, res) => {
 });
 
 // ---------------------
+app.post('/storeBondedIntentions', (req, res) => {
+  const { receiverId, bondedIntentionsJson } = req.body;
+  console.log(receiverId);
+  console.log(bondedIntentionsJson);
+
+  /*
+  db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
+    if (err) {
+      console.log('Error storing bond request:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+    }
+    res.json({ message: 'Bond request stored successfully', id: this.lastID });
+  });
+  */
+});
+
+// ---------------------
+
 
 // Start server
 app.listen(port, () => {
