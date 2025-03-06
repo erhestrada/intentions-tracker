@@ -1,6 +1,6 @@
 // table userId column, intention column, bonded_intentions column
-export async function storeBondedIntentions() {
-
+export async function storeBondedIntentions(receiverId, bondedIntentionsJson) {
+    
 }
 
 export async function retrieveBondedIntentions() {
