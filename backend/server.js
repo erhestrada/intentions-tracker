@@ -392,6 +392,8 @@ app.post('/storeBondedIntentions', (req, res) => {
   console.log(receiverId);
   console.log(bondedIntentionsJson);
 
+  const bondedIntentions = JSON.parse(bondedIntentionsJson);
+
   /*
   db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
     if (err) {
