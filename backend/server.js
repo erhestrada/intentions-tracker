@@ -392,9 +392,15 @@ app.post('/storeBondedIntentions', (req, res) => {
   console.log(receiverId);
   console.log(bondedIntentionsJson);
 
-  const bondedIntentions = JSON.parse(bondedIntentionsJson);
-  for (const [key, value] of Object.entries(bondedIntentions)) {
-
+  // {"1f85000f-ecc6-4c10-97bd-f2a5dd8adeff":["ten wall presses"],"59a75576-4ef2-48b4-9aa9-89d44bfc00db":["weigh self"]}
+  // make a list of user-intention pairs
+  // make a dictionary with (user,intention): [(user, intention), (user, intention),...]
+  const bondedIntentions = JSON.parse(bondedIntentionsJson); // intentionsPerUser
+  let userIntentionPairs = [];
+  for (const [user, intentions] of Object.entries(bondedIntentions)) {
+    for (const intention of intentions) {
+      userIntentionPairs.push([user, intention]);
+    }
   }
 
   /*
