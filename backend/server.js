@@ -38,6 +38,7 @@ db.run('CREATE TABLE IF NOT EXISTS achievement_statuses (id INTEGER PRIMARY KEY,
 db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, date TEXT, action TEXT, streak INTEGER, UNIQUE (uuid, date, action))');
 db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, chat_message TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bond_requests (id INTEGER PRIMARY KEY, receiver_id TEXT, sender_id TEXT, bonded_intentions TEXT, acceptance_status TEXT)');
+db.run('CREATE TABLE IF NOT EXISTS bonds_per_user_intention (id INTEGER PRIMARY KEY, user_id TEXT, intention TEXT, bonded_intentions TEXT)');
 
 /*
 // Step 1: Create the new table with the UNIQUE constraint
@@ -414,6 +415,10 @@ app.post('/storeBondedIntentions', (req, res) => {
     }
   
     bondsPerUserIntention.get(key).push([user, intention]);
+  }
+
+  for (const [user ,intention] of bondsPerUserIntention) {
+
   }
   /*
   db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
