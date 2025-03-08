@@ -396,6 +396,7 @@ app.post('/storeBondedIntentions', (req, res) => {
   // make a list of user-intention pairs
   // make a dictionary with (user,intention): [(user, intention), (user, intention),...]
   const bondedIntentions = JSON.parse(bondedIntentionsJson); // intentionsPerUser
+  
   let userIntentionPairs = [];
   for (const [user, intentions] of Object.entries(bondedIntentions)) {
     for (const intention of intentions) {
@@ -403,6 +404,17 @@ app.post('/storeBondedIntentions', (req, res) => {
     }
   }
 
+  let bondsPerUserIntention = new Map();
+
+  for (const [user, intention] of userIntentionPairs) {
+    const key = [user, intention];
+  
+    if (!bondsPerUserIntention.has(key)) {
+      bondsPerUserIntention.set(key, []);
+    }
+  
+    bondsPerUserIntention.get(key).push([user, intention]);
+  }
   /*
   db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
     if (err) {
