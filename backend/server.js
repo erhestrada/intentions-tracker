@@ -412,7 +412,7 @@ app.post('/storeBondedIntentions', (req, res) => {
     bondsPerUserIntention[key] = bonds;
   }
 
-  for (const [key, bondedIntentions] of bondsPerUserIntention) {
+  for (const [key, bondedIntentions] of Object.entries(bondsPerUserIntention)) {
     const [userId, intention] = JSON.parse(key);
 
     //const key = [userId, intention];
