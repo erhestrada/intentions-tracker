@@ -415,11 +415,8 @@ app.post('/storeBondedIntentions', (req, res) => {
   for (const [key, bondedIntentions] of Object.entries(bondsPerUserIntention)) {
     const [userId, intention] = JSON.parse(key);
 
-    //const key = [userId, intention];
-    //const bondedIntentions = bondsPerUserIntention.get(key);
     console.log(`For user: ${userId}, intention: ${intention}, bonded intentions:`, bondedIntentions);
 
-    /*
     db.run('INSERT OR IGNORE INTO bond_requests (user_id, intention, bonded_intentions) VALUES (?, ?, ?)', [userId, intention, bondedIntentions], function (err) {
       if (err) {
         console.log('Error storing bonded intentions:', err.message); // Log the specific error message
@@ -427,7 +424,7 @@ app.post('/storeBondedIntentions', (req, res) => {
       }
       res.json({ message: 'Bonded intentions stored successfully', id: this.lastID });
     });
-    */
+    
   }
   
 
