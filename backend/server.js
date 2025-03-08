@@ -393,10 +393,7 @@ app.post('/storeBondedIntentions', (req, res) => {
   console.log(receiverId);
   console.log(bondedIntentionsJson);
 
-  // {"1f85000f-ecc6-4c10-97bd-f2a5dd8adeff":["ten wall presses"],"59a75576-4ef2-48b4-9aa9-89d44bfc00db":["weigh self"]}
-  // make a list of user-intention pairs
-  // make a dictionary with (user,intention): [(user, intention), (user, intention),...]
-  const bondedIntentions = JSON.parse(bondedIntentionsJson); // intentionsPerUser
+  const bondedIntentions = JSON.parse(bondedIntentionsJson);
   
   let userIntentionPairs = [];
   for (const [user, intentions] of Object.entries(bondedIntentions)) {
@@ -408,7 +405,8 @@ app.post('/storeBondedIntentions', (req, res) => {
   let bondsPerUserIntention = new Map();
 
   for (const [user, intention] of userIntentionPairs) {
-    const key = [user, intention];
+    //const key = [user, intention];
+    const key = JSON.stringify([user, intention]); // Convert [user, intention] to a string for a key
   
     if (!bondsPerUserIntention.has(key)) {
       bondsPerUserIntention.set(key, []);
@@ -417,18 +415,25 @@ app.post('/storeBondedIntentions', (req, res) => {
     bondsPerUserIntention.get(key).push([user, intention]);
   }
 
-  for (const [user ,intention] of bondsPerUserIntention) {
+  for (const [key, bondedIntentions] of bondsPerUserIntention) {
+    const [userId, intention] = JSON.parse(key);
 
+    //const key = [userId, intention];
+    //const bondedIntentions = bondsPerUserIntention.get(key);
+    console.log(`For user: ${userId}, intention: ${intention}, bonded intentions:`, bondedIntentions);
+
+    /*
+    db.run('INSERT OR IGNORE INTO bond_requests (user_id, intention, bonded_intentions) VALUES (?, ?, ?)', [userId, intention, bondedIntentions], function (err) {
+      if (err) {
+        console.log('Error storing bonded intentions:', err.message); // Log the specific error message
+        return res.status(500).json({ error: 'Failed to store data', details: err.message });
+      }
+      res.json({ message: 'Bonded intentions stored successfully', id: this.lastID });
+    });
+    */
   }
-  /*
-  db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
-    if (err) {
-      console.log('Error storing bond request:', err.message); // Log the specific error message
-      return res.status(500).json({ error: 'Failed to store data', details: err.message });
-    }
-    res.json({ message: 'Bond request stored successfully', id: this.lastID });
-  });
-  */
+  
+
 });
 
 // ---------------------
