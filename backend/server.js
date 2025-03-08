@@ -402,17 +402,14 @@ app.post('/storeBondedIntentions', (req, res) => {
     }
   }
 
-  let bondsPerUserIntention = new Map();
+  let bondsPerUserIntention = {};
 
   for (const [user, intention] of userIntentionPairs) {
-    //const key = [user, intention];
-    const key = JSON.stringify([user, intention]); // Convert [user, intention] to a string for a key
+    const key = JSON.stringify([user, intention]);
   
-    if (!bondsPerUserIntention.has(key)) {
-      bondsPerUserIntention.set(key, []);
-    }
+    const bonds = userIntentionPairs.filter((element) => JSON.stringify(element) !== JSON.stringify([user, intention]));
   
-    bondsPerUserIntention.get(key).push([user, intention]);
+    bondsPerUserIntention[key] = bonds;
   }
 
   for (const [key, bondedIntentions] of bondsPerUserIntention) {
