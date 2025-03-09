@@ -14,7 +14,7 @@ export async function storeBondedIntentions(receiverId, bondedIntentionsJson) {
     }
 }
 
-export async function retrieveBondedIntentions() {
+export async function retrieveBondedIntentions(uuid, intention) {
 
 }
 
