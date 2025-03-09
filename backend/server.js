@@ -89,7 +89,7 @@ db.run(`
 });
 */
 
-//db.run('DELETE FROM bond_requests'); // Deletes all rows
+//db.run('DELETE FROM bonds_per_user_intention'); // Deletes all rows
 //db.run('DELETE FROM usernames WHERE id = ?', [2] );
 
 // users routes
@@ -412,27 +412,33 @@ app.post('/storeBondedIntentions', (req, res) => {
     bondsPerUserIntention[key] = bonds;
   }
 
+  let completedInserts = 0;
+  const totalInserts = Object.entries(bondsPerUserIntention).length;
+  
   for (const [key, bondedIntentions] of Object.entries(bondsPerUserIntention)) {
     const [userId, intention] = JSON.parse(key);
     const bondedIntentionsJson = JSON.stringify(bondedIntentions);
-
+  
     console.log(`For user: ${userId}, intention: ${intention}, bonded intentions:`, bondedIntentions);
-
+  
     db.run('INSERT OR IGNORE INTO bonds_per_user_intention (user_id, intention, bonded_intentions) VALUES (?, ?, ?)', [userId, intention, bondedIntentionsJson], function (err) {
       if (err) {
-        console.log('Error storing bonded intentions:', err.message); // Log the specific error message
+        console.log('Error storing bonded intentions:', err.message); // Log the error
         return res.status(500).json({ error: 'Failed to store data', details: err.message });
       }
-      res.json({ message: 'Bonded intentions stored successfully', id: this.lastID });
+  
+      completedInserts++;
+
+      if (completedInserts === totalInserts) {
+        res.json({ message: 'Bonded intentions stored successfully' });
+      }
     });
-    
   }
   
 
 });
 
 // ---------------------
-
 
 // Start server
 app.listen(port, () => {
