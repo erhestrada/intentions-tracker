@@ -15,7 +15,14 @@ export async function storeBondedIntentions(receiverId, bondedIntentionsJson) {
 }
 
 export async function retrieveBondedIntentions(uuid, intention) {
-
+    try {
+        const response = await fetch(`http://192.168.86.195:3000/retrieveBondedIntentions?uuid=${encodeURIComponent(uuid)}$intention=${intention}`);
+        const data = await response.json();
+        const username = data.username;
+        return username
+    } catch(error) {
+        console.error("Error retrieving username", error);
+    }
 }
 
 // input: intention
