@@ -1,6 +1,6 @@
 import { storeStreak } from "./storeStreak";
 
-export function updateStreaks(uuid, streaks, date, intention, achievementStatuses) {
+export function updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
@@ -64,4 +64,12 @@ export function getYesterdaysDate(dateStr) {
     const yesterday = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     
     return yesterday;
+}
+
+// input: intention
+// output: intention it's bonded to
+
+function updateStreakGivenBonds(intention, bondedIntentions) {
+    // only +1 streak if every achievementStatus is True, else reset to 0
+
 }
