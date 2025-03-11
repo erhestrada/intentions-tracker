@@ -122,7 +122,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     successButton.addEventListener('click', () => {
         //achievementStatus[date][intention] = true
         achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
-        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
+        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions);
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
         streakElement.innerText = "Streak: " + streaksValue;
         if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
@@ -141,7 +141,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     failureButton.innerText = '❌';
     failureButton.addEventListener('click', () => {
         achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, false);
-        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses);
+        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions);
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
         streakElement.innerText = "Streak: " + streaksValue;
         if (intentionBox.style.backgroundColor === 'rgb(229, 57, 53)') {
