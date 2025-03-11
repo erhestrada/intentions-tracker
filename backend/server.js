@@ -393,7 +393,7 @@ app.get('/retrieveBondedIntentions'), (req, res) => {
 }
 
 app.post('/storeBondedIntentions', (req, res) => {
-  const { receiverId, bondedIntentionsJson } = req.body;
+  const { receiverId, bondedIntentionsJson } = req.query;
   console.log(receiverId);
   console.log(bondedIntentionsJson);
 
