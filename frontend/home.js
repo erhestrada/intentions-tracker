@@ -35,10 +35,7 @@ const yesterdaysDate = getYesterdaysDate(date);
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         const bondedIntentions = await retrieveBondedIntentions(uuid, intention);
-        if (Object.keys(bondedIntentions).length > 0) {
-            console.log(uuid, intention, bondedIntentions);
-        }
-        displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
+        displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -75,7 +72,11 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.appendChild(minusButtonElement);
 }
 
-function displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
+function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
+    if (Object.keys(bondedIntentions).length > 0) {
+        console.log(uuid, intention, bondedIntentions);
+    }
+
     const intentionBox = document.createElement('div');
     intentionBox.className = 'intention-box';
     intentionBox.id = intention;
