@@ -397,7 +397,7 @@ app.get('/retrieveBondedIntentions', (req, res) => {
     }
 
     if (!row) {
-      return res.status(404).json([]);  // 404 for no data found, empty array as response
+      return res.json({});
     }
 
     res.json(row);
