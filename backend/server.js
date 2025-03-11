@@ -388,7 +388,7 @@ app.get('/retrieveBondRequestsForUser', (req, res) => {
 });
 
 // ---------------------
-app.post('/retrieveBondedIntentions'), (req, res) => {
+app.get('/retrieveBondedIntentions'), (req, res) => {
   console.log('sup');
 }
 
