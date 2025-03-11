@@ -35,7 +35,9 @@ const yesterdaysDate = getYesterdaysDate(date);
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         const bondedIntentions = await retrieveBondedIntentions(uuid, intention);
-        console.log(uuid, intention, bondedIntentions);
+        if (Object.keys(bondedIntentions).length > 0) {
+            console.log(uuid, intention, bondedIntentions);
+        }
         displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
