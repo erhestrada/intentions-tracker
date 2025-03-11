@@ -391,14 +391,13 @@ app.get('/retrieveBondRequestsForUser', (req, res) => {
 app.get('/retrieveBondedIntentions', (req, res) => {
   const { uuid, intention } = req.query;
 
-  db.get('SELECT * FROM bond_requests WHERE user_id = ? AND intention = ?', [uuid, intention], (err, row) => {
+  db.get('SELECT * FROM bonds_per_user_intention WHERE user_id = ? AND intention = ?', [uuid, intention], (err, row) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to retrieve data' });
     }
 
     if (!row) {
-      // Return 404 if no data is found
-      return res.status(404).json({ error: 'No data found' });
+      return [];
     }
 
     res.json(row);
