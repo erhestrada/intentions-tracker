@@ -389,8 +389,14 @@ app.get('/retrieveBondRequestsForUser', (req, res) => {
 
 // ---------------------
 app.get('/retrieveBondedIntentions', (req, res) => {
-  console.log('sup');
-  // Handle the response appropriately here
+  const { uuid, intention } = req.query;
+
+  db.run('SELECT * FROM bond_requests WHERE user_id = ? AND intention = ?', [uuid, intention], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve data'});
+    }
+    res.json(row);
+  });
 });
 
 app.post('/storeBondedIntentions', (req, res) => {
