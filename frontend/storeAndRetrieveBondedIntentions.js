@@ -24,10 +24,10 @@ export async function retrieveBondedIntentions(uuid, intention) {
         }
 
         const data = await response.json();
-        const username = data.username;
-        return username
+        return data
+
     } catch(error) {
-        console.error("Error retrieving username", error);
+        console.error("Error retrieving bonded intentions", error);
     }
 }
 
