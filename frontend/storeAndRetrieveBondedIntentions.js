@@ -28,6 +28,7 @@ export async function retrieveBondedIntentions(uuid, intention) {
 
     } catch(error) {
         console.error("Error retrieving bonded intentions", error);
+        return [];
     }
 }
 
