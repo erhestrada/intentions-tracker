@@ -388,6 +388,10 @@ app.get('/retrieveBondRequestsForUser', (req, res) => {
 });
 
 // ---------------------
+app.post('/retrieveBondedIntentions'), (req, res) => {
+  console.log('sup');
+}
+
 app.post('/storeBondedIntentions', (req, res) => {
   const { receiverId, bondedIntentionsJson } = req.body;
   console.log(receiverId);
