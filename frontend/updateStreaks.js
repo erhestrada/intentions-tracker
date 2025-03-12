@@ -85,15 +85,13 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
             // e.g,. 3/11/2025: {walk the dog: 1}
             const achievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
             const achievementStatusesPerIntention = achievementStatuses[date];
-            if (0 in Object.values(achievementStatusesPerIntention)) {
+            if (Object.values(achievementStatusesPerIntention).includes(0)) {
                 return false;
             }
 
         }
+
         return true;
-
-        // looop through bonded intentions get achievement statuses if false return false
-
 
     } else {
         return false;
