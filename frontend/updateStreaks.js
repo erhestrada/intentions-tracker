@@ -4,6 +4,8 @@ export function updateStreaks(uuid, streaks, date, intention, achievementStatuse
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
+    // streaks initialization
+
     // if yesterday's date not in streaks, today's streak for the intention is at 0
     if (!streaks[yesterdaysDate]) {
         // if streaks[date] already initialized as an object, set streaks[date][intention] to 0
@@ -24,7 +26,13 @@ export function updateStreaks(uuid, streaks, date, intention, achievementStatuse
         }
     }
 
-    //let streakValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+    // end of streaks initialization
+
+    const bondedIntentionsAchievementStatuses = loadAchievementStatusesOfBondedIntentions();
+
+    // update streak using achievementStatus
+    // if ALL bonded intentions have achievementStatus = true, +1
+
     let streak;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
@@ -68,6 +76,10 @@ export function getYesterdaysDate(dateStr) {
 
 // input: intention
 // output: intention it's bonded to
+
+function loadAchievementStatusesOfBondedIntentions() {
+
+}
 
 function updateStreakGivenBonds(intention, bondedIntentions) {
     // only +1 streak if every achievementStatus is True, else reset to 0
