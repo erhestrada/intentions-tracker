@@ -1,4 +1,5 @@
 import { storeStreak } from "./storeStreak";
+import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 
 export function updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
     const yesterdaysDate = getYesterdaysDate(date);
@@ -28,10 +29,11 @@ export function updateStreaks(uuid, streaks, date, intention, achievementStatuse
 
     // end of streaks initialization
 
-    const bondedIntentionsAchievementStatuses = loadAchievementStatusesOfBondedIntentions();
+    const bondedIntentionsAchievementStatuses = loadAchievementStatusesOfBondedIntentions(bondedIntentions);
 
     // update streak using achievementStatus
     // if ALL bonded intentions have achievementStatus = true, +1
+    // only +1 streak if every achievementStatus is True, else reset to 0
 
     let streak;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
@@ -74,14 +76,16 @@ export function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-// input: intention
-// output: intention it's bonded to
+// {id: 1, user_id: '59a75576-4ef2-48b4-9aa9-89d44bfc00db', intention: 'weigh self', bonded_intentions: '[["8d394cbd-4cbf-4d8f-8ab5-8e886cf740eb","walk the dog"]]'}
+function loadBondedIntentionsAchievementStatuses(bondedIntentions) {
+    if (Object.keys(bondedIntentions).length > 0) {
+        // user-intention pairs
+        const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
 
-function loadAchievementStatusesOfBondedIntentions() {
+        // looop through bonded intentions get achievement statuses if false return false
 
-}
 
-function updateStreakGivenBonds(intention, bondedIntentions) {
-    // only +1 streak if every achievementStatus is True, else reset to 0
-
+    } else {
+        return false;
+    }
 }
