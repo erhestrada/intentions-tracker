@@ -29,6 +29,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
 
     // end of streaks initialization
     const bondedIntentionsAchievementStatuses = await loadBondedIntentionsAchievementStatuses(bondedIntentions, date);
+    console.log('HELLO???', bondedIntentionsAchievementStatuses);
 
     // update streak using achievementStatus
     // if ALL bonded intentions have achievementStatus = true, +1
@@ -82,10 +83,14 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
         const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
         for(const [uuid, intention] of bondedIntentionsX) {
             // e.g,. 3/11/2025: {walk the dog: 1}
-            const abc = await retrieveAndFormatAchievementStatuses(uuid);
-            console.log('HELLO???', uuid, intention, abc);
-            console.log(date);
+            const achievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
+            const achievementStatusesPerIntention = achievementStatuses[date];
+            if (0 in Object.values(achievementStatusesPerIntention)) {
+                return false;
+            }
+
         }
+        return true;
 
         // looop through bonded intentions get achievement statuses if false return false
 
