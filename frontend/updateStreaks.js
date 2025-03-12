@@ -1,5 +1,5 @@
 import { storeStreak } from "./storeStreak";
-import { retrieveAchievementStatuses, retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
+import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 
 export async function updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
     const yesterdaysDate = getYesterdaysDate(date);
@@ -28,7 +28,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     }
 
     // end of streaks initialization
-    const bondedIntentionsAchievementStatuses = await loadBondedIntentionsAchievementStatuses(bondedIntentions);
+    const bondedIntentionsAchievementStatuses = await loadBondedIntentionsAchievementStatuses(bondedIntentions, date);
 
     // update streak using achievementStatus
     // if ALL bonded intentions have achievementStatus = true, +1
@@ -76,15 +76,17 @@ export function getYesterdaysDate(dateStr) {
 }
 
 // {id: 1, user_id: '59a75576-4ef2-48b4-9aa9-89d44bfc00db', intention: 'weigh self', bonded_intentions: '[["8d394cbd-4cbf-4d8f-8ab5-8e886cf740eb","walk the dog"]]'}
-async function loadBondedIntentionsAchievementStatuses(bondedIntentions) {
+async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
     if (Object.keys(bondedIntentions).length > 0) {
         // user-intention pairs
         const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
         for(const [uuid, intention] of bondedIntentionsX) {
-            console.log('HELLO????', uuid, intention);
+            // e.g,. 3/11/2025: {walk the dog: 1}
+            const abc = await retrieveAndFormatAchievementStatuses(uuid);
+            console.log('HELLO???', uuid, intention, abc);
+            console.log(date);
         }
 
-        const abc = retrieveAndFormatAchievementStatuses(uuid);
         // looop through bonded intentions get achievement statuses if false return false
 
 
