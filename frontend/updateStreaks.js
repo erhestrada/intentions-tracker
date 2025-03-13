@@ -91,11 +91,11 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
             }
             return acc;
         }, {});
-        console.log('abcde', intentionsPerUser);
+
         for(const uuid of bondedIntentionsIds) {
             // e.g,. 3/11/2025: {walk the dog: 1}
             const achievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
-            const achievementStatusesPerIntention = achievementStatuses[date];
+            const achievementStatusesPerIntention = achievementStatuses[date] ? achievementStatuses[date] : {};
             const intentions = intentionsPerUser[uuid];
 
             const achievementStatusesPerBondedIntention = Object.keys(achievementStatusesPerIntention).filter(key => intentions.includes(key)).reduce((acc, key) => {
