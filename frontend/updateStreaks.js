@@ -81,6 +81,8 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
     if (Object.keys(bondedIntentions).length > 0) {
         // user-intention pairs
         const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
+        const bondedIntentionsIds = bondedIntentionsX.map((element) => element[0]);
+        console.log(bondedIntentionsIds);
         for(const [uuid, intention] of bondedIntentionsX) {
             // e.g,. 3/11/2025: {walk the dog: 1}
             const achievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
