@@ -82,14 +82,27 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
         // user-intention pairs
         const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
         const bondedIntentionsIds = bondedIntentionsX.map((element) => element[0]);
-        const intentionsPerUser = {};
-        console.log('abcde', bondedIntentionsIds);
+        const intentionsPerUser = bondedIntentionsX.reduce((acc, curr) => {
+            const [id, intention] = curr;
+            if (!(id in acc)) {
+                acc[id] = [intention];
+            } else {
+                acc[id].push(intention);
+            }
+            return acc;
+        }, {});
+        console.log('abcde', intentionsPerUser);
         for(const uuid of bondedIntentionsIds) {
             // e.g,. 3/11/2025: {walk the dog: 1}
             const achievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
             const achievementStatusesPerIntention = achievementStatuses[date];
             const intentions = intentionsPerUser[uuid];
-            const achievementStatusPerBondedIntention = {};
+
+            const achievementStatusesPerBondedIntention = Object.keys(achievementStatusesPerIntention).filter(key => intentions.includes(key)).reduce((acc, key) => {
+                acc[key] = obj[key];
+                return acc;
+            }, {});
+
             if (Object.values(achievementStatusesPerBondedIntention).includes(0)) {
                 return false;
             }
