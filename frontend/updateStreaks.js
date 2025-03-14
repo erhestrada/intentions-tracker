@@ -28,7 +28,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     }
 
     // end of streaks initialization
-    const bondedIntentionsAchievementStatuses = await loadBondedIntentionsAchievementStatuses(bondedIntentions, date);
+    const bondedIntentionsAreAchieved = await checkBondedIntentionsAchievementStatuses(bondedIntentions, date);
     console.log('HELLO???', bondedIntentionsAchievementStatuses);
 
     // update streak using achievementStatus
@@ -77,7 +77,7 @@ export function getYesterdaysDate(dateStr) {
 }
 
 // {id: 1, user_id: '59a75576-4ef2-48b4-9aa9-89d44bfc00db', intention: 'weigh self', bonded_intentions: '[["8d394cbd-4cbf-4d8f-8ab5-8e886cf740eb","walk the dog"]]'}
-async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
+async function checkBondedIntentionsAchievementStatuses(bondedIntentions, date) {
     if (Object.keys(bondedIntentions).length > 0) {
         // user-intention pairs
         const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
