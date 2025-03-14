@@ -103,7 +103,7 @@ async function loadBondedIntentionsAchievementStatuses(bondedIntentions, date) {
                 return acc;
             }, {});
 
-            if (Object.values(achievementStatusesPerBondedIntention).includes(0)) {
+            if (Object.values(achievementStatusesPerBondedIntention).includes(0) || Object.keys(achievementStatusesPerBondedIntention).length === 0) {
                 return false;
             }
 
