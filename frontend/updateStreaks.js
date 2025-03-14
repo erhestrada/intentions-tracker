@@ -1,4 +1,5 @@
 import { storeStreak } from "./storeStreak";
+import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 
 export async function updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
@@ -120,5 +121,13 @@ async function checkBondedIntentionsAchievementStatuses(bondedIntentions, date) 
 }
 
 async function updateStreaksForBondedUsers(bondedIntentions, date) {
+    const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
+    const bondedIntentionsIds = bondedIntentionsX.map((element) => element[0]);
+    let streaksPerUser = {};
+    for (const uuid of bondedIntentionsIds) {
+        let streaks = await retrieveAndFormatStreaks(uuid);
+        streaksPerUser[uuid] = streaks;
+    }
+
 
 }
