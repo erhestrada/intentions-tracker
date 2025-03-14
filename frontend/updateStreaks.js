@@ -29,7 +29,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
 
     // end of streaks initialization
     const bondedIntentionsAreAchieved = await checkBondedIntentionsAchievementStatuses(bondedIntentions, date);
-    console.log('bonded intentions are achieved:', bondedIntentionsAreAchieved);
+    console.log('|bonded intentions are achieved|:', bondedIntentionsAreAchieved);
 
     // update streak using achievementStatus
     // if ALL bonded intentions have achievementStatus = true, +1
@@ -99,7 +99,7 @@ async function checkBondedIntentionsAchievementStatuses(bondedIntentions, date) 
             const intentions = intentionsPerUser[uuid];
 
             const achievementStatusesPerBondedIntention = Object.keys(achievementStatusesPerIntention).filter(key => intentions.includes(key)).reduce((acc, key) => {
-                acc[key] = obj[key];
+                acc[key] = achievementStatusesPerIntention[key];
                 return acc;
             }, {});
 
