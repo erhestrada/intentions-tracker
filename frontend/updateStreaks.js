@@ -29,7 +29,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
 
     // end of streaks initialization
     const bondedIntentionsAreAchieved = await checkBondedIntentionsAchievementStatuses(bondedIntentions, date);
-    console.log('HELLO???', bondedIntentionsAchievementStatuses);
+    console.log('bonded intentions are achieved:', bondedIntentionsAreAchieved);
 
     // update streak using achievementStatus
     // if ALL bonded intentions have achievementStatus = true, +1
@@ -38,7 +38,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     let streak;
     let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
 
-    if (achievementStatus === true) {
+    if (achievementStatus === true && bondedIntentionsAreAchieved) {
         streak = yesterdaysStreakValue + 1
         streaks[date][intention] = streak;
     } else {
