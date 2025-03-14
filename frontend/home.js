@@ -119,11 +119,15 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
     streakElement.innerText = "Streak: " + streaksValue;
 
-    successButton.addEventListener('click', () => {
+    successButton.addEventListener('click', async () => {
         //achievementStatus[date][intention] = true
         achievementStatuses = updateAchievementStatuses(uuid, achievementStatuses, date, intention, true);
-        streaks = updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions);
+        streaks = await updateStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions);
+        console.log('STREAKS', streaks);
         let streaksValue = streaks?.[date]?.[intention] ?? streaks?.[yesterdaysDate]?.[intention] ?? 0;
+        console.log('DATE', date);
+        console.log('INTENTION', intention);
+        console.log('STREAKS VALUE', streaksValue);
         streakElement.innerText = "Streak: " + streaksValue;
         if (intentionBox.style.backgroundColor === 'rgb(129, 199, 132)') {
             intentionBox.style.backgroundColor = 'lightblue';
