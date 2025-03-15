@@ -44,7 +44,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     if (achievementStatus === true && bondedIntentionsAreAchieved) {
         streak = yesterdaysStreakValue + 1
         streaks[date][intention] = streak;
-        updateStreaksForBondedUsers(date, bondedIntentions);
+        updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate);
     } else {
         // streak resets to 0 if failed
         streak = 0;
@@ -130,6 +130,8 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
         let streaks = await retrieveAndFormatStreaks(uuid);
         streaksPerUser[uuid] = streaks;
     }
+
+    console.log('UPDATING STREAKS FOR BONDED USERS');
 
     for (const intention of bondedIntentionsIntentions) {
         let yesterdaysStreakValue = streaksPerUser[uuid]?.[yesterdaysDate]?.[intention] ?? 0;
