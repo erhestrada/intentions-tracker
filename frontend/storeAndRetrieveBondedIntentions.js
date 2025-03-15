@@ -31,3 +31,12 @@ export async function retrieveBondedIntentions(uuid, intention) {
         return [];
     }
 }
+
+export async function batchRetrieveBondedIntentions(uuid, intentions) {
+    let x = {};
+    for (const intention of intentions) {
+        a = retrieveBondedIntentions(uuid, intention);
+        x[intention] = a;
+    }
+    return x;
+}
