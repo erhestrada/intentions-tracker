@@ -306,21 +306,21 @@ let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uu
 console.log('1', achievementStatuses);
 //console.log('2', achievementStatuses2);
 
-resetBrokenStreaks();
-let streaks = await retrieveAndFormatStreaks(uuid);
-//let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
-console.log('streaks initial', streaks);
-
-const intentionBoxesContainer = document.getElementById('intention-boxes-container');
-
 const date = (new Date()).toLocaleDateString();
 const yesterdaysDate = getYesterdaysDate(date);
+
+const intentionBoxesContainer = document.getElementById('intention-boxes-container');
 
 let requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
 console.log('rrpi', requiredRepetitionsPerIntention);
 let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
 let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
+
+resetBrokenStreaks(uuid, date, Object.keys(requiredRepetitionsPerIntention), achievementStatuses);
+let streaks = await retrieveAndFormatStreaks(uuid);
+//let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
+console.log('streaks initial', streaks);
 
 
 setupLogInButton(uuid);

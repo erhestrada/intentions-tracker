@@ -143,7 +143,7 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
 // only do this once per day the first time page is opened for each intention
 // if all bondedIntentions were not achieved yesterday, set streaks to 0 for those intentions
 
-export async function resetBrokenStreaks() {
+export async function resetBrokenStreaks(uuid, date, intentions, achievementStatuses) {
 
 }
 
