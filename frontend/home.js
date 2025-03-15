@@ -17,22 +17,6 @@ import { resetStreaks } from "./updateStreaks.js";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
-const uuid = getOrCreateUniqueId();
-//let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
-let achievementStatuses = await retrieveAchievementStatuses(uuid);
-let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
-console.log('1', achievementStatuses);
-//console.log('2', achievementStatuses2);
-
-let streaks = await retrieveAndFormatStreaks(uuid);
-//let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
-console.log('streaks initial', streaks);
-
-const intentionBoxesContainer = document.getElementById('intention-boxes-container');
-
-const date = (new Date()).toLocaleDateString();
-const yesterdaysDate = getYesterdaysDate(date);
-
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         const bondedIntentions = await retrieveBondedIntentions(uuid, intention);
@@ -262,14 +246,6 @@ function closePopUp() {
     document.getElementById('popup').style.display = 'none';
 }
 
-let requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
-console.log('rrpi', requiredRepetitionsPerIntention);
-let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
-let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
-console.log('il', intentionsLog);
-
-//const intentions = Object.keys(JSON.parse(localStorage.getItem('requiredRepetitionsPerIntention')) || {});
-const intentions = Object.keys(requiredRepetitionsPerIntention);
 let intentionsWithRepetitionsRemaining;
 document.addEventListener('keydown', async (e) => {
     if (e.key === ' ' && document.activeElement !== document.getElementById('add-intention-input')) {
@@ -322,6 +298,29 @@ form.addEventListener('submit', (e) => {
     // this shouldn't be requiredRepetitions this should be repetitionsOnDate (?) (actually don't think so)
     displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
+
+const uuid = getOrCreateUniqueId();
+//let achievementStatuses = JSON.parse(localStorage.getItem('achievementStatuses')) || {};
+let achievementStatuses = await retrieveAchievementStatuses(uuid);
+let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
+console.log('1', achievementStatuses);
+//console.log('2', achievementStatuses2);
+
+let streaks = await retrieveAndFormatStreaks(uuid);
+//let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
+console.log('streaks initial', streaks);
+
+const intentionBoxesContainer = document.getElementById('intention-boxes-container');
+
+const date = (new Date()).toLocaleDateString();
+const yesterdaysDate = getYesterdaysDate(date);
+
+let requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
+console.log('rrpi', requiredRepetitionsPerIntention);
+let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
+let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
+console.log('il', intentionsLog);
+
 
 setupLogInButton(uuid);
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
