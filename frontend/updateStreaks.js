@@ -19,7 +19,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
         }
     }
 
-    // placeholder streak value of false
+    // initialize placeholder streak value for intention into streaks: streaks[date][intention] = false
     if (!(date in streaks)) {
         streaks[date] = {[intention]: false};
     } else {
