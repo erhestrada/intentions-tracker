@@ -13,6 +13,7 @@ import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntenti
 import { setupLogInButton } from "./setupLogInButton";
 import { updateStreaks, undoStreakUpdate, getYesterdaysDate} from "./updateStreaks.js"
 import { retrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
+import { resetStreaks } from "./updateStreaks.js";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
