@@ -9,6 +9,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     // streaks initialization
 
     // if yesterday's date not in streaks, today's streak for the intention is at 0
+    /*
     if (!streaks[yesterdaysDate]) {
         // if streaks[date] already initialized as an object, set streaks[date][intention] to 0
         if (date in streaks) {
@@ -18,6 +19,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
             streaks[date] = {[intention]: 0};
         }
     }
+    */
 
     // initialize placeholder streak value for intention into streaks: streaks[date][intention] = false
     if (!(date in streaks)) {
