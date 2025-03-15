@@ -48,11 +48,13 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
         streak = yesterdaysStreakValue + 1
         streaks[date][intention] = streak;
         updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate);
-    } else {
+    }
+    /*
+    else {
         // streak resets to 0 if failed
         streak = 0;
         streaks[date][intention] = streak;
-    }
+    }*/
     
     storeStreak(uuid, date, intention, streak);
     //localStorage.setItem('streaks', JSON.stringify(streaks));
