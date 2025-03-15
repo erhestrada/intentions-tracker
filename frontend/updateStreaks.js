@@ -133,7 +133,8 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
 
     console.log('UPDATING STREAKS FOR BONDED USERS');
 
-    for (const intention of bondedIntentionsIntentions) {
+    for (const [index, intention] of bondedIntentionsIntentions.entries()) {
+        const uuid = bondedIntentionsIds[index];
         let yesterdaysStreakValue = streaksPerUser[uuid]?.[yesterdaysDate]?.[intention] ?? 0;
         const streak = yesterdaysStreakValue + 1;
         storeStreak(uuid, date, intention, streak);
