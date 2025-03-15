@@ -141,7 +141,7 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
 }
 
 // if all bondedIntentions were not achieved yesterday, set streaks to 0 for those intentions
-export async function resetStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
+export async function resetStreaks(uuid, date, intention, achievementStatuses, bondedIntentions) {
     const yesterdaysDate = getYesterdaysDate(date);
     
     const yesterdaysAchievementStatus = achievementStatuses[yesterdaysDate][intention];
@@ -150,11 +150,11 @@ export async function resetStreaks(uuid, streaks, date, intention, achievementSt
     if (!(yesterdaysAchievementStatus && bondedIntentionsWereAchieved)) {
         const streak = 0;
         storeStreak(uuid, date, intention, streak);
-        resetStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate);
+        resetStreaksForBondedUsers(bondedIntentions, date);
     }
 }
 
-async function resetStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate) {
+async function resetStreaksForBondedUsers(bondedIntentions, date) {
     const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
     const bondedIntentionsIds = bondedIntentionsX.map((element) => element[0]);
     const bondedIntentionsIntentions = bondedIntentionsX.map((element) => element[1]);
