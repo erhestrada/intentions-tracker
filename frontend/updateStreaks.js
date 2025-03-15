@@ -140,7 +140,19 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
     }
 }
 
-export function resetStreaks() {
+// if all bondedIntentions were not achieved yesterday, set streaks to 0 for those intentions
+export async function resetStreaks(uuid, streaks, date, intention, achievementStatuses, bondedIntentions) {
+    const yesterdaysDate = getYesterdaysDate(date);
+    
+    const yesterdaysAchievementStatus = achievementStatuses[yesterdaysDate][intention];
+    const bondedIntentionsWereAchieved = await checkBondedIntentionsAchievementStatuses(bondedIntentions, yesterdaysDate);
+
+    if (!(yesterdaysAchievementStatus && bondedIntentionsWereAchieved)) {
+        streak = yesterdaysStreakValue + 1
+        streaks[date][intention] = streak;
+        updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate);
+    }
+
     /*
     else {
         // streak resets to 0 if failed
