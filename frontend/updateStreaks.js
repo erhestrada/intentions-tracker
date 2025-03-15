@@ -120,18 +120,20 @@ async function checkBondedIntentionsAchievementStatuses(bondedIntentions, date) 
     }
 }
 
-async function updateStreaksForBondedUsers(bondedIntentions, date) {
+async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate) {
     const bondedIntentionsX = JSON.parse(bondedIntentions.bonded_intentions);
     const bondedIntentionsIds = bondedIntentionsX.map((element) => element[0]);
     const bondedIntentionsIntentions = bondedIntentionsX.map((element) => element[1]);
-    
+
     let streaksPerUser = {};
     for (const uuid of bondedIntentionsIds) {
         let streaks = await retrieveAndFormatStreaks(uuid);
         streaksPerUser[uuid] = streaks;
     }
 
-    // increment the streak for the user for the date for the intention by 1
-
-
+    for (const intention of bondedIntentionsIntentions) {
+        let yesterdaysStreakValue = streaksPerUser[uuid]?.[yesterdaysDate]?.[intention] ?? 0;
+        const streak = yesterdaysStreakValue + 1;
+        storeStreak(uuid, date, intention, streak);
+    }
 }
