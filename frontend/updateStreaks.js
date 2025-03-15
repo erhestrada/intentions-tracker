@@ -23,6 +23,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
 
     // initialize placeholder streak value for intention into streaks: streaks[date][intention] = false
     if (!(date in streaks)) {
+        // use computed property name
         streaks[date] = {[intention]: false};
     } else {
         if (!(intention in streaks[date])) {
