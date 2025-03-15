@@ -49,12 +49,6 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
         streaks[date][intention] = streak;
         updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDate);
     }
-    /*
-    else {
-        // streak resets to 0 if failed
-        streak = 0;
-        streaks[date][intention] = streak;
-    }*/
     
     storeStreak(uuid, date, intention, streak);
     //localStorage.setItem('streaks', JSON.stringify(streaks));
@@ -144,4 +138,13 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
         const streak = yesterdaysStreakValue + 1;
         storeStreak(uuid, date, intention, streak);
     }
+}
+
+export function resetStreaks() {
+    /*
+    else {
+        // streak resets to 0 if failed
+        streak = 0;
+        streaks[date][intention] = streak;
+    }*/
 }
