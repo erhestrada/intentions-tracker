@@ -13,7 +13,7 @@ import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntenti
 import { setupLogInButton } from "./setupLogInButton";
 import { updateStreaks, undoStreakUpdate, getYesterdaysDate} from "./updateStreaks.js"
 import { retrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
-import { resetStreaks } from "./updateStreaks.js";
+import { resetBrokenStreaks } from "./updateStreaks.js";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -306,6 +306,7 @@ let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uu
 console.log('1', achievementStatuses);
 //console.log('2', achievementStatuses2);
 
+resetBrokenStreaks();
 let streaks = await retrieveAndFormatStreaks(uuid);
 //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
 console.log('streaks initial', streaks);
