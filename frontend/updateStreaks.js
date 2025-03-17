@@ -143,7 +143,13 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
 // only do this once per day the first time page is opened for each intention
 // if all bondedIntentions were not achieved yesterday, set streaks to 0 for those intentions
 
-export async function resetBrokenStreaks(uuid, date, intentions, achievementStatuses) {
+export async function resetBrokenStreaks(uuid, date, intentions, achievementStatuses, bondsPerIntention) {
+    let streaksResetFlags = localStorage.getItem('streaksResetFlagPerDate');
+    let streaksResetFlag = streaksResetFlags ? JSON.parse(streaksResetFlags)?.[date] : false;
+
+    if(!streaksResetFlag) {
+
+    }
 
 }
 
