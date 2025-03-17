@@ -18,9 +18,9 @@ import { batchRetrieveBondedIntentions } from "./storeAndRetrieveBondedIntention
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
-async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, bondsPerIntention) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
-        const bondedIntentions = await retrieveBondedIntentions(uuid, intention);
+        const bondedIntentions = bondsPerIntention[intention];
         displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
@@ -325,4 +325,4 @@ let streaks = await retrieveAndFormatStreaks(uuid);
 console.log('streaks initial', streaks);
 
 setupLogInButton(uuid);
-displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
+displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, bondsPerIntention);
