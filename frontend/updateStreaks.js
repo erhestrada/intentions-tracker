@@ -145,12 +145,17 @@ async function updateStreaksForBondedUsers(bondedIntentions, date, yesterdaysDat
 
 export async function resetBrokenStreaks(uuid, date, intentions, achievementStatuses, bondsPerIntention) {
     let streaksResetFlags = localStorage.getItem('streaksResetFlagPerDate');
-    let streaksResetFlag = streaksResetFlags ? JSON.parse(streaksResetFlags)?.[date] : false;
+    streaksResetFlags = streaksResetFlags ? JSON.parse(streaksResetFlags) : {};
+    let streaksResetFlag = streaksResetFlags[date] || false;
 
     if(!streaksResetFlag) {
-
+        for (const intention of intentions) {
+            const bondedIntentions = bondsPerIntention[intention];
+            resetStreak(uuid, date, intention, achievementStatuses, bondedIntentions);
+        }
+        streaksResetFlags[date] = true;
+        localStorage.setItem('streaksResetFlagPerDate', JSON.stringify(streaksResetFlags));
     }
-
 }
 
 async function resetStreak(uuid, date, intention, achievementStatuses, bondedIntentions) {
