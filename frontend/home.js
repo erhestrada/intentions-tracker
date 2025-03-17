@@ -14,6 +14,7 @@ import { setupLogInButton } from "./setupLogInButton";
 import { updateStreaks, undoStreakUpdate, getYesterdaysDate} from "./updateStreaks.js"
 import { retrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
 import { resetBrokenStreaks } from "./updateStreaks.js";
+import { batchRetrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -317,11 +318,11 @@ let intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
 let intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
 console.log('il', intentionsLog);
 
-resetBrokenStreaks(uuid, date, Object.keys(requiredRepetitionsPerIntention), achievementStatuses);
+const bondsPerIntention = await batchRetrieveBondedIntentions(uuid, Object.keys(requiredRepetitionsPerIntention));
+resetBrokenStreaks(uuid, date, Object.keys(requiredRepetitionsPerIntention), achievementStatuses, bondsPerIntention);
 let streaks = await retrieveAndFormatStreaks(uuid);
 //let streaks = JSON.parse(localStorage.getItem('streaks')) || {};
 console.log('streaks initial', streaks);
-
 
 setupLogInButton(uuid);
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
