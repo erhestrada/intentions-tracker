@@ -21,7 +21,7 @@ import { batchRetrieveBondedIntentions } from "./storeAndRetrieveBondedIntention
 async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
     for (const [intention, requiredRepetitions] of Object.entries(requiredRepetitionsPerIntention)) {
         const bondedIntentions = await retrieveBondedIntentions(uuid, intention);
-        displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
+        displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, true);
     }
 
     const plusMinusBox = document.createElement('div');
@@ -58,7 +58,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
     plusMinusBox.appendChild(minusButtonElement);
 }
 
-function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
+function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize) {
     if (Object.keys(bondedIntentions).length > 0) {
         console.log(uuid, intention, bondedIntentions);
     }
