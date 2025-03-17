@@ -33,10 +33,10 @@ export async function retrieveBondedIntentions(uuid, intention) {
 }
 
 export async function batchRetrieveBondedIntentions(uuid, intentions) {
-    let x = {};
+    let bondsPerIntention = {};
     for (const intention of intentions) {
-        const a = await retrieveBondedIntentions(uuid, intention);
-        x[intention] = a;
+        const bonds = await retrieveBondedIntentions(uuid, intention);
+        bondsPerIntention[intention] = bonds;
     }
-    return x;
+    return bondsPerIntention;
 }
