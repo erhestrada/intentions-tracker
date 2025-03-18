@@ -297,7 +297,10 @@ form.addEventListener('submit', (e) => {
     document.getElementById('required-repetitions-input').value = ''; // clear input when intention added
 
     // this shouldn't be requiredRepetitions this should be repetitionsOnDate (?) (actually don't think so)
-    displayIntentionBox(intention, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
+    // intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, initialize
+    //const bondedIntentions = bondsPerIntention[intention];
+    const bondedIntentions = {};
+    displayIntentionBox(intention, bondedIntentions, requiredRepetitions, achievementStatuses, formattedAchievementStatuses, intentionsRepetitionsPerDate, date, streaks, yesterdaysDate, intentionBoxesContainer, false);
 });
 
 const uuid = getOrCreateUniqueId();
