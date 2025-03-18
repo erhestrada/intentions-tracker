@@ -12,7 +12,6 @@ import { removeIntentionFromIntentionsLog } from "./removeIntentionFromIntention
 import { calculateRequiredRepetitionsRemainingPerIntention } from "./typeIntentions";
 import { setupLogInButton } from "./setupLogInButton";
 import { updateStreaks, undoStreakUpdate, getYesterdaysDate} from "./updateStreaks.js"
-import { retrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
 import { resetBrokenStreaks } from "./updateStreaks.js";
 import { batchRetrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
 
@@ -325,4 +324,5 @@ let streaks = await retrieveAndFormatStreaks(uuid);
 console.log('streaks initial', streaks);
 
 setupLogInButton(uuid);
+
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, bondsPerIntention);
