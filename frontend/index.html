@@ -15,6 +15,7 @@
             <li><a href="chat.html">Chat</a></li>
             <li><input type="text" id="username-input" placeholder="Username"></li>
             <li><button id="log-in-button">Log In</button></li>
+            <li><button id="create-group-button">Create Group</button></li>
             <li><a href="inbox.html">Inbox</a></li>
         </ul>
     </nav>
@@ -32,6 +33,21 @@
                     <label for="required-repetitions-input">repetitions per day</label>
                     <input id="required-repetitions-input" type="text">
                     <button id="add-intention-button">add intention</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <div id="create-group-container">
+                <form id="createGroupForm">
+                    <label for="group-name-input">Group Name</label>
+                    <input id="group-name-input" type="text" />
+                    <label for="group-description-input">Description</label>
+                    <input id="group-description-input" type="text">
+                    <button id="submit-group-button">Create Group</button>
                 </form>
             </div>
         </div>
