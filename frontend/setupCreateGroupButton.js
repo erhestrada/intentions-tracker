@@ -1,6 +1,6 @@
 export function setupCreateGroupButton() {
     const createGroupButton = document.getElementById('create-group-button');
-    createGroupButton.addEventListener('click', openPopUp);
+    createGroupButton.addEventListener('click', () => openPopUp('create-group-popup'));
     
     const form = document.getElementById('createGroupForm');
     form.addEventListener('submit', (e) => {
@@ -16,6 +16,6 @@ export function setupCreateGroupButton() {
     });
 }
 
-function openPopUp() {
-    document.getElementById('popup').style.display = 'block';
+function openPopUp(popupId) {
+    document.getElementById(popupId).style.display = 'block';
 }
