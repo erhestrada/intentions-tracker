@@ -6,6 +6,9 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     const yesterdaysDate = getYesterdaysDate(date);
     const achievementStatus = achievementStatuses[date][intention];
 
+    let streak;
+    let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+
     // streaks initialization
 
     // if yesterday's date not in streaks, today's streak for the intention is at 0
@@ -21,13 +24,16 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     }
     */
 
+    // if ! streaks[yesterdaysDate] - streak = 0
+    // else streak is yeterday's streak
+
     // initialize placeholder streak value for intention into streaks: streaks[date][intention] = false
     if (!(date in streaks)) {
         // use computed property name
-        streaks[date] = {[intention]: 0};
+        streaks[date] = {[intention]: yesterdaysStreakValue};
     } else {
         if (!(intention in streaks[date])) {
-            streaks[date][intention] = 0;
+            streaks[date][intention] = yesterdaysStreakValue;
         }
     }
 
@@ -41,8 +47,7 @@ export async function updateStreaks(uuid, streaks, date, intention, achievementS
     // only +1 streak if every achievementStatus is True, else reset to 0
     // if success, update streak of all bonded intentions
 
-    let streak;
-    let yesterdaysStreakValue = streaks?.[yesterdaysDate]?.[intention] ?? 0;
+
 
     if (achievementStatus === true && bondedIntentionsAreAchieved) {
         streak = yesterdaysStreakValue + 1
