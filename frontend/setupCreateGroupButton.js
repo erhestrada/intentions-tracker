@@ -1,4 +1,4 @@
-function setupCreateGroupButton() {
+export function setupCreateGroupButton() {
     const createGroupButton = document.getElementById('create-group-button');
     createGroupButton.addEventListener('click', openPopUp);
     
