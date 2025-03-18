@@ -115,7 +115,8 @@ async function checkBondedIntentionsAchievementStatuses(bondedIntentions, date) 
         return true;
 
     } else {
-        return false;
+        // if there are no bonded intentions, bondedIntentionsAchieved is true i.e. achieving the intention should increment streak by 1
+        return true;
     }
 }
 
