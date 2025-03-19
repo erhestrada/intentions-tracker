@@ -17,10 +17,7 @@ export function setupCreateGroupButton(uuid) {
         document.getElementById('group-name-input').value = ''; // clear input when intention added
         document.getElementById('group-description-input').value = ''; // clear input when intention added
 
-        console.log(uuid, groupName, groupDescription);
-
-        //storeGroup(uuid, groupName, groupDescription);
-    
+        storeGroup(uuid, groupName, groupDescription);
     });
 }
 
