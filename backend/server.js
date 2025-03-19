@@ -464,13 +464,14 @@ app.post('/storeGroup', (req, res) => {
   body: JSON.stringify({ uuid, groupName, groupDescription })
 
   const { uuid, groupName, groupDescription } = req.body;
+  const groupMembers = JSON.stringify([uuid]);
 
-  db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
+  db.run('INSERT OR IGNORE INTO bond_requests (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
     if (err) {
-      console.log('Error storing bond request:', err.message); // Log the specific error message
-      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+      console.log('Error storing group:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store group', details: err.message });
     }
-    res.json({ message: 'Bond request stored successfully', id: this.lastID });
+    res.json({ message: 'Group stored successfully', id: this.lastID });
   });
 });
 
