@@ -461,12 +461,10 @@ app.post('/storeBondedIntentions', (req, res) => {
 // db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, owner TEXT NOT NULL, members TEXT, group_name TEXT, group_description TEXT)');
 
 app.post('/storeGroup', (req, res) => {
-  body: JSON.stringify({ uuid, groupName, groupDescription })
-
   const { uuid, groupName, groupDescription } = req.body;
   const groupMembers = JSON.stringify([uuid]);
 
-  db.run('INSERT OR IGNORE INTO bond_requests (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
+  db.run('INSERT OR IGNORE INTO groups (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
     if (err) {
       console.log('Error storing group:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store group', details: err.message });
