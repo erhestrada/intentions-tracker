@@ -39,7 +39,7 @@ db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NO
 db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, chat_message TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bond_requests (id INTEGER PRIMARY KEY, receiver_id TEXT, sender_id TEXT, bonded_intentions TEXT, acceptance_status TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bonds_per_user_intention (id INTEGER PRIMARY KEY, user_id TEXT, intention TEXT, bonded_intentions TEXT)');
-db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, owner TEXT UNIQUE NOT NULL, members TEXT, group_name TEXT, group_description TEXT)');
+db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, owner TEXT NOT NULL, members TEXT, group_name TEXT, group_description TEXT)');
 
 
 /*
@@ -457,6 +457,20 @@ app.post('/storeBondedIntentions', (req, res) => {
 });
 
 // ---------------------
+
+app.post('/storeGroup', (req, res) => {
+  body: JSON.stringify({ uuid, groupName, groupDescription })
+
+  const { uuid, groupName, groupDescription } = req.body;
+
+  db.run('INSERT OR IGNORE INTO bond_requests (receiver_id, sender_id, bonded_intentions, acceptance_status) VALUES (?, ?, ?, ?)', [receiverId, senderId, bondedIntentionsJson, acceptanceStatus], function (err) {
+    if (err) {
+      console.log('Error storing bond request:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store data', details: err.message });
+    }
+    res.json({ message: 'Bond request stored successfully', id: this.lastID });
+  });
+});
 
 // Start server
 app.listen(port, () => {
