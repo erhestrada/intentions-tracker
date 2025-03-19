@@ -469,6 +469,15 @@ app.post('/storeGroup', (req, res) => {
       console.log('Error storing group:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store group', details: err.message });
     }
+
+    if (this.changes === 0) {
+      // If no rows were inserted (i.e., the group name already exists), send a prompt
+      return res.status(409).json({
+        error: 'Group name already exists',
+        message: 'Please choose a different group name.'
+      });
+    }
+
     res.json({ message: 'Group stored successfully', id: this.lastID });
   });
 });
