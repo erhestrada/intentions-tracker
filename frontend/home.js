@@ -249,7 +249,7 @@ function closePopUp() {
 
 let intentionsWithRepetitionsRemaining;
 document.addEventListener('keydown', async (e) => {
-    if (e.key === ' ' && document.activeElement !== document.getElementById('add-intention-input')) {
+    if (e.key === ' ' && (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')) {
         e.preventDefault();  // Prevent the default spacebar action (scrolling)
     }
     if (expressIntentionsButton.clicked) {
