@@ -1,4 +1,6 @@
-export function setupCreateGroupButton() {
+import { storeGroup } from "./storeAndRetrieveGroups";
+
+export function setupCreateGroupButton(uuid) {
     const createGroupButton = document.getElementById('create-group-button');
     createGroupButton.addEventListener('click', () => openPopUp('create-group-popup'));
     
@@ -9,12 +11,15 @@ export function setupCreateGroupButton() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
     
-        const intention = document.getElementById('add-intention-input').value.trim();
-        const requiredRepetitions = Number(document.getElementById('required-repetitions-input').value);
-        requiredRepetitionsPerIntention[intention] = requiredRepetitions;
+        const groupName = document.getElementById('group-name-input').value.trim();
+        const groupDescription = document.getElementById('group-description-input').value.trim();
     
-        document.getElementById('add-intention-input').value = ''; // clear input when intention added
-        document.getElementById('required-repetitions-input').value = ''; // clear input when intention added
+        document.getElementById('group-name-input').value = ''; // clear input when intention added
+        document.getElementById('group-description-input').value = ''; // clear input when intention added
+
+        console.log(uuid, groupName, groupDescription);
+
+        //storeGroup(uuid, groupName, groupDescription);
     
     });
 }

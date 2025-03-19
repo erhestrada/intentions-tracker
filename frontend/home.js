@@ -325,5 +325,5 @@ let streaks = await retrieveAndFormatStreaks(uuid);
 console.log('streaks initial', streaks);
 
 setupLogInButton(uuid);
-setupCreateGroupButton();
+setupCreateGroupButton(uuid);
 displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, bondsPerIntention);
