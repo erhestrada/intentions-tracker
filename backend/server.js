@@ -464,7 +464,7 @@ app.post('/storeBondedIntentions', (req, res) => {
 app.post('/storeGroup', (req, res) => {
   const { uuid, groupName, groupDescription } = req.body;
 
-  db.run('INSERT OR IGNORE INTO groups (owner, group_name, group_description) VALUES (?, ?, ?)', [uuid, groupName, groupDescription], function (err) {
+  db.run('INSERT OR IGNORE INTO groups (group_name, group_description, owner) VALUES (?, ?, ?)', [groupName, groupDescription, uuid], function (err) {
     if (err) {
       console.log('Error storing group:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store group', details: err.message });
