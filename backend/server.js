@@ -490,6 +490,20 @@ app.post('/storeGroup', (req, res) => {
   });
 });
 
+// POST /storeGroupsPerUser: Insert relationship between user and group into groups_per_user table
+app.post('/storeGroupsPerUser', (req, res) => {
+  const { uuid, groupId } = req.body;
+
+  // Step 2: Insert the relationship into the `groups_per_user` join table
+  db.run('INSERT INTO groups_per_user (uuid, group_id) VALUES (?, ?)', [uuid, groupId], function(err) {
+      if (err) {
+          return res.status(500).json({ error: 'Failed to store group-user relationship', details: err.message });
+      }
+
+      res.json({ message: 'Group-user relationship stored successfully' });
+  });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
