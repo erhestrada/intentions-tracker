@@ -32,3 +32,14 @@ export async function storeGroupsPerUser(uuid, groupId) {
         console.error("Error storing group-user relationship: ", error);
     }
 }
+
+export async function retrieveGroupsForUser(uuid) {
+    try {
+        const response = await fetch(`http://192.168.86.195:3000/retrieveGroupsForUser?uuid=${encodeURIComponent(uuid)}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error retrieving groups for user:', error);
+    }
+}
+
