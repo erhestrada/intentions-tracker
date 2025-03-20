@@ -32,9 +32,10 @@ function openTab(event, tabName) {
   const myGroupsTab = document.getElementById('my-groups-tab');
   const searchGroupsTab = document.getElementById('search-groups-tab');
   
-  myGroupsTab.addEventListener('click', (event) => {
+  myGroupsTab.addEventListener('click', async (event) => {
     openTab(event, 'article')
-    retrieveGroupsForUser(uuid);
+    const groups = await retrieveGroupsForUser(uuid);
+    console.log(groups);
   });
 
   searchGroupsTab.addEventListener('click', (event) => {
