@@ -1,3 +1,6 @@
+import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
+import { retrieveGroupsForUser } from "./storeAndRetrieveGroups";
+
 // script.js
 function openTab(event, tabName) {
     // Hide all tab content
@@ -23,12 +26,15 @@ function openTab(event, tabName) {
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.tab-link').click();
   });
+
+  const uuid = getOrCreateUniqueId();
   
   const myGroupsTab = document.getElementById('my-groups-tab');
   const searchGroupsTab = document.getElementById('search-groups-tab');
   
   myGroupsTab.addEventListener('click', (event) => {
     openTab(event, 'article')
+    retrieveGroupsForUser(uuid);
   });
 
   searchGroupsTab.addEventListener('click', (event) => {
