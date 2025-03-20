@@ -40,7 +40,7 @@ db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TE
 db.run('CREATE TABLE IF NOT EXISTS bond_requests (id INTEGER PRIMARY KEY, receiver_id TEXT, sender_id TEXT, bonded_intentions TEXT, acceptance_status TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bonds_per_user_intention (id INTEGER PRIMARY KEY, user_id TEXT, intention TEXT, bonded_intentions TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, owner TEXT NOT NULL, members TEXT, group_name TEXT UNIQUE, group_description TEXT)');
-db.run('CREATE TABLE IF NOT EXISTS groups_per_user (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, groups TEXT UNIQUE, descriptions_per_group TEXT)');
+//db.run('CREATE TABLE IF NOT EXISTS groups_per_user (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, groups TEXT UNIQUE, descriptions_per_group TEXT)');
 
 
 /*
@@ -463,9 +463,8 @@ app.post('/storeBondedIntentions', (req, res) => {
 
 app.post('/storeGroup', (req, res) => {
   const { uuid, groupName, groupDescription } = req.body;
-  const groupMembers = JSON.stringify([uuid]);
 
-  db.run('INSERT OR IGNORE INTO groups (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
+  db.run('INSERT OR IGNORE INTO groups (owner, group_name, group_description) VALUES (?, ?, ?)', [uuid, groupName, groupDescription], function (err) {
     if (err) {
       console.log('Error storing group:', err.message); // Log the specific error message
       return res.status(500).json({ error: 'Failed to store group', details: err.message });
@@ -479,29 +478,9 @@ app.post('/storeGroup', (req, res) => {
       });
     }
 
-    res.json({ message: 'Group stored successfully', id: this.lastID });
-  });
-});
+    const newGroupId = this.lastID;  // `this.lastID` gives the generated `group_id`
 
-app.post('/storeGroupByUser', (req, res) => {
-  const { uuid, groupName, groupDescription } = req.body;
-  const groupMembers = JSON.stringify([uuid]);
-
-  db.run('INSERT OR IGNORE INTO groups (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
-    if (err) {
-      console.log('Error storing group:', err.message); // Log the specific error message
-      return res.status(500).json({ error: 'Failed to store group', details: err.message });
-    }
-
-    if (this.changes === 0) {
-      // If no rows were inserted (i.e., the group name already exists), send a prompt
-      return res.status(409).json({
-        error: 'Group name already exists',
-        message: 'Please choose a different group name.'
-      });
-    }
-
-    res.json({ message: 'Group stored successfully', id: this.lastID });
+    res.json({ message: 'Group stored successfully', group_id: newGroupId });
   });
 });
 
