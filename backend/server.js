@@ -21,6 +21,7 @@ db.run('DROP TABLE streaks');
 */
 
 //db.run('DROP TABLE groups');
+//db.run('DROP TABLE groups_per_user');
 
 
 /*
