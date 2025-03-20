@@ -483,6 +483,28 @@ app.post('/storeGroup', (req, res) => {
   });
 });
 
+app.post('/storeGroupByUser', (req, res) => {
+  const { uuid, groupName, groupDescription } = req.body;
+  const groupMembers = JSON.stringify([uuid]);
+
+  db.run('INSERT OR IGNORE INTO groups (owner, members, group_name, group_description) VALUES (?, ?, ?, ?)', [uuid, groupMembers, groupName, groupDescription], function (err) {
+    if (err) {
+      console.log('Error storing group:', err.message); // Log the specific error message
+      return res.status(500).json({ error: 'Failed to store group', details: err.message });
+    }
+
+    if (this.changes === 0) {
+      // If no rows were inserted (i.e., the group name already exists), send a prompt
+      return res.status(409).json({
+        error: 'Group name already exists',
+        message: 'Please choose a different group name.'
+      });
+    }
+
+    res.json({ message: 'Group stored successfully', id: this.lastID });
+  });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
