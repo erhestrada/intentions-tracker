@@ -20,6 +20,9 @@ db.run('DROP TABLE achievement_statuses');
 db.run('DROP TABLE streaks');
 */
 
+//db.run('DROP TABLE groups');
+
+
 /*
 db.run('DELETE FROM users WHERE uuid = ?', ['37ddb973-131d-45c7-b814-c930b6d5cd67'], (err) => {
   if (err) {
