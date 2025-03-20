@@ -24,3 +24,13 @@ function openTab(event, tabName) {
     document.querySelector('.tab-link').click();
   });
   
+  const myGroupsTab = document.getElementById('my-groups-tab');
+  const searchGroupsTab = document.getElementById('search-groups-tab');
+  
+  myGroupsTab.addEventListener('click', (event) => {
+    openTab(event, 'article')
+  });
+
+  searchGroupsTab.addEventListener('click', (event) => {
+    openTab(event, 'talk')
+  });
