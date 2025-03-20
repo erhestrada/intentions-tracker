@@ -51,7 +51,7 @@ db.run(`
     FOREIGN KEY(uuid) REFERENCES users(uuid),
     FOREIGN KEY(group_id) REFERENCES groups(id),
     UNIQUE(uuid, group_id)
-  );
+  )
 `);
 
 //db.run('CREATE TABLE IF NOT EXISTS groups_per_user (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, groups TEXT UNIQUE, descriptions_per_group TEXT)');
