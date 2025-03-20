@@ -39,7 +39,10 @@ db.run('CREATE TABLE IF NOT EXISTS streaks (id INTEGER PRIMARY KEY, uuid TEXT NO
 db.run('CREATE TABLE IF NOT EXISTS chat_history (id INTEGER PRIMARY KEY, uuid TEXT NOT NULL, chat_message TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bond_requests (id INTEGER PRIMARY KEY, receiver_id TEXT, sender_id TEXT, bonded_intentions TEXT, acceptance_status TEXT)');
 db.run('CREATE TABLE IF NOT EXISTS bonds_per_user_intention (id INTEGER PRIMARY KEY, user_id TEXT, intention TEXT, bonded_intentions TEXT)');
-db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, owner TEXT NOT NULL, members TEXT, group_name TEXT UNIQUE, group_description TEXT)');
+db.run('CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY, group_name TEXT UNIQUE, group_description TEXT, owner TEXT NOT NULL)');
+
+
+
 //db.run('CREATE TABLE IF NOT EXISTS groups_per_user (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, groups TEXT UNIQUE, descriptions_per_group TEXT)');
 
 
