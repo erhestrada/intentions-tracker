@@ -513,6 +513,29 @@ app.post('/storeGroupsPerUser', (req, res) => {
   });
 });
 
+app.get('/retrieveGroupsForUser', (req, res) => {
+  const { uuid } = req.query;
+
+  if (!uuid) {
+    return res.status(400).json({ error: 'UUID is required' });  // Handle missing UUID
+  }
+
+  const query = `
+    SELECT groups.id, groups.group_name, groups.group_description, groups.owner
+    FROM groups
+    INNER JOIN groups_per_user ON groups.id = groups_per_user.group_id
+    WHERE groups_per_user.uuid = ?
+  `;
+
+  db.all(query, [uuid], (err, rows) => {
+    if (err) {
+      console.error('Error retrieving groups:', err.message);  // Log the error for debugging
+      return res.status(500).json({ error: 'Failed to retrieve groups', details: err.message });
+    }
+    res.json(rows);  // Send back the results as JSON
+  });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
