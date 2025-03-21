@@ -28,26 +28,23 @@ function openTab(event, tabName) {
   });
 
   const uuid = getOrCreateUniqueId();
+
+  console.log('hello');
+  const container = document.getElementById('my-groups-container');
+
+  const groups = await retrieveGroupsForUser(uuid);
+  const groupElement = document.createElement('p');
+  groupElement.innerText = groups[0].group_name;
+  //groupElement.innerText = 'test text';
+
+  container.appendChild(groupElement);
   
   const myGroupsTab = document.getElementById('my-groups-tab');
   const searchGroupsTab = document.getElementById('search-groups-tab');
   
-  myGroupsTab.addEventListener('click', async (event) => {
+  myGroupsTab.addEventListener('click', (event) => {
     openTab(event, 'my-groups-container')
-    
-    console.log('hello');
-    const container = document.getElementById('my-groups-container');
-
-    const groups = await retrieveGroupsForUser(uuid);
-    const groupElement = document.createElement('p');
-    groupElement.innerText = groups;
-    //groupElement.innerText = 'test text';
-
-    container.appendChild(groupElement);
-    
-
-
-    //console.log(groups);
+    console.log(groups);
     
   });
 
