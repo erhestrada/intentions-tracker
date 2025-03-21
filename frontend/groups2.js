@@ -33,11 +33,20 @@ function openTab(event, tabName) {
   const searchGroupsTab = document.getElementById('search-groups-tab');
   
   myGroupsTab.addEventListener('click', async (event) => {
-    openTab(event, 'article')
+    openTab(event, 'my-groups-tab')
+    /*
+    const container = document.getElementById('my-groups-container');
+
     const groups = await retrieveGroupsForUser(uuid);
+    const groupElement = document.createElement('p');
+    groupElement.innerText = groups[0];
+
+    container.appendChild(groupElement);
+
     console.log(groups);
+    */
   });
 
   searchGroupsTab.addEventListener('click', (event) => {
-    openTab(event, 'talk')
+    openTab(event, 'search-groups-tab')
   });
