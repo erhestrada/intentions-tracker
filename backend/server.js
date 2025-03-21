@@ -513,6 +513,15 @@ app.post('/storeGroupsPerUser', (req, res) => {
   });
 });
 
+app.get('/retrieveGroups', (req, res) => {
+  db.all('SELECT * FROM groups', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve data' });
+    }
+    res.json(rows);
+  });
+});
+
 app.get('/retrieveGroupsForUser', (req, res) => {
   const { uuid } = req.query;
 
