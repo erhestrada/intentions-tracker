@@ -27,24 +27,19 @@ async function setUp() {
   const groupsForUser = await retrieveGroupsForUser(uuid);
   const groups = await retrieveGroups();
   
-  console.log('hello');
   const myGroupsContainer = document.getElementById('my-groups-container');
-  
-  const groupElement = document.createElement('p');
-  groupElement.innerText = groupsForUser[0].group_name;
-  
-  myGroupsContainer.appendChild(groupElement);
+  displayGroups(groupsForUser, myGroupsContainer);
   
   const searchGroupsContainer = document.getElementById('search-groups-container');
-  
-  const searchGroupsElement = document.createElement('p');
-  searchGroupsElement.innerText = groups[0].group_name;
-  
-  searchGroupsContainer.appendChild(searchGroupsElement);
+  displayGroups(groups, searchGroupsContainer);
 }
 
-async function displayGroups() {
-  
+function displayGroups(groups, parentContainer) {
+  for(const group of groups) {
+    const groupElement = document.createElement('p');
+    groupElement.innerText = group.group_name;
+    parentContainer.appendChild(groupElement);
+  }
 }
 
 const myGroupsTab = document.getElementById('my-groups-tab');
