@@ -43,6 +43,10 @@ async function setUp() {
   searchGroupsContainer.appendChild(searchGroupsElement);
 }
 
+async function displayGroups() {
+  
+}
+
 const myGroupsTab = document.getElementById('my-groups-tab');
 const searchGroupsTab = document.getElementById('search-groups-tab');
 
