@@ -39,6 +39,13 @@ function displayGroups(groups, parentContainer) {
     const groupElement = document.createElement('p');
     groupElement.innerText = group.group_name;
     parentContainer.appendChild(groupElement);
+
+    // Add click event listener to the groupElement
+    groupElement.addEventListener('click', () => {
+      console.log(`Clicked on group: ${group.group_name}`);
+      // You can add more actions here
+    });
+
   }
 }
 
