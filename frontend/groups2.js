@@ -1,5 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveGroups, retrieveGroupsForUser } from "./storeAndRetrieveGroups";
+import { retrieveGroups, retrieveGroupsForUser, retrieveUsersForGroup } from "./storeAndRetrieveGroups";
 
 // script.js
 function openTab(event, tabName) {
@@ -34,15 +34,19 @@ async function setUp() {
   displayGroups(groups, searchGroupsContainer);
 }
 
-function displayGroups(groups, parentContainer) {
+async function displayGroups(groups, parentContainer) {
   for(const group of groups) {
     const groupElement = document.createElement('p');
     groupElement.innerText = group.group_name;
     parentContainer.appendChild(groupElement);
 
+    const groupId = group.id;
+    const usersForGroup = await retrieveUsersForGroup(groupId);
+
     // Add click event listener to the groupElement
     groupElement.addEventListener('click', () => {
-      console.log(`Clicked on group: ${group.group_name}`);
+      //console.log(`Clicked on group: ${group.group_name}, usersForGroup: ${JSON.stringify(usersForGroup)}`);
+      console.log(`Clicked on group: ${group.group_name}, usersForGroup:`, usersForGroup);
       // You can add more actions here
     });
 
