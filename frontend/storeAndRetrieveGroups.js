@@ -52,3 +52,13 @@ export async function retrieveGroups() {
         console.error('Error retrieving groups for user:', error);
     }
 }
+
+export async function retrieveUsersForGroup(groupId) {
+    try {
+        const response = await fetch(`http://192.168.86.195:3000/retrieveUsersForGroup?groupId=${encodeURIComponent(groupId)}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error retrieving users for group:', error);
+    }
+}
