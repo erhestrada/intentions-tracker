@@ -553,10 +553,9 @@ app.get('/retrieveUsersForGroup', (req, res) => {
   }
 
   const query = `
-    SELECT users.uuid, users.username, users.email  // Select user details
-    FROM users
-    INNER JOIN groups_per_user ON users.uuid = groups_per_user.uuid
-    WHERE groups_per_user.group_id = ?
+    SELECT uuid
+    FROM groups_per_user
+    WHERE group_id = ?
   `;
 
   db.all(query, [groupId], (err, rows) => {
