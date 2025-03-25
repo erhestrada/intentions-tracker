@@ -1,5 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
-import { retrieveGroups, retrieveGroupsForUser, retrieveUsersForGroup } from "./storeAndRetrieveGroups";
+import { retrieveGroups, retrieveGroupsForUser } from "./storeAndRetrieveGroups";
 
 // script.js
 function openTab(event, tabName) {
@@ -36,9 +36,6 @@ async function setUp() {
 
 async function displayGroups(groups, parentContainer) {
   for(const group of groups) {
-    const groupId = group.id;
-    const usersForGroup = await retrieveUsersForGroup(groupId);
-
     const groupElement = document.createElement('a');
     groupElement.className = 'clickable';
     groupElement.style.display = 'block';
