@@ -1,4 +1,3 @@
-import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsers } from "./retrieveUsers";
 import { retrieveAndFormatRequiredRepetitionsPerIntention } from "./retrieveRequiredRepetitionsPerIntention";
 import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
@@ -9,14 +8,7 @@ import { sendBondRequest } from "./sendBondRequest";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
 import { retrieveUsersForGroup } from "./storeAndRetrieveGroups";
 
-const uuid = getOrCreateUniqueId();
-
-const urlParams = new URLSearchParams(window.location.search);
-const groupId = urlParams.get('groupid');
-const usersForGroup = await retrieveUsersForGroup(groupId);
-
-export async function displayInformationForUsers() {
-    const users = (await retrieveUsers()).map(obj => obj.uuid);
+export async function displayInformationForUsers(users) {
     users.forEach(uuid => displayInformationForUser(uuid));
 }
 
@@ -229,6 +221,10 @@ function updateBrain(genus, species, brain) {
         brain[genus].push(species)
     }
 }
+
+const urlParams = new URLSearchParams(window.location.search);
+const groupId = urlParams.get('groupid');
+const usersForGroup = await retrieveUsersForGroup(groupId);
 
 setupBondRequestButton();
 displayInformationForUsers();
