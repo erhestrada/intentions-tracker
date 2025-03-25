@@ -16,8 +16,12 @@
             <li><a href="inbox.html">Inbox</a></li>
         </ul>
     </nav>
-    <div id = "container">
+    <div id="chat-container">
+        <ul id="messages"></ul>
+        <input id="input" autocomplete="off" placeholder="Type a message..." />
+        <button id="send">Send</button>
     </div>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
     <script type="module" src="liveChat.js"></script>
 </body>
 </html>
