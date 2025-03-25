@@ -36,17 +36,16 @@ async function setUp() {
 
 async function displayGroups(groups, parentContainer) {
   for(const group of groups) {
-
     const groupId = group.id;
     const usersForGroup = await retrieveUsersForGroup(groupId);
 
-      const groupElement = document.createElement('a');
-      groupElement.className = 'clickable';
-      groupElement.style.display = 'block';
-      groupElement.style.marginBottom = "10px";
-      groupElement.href = `userProfile.html?uuid=${1}`;
-      groupElement.innerText = group.group_name;
-      parentContainer.appendChild(groupElement);
+    const groupElement = document.createElement('a');
+    groupElement.className = 'clickable';
+    groupElement.style.display = 'block';
+    groupElement.style.marginBottom = "10px";
+    groupElement.href = `groups.html?groupId=${groupId}`;
+    groupElement.innerText = group.group_name;
+    parentContainer.appendChild(groupElement);
   }
 }
 
