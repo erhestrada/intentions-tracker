@@ -7,10 +7,19 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 3000;  // Change to a different port
 
+
 app.use(cors({
   origin: true,  // This allows all origins
   credentials: true
 }));
+
+// Use CORS to allow cross-origin requests from your frontend
+/*
+app.use(cors({
+  origin: 'http://localhost:5173',  // Frontend URL
+  methods: ['GET', 'POST'],
+  credentials: true
+}));*/
 app.use(express.json());
 
 // Setup SQLite database
@@ -20,7 +29,13 @@ const db = new sqlite3.Database('./data.db');
 const server = http.createServer(app);
 
 // Set up Socket.io with the HTTP server
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: 'http://localhost:5173',  // Allow connections from your frontend
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
 
 // Handle WebSocket connections with Socket.io
 io.on('connection', (socket) => {
