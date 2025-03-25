@@ -36,6 +36,7 @@ async function setUp() {
 
 async function displayGroups(groups, parentContainer) {
   for(const group of groups) {
+    const groupId = group.id;
     const groupElement = document.createElement('a');
     groupElement.className = 'clickable';
     groupElement.style.display = 'block';
