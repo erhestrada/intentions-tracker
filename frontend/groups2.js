@@ -43,7 +43,7 @@ async function displayGroups(groups, parentContainer) {
     groupElement.className = 'clickable';
     groupElement.style.display = 'block';
     groupElement.style.marginBottom = "10px";
-    groupElement.href = `groups.html?groupId=${groupId}`;
+    groupElement.href = `groups.html?groupid=${groupId}`;
     groupElement.innerText = group.group_name;
     parentContainer.appendChild(groupElement);
   }
