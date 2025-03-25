@@ -1,6 +1,5 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveGroups, retrieveGroupsForUser, retrieveUsersForGroup } from "./storeAndRetrieveGroups";
-import { displayInformationForUsers } from "./displayInformationForUsers";
 
 // script.js
 function openTab(event, tabName) {
@@ -37,18 +36,17 @@ async function setUp() {
 
 async function displayGroups(groups, parentContainer) {
   for(const group of groups) {
-    const groupElement = document.createElement('p');
-    groupElement.innerText = group.group_name;
-    parentContainer.appendChild(groupElement);
 
     const groupId = group.id;
     const usersForGroup = await retrieveUsersForGroup(groupId);
 
-    groupElement.addEventListener('click', () => {
-      console.log(`Clicked on group: ${group.group_name}, usersForGroup:`, usersForGroup);
-      displayInformationForUsers(usersForGroup, parentContainer);
-    });
-
+      const groupElement = document.createElement('a');
+      groupElement.className = 'clickable';
+      groupElement.style.display = 'block';
+      groupElement.style.marginBottom = "10px";
+      groupElement.href = `userProfile.html?uuid=${1}`;
+      groupElement.innerText = group.group_name;
+      parentContainer.appendChild(groupElement);
   }
 }
 
