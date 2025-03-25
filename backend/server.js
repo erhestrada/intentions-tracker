@@ -1,6 +1,9 @@
 const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 const cors = require('cors');  // Add this
 const sqlite3 = require('sqlite3').verbose();
+
 const app = express();
 const port = 3000;  // Change to a different port
 
@@ -12,6 +15,28 @@ app.use(express.json());
 
 // Setup SQLite database
 const db = new sqlite3.Database('./data.db');
+
+// Create the HTTP server using Express app
+const server = http.createServer(app);
+
+// Set up Socket.io with the HTTP server
+const io = socketIo(server);
+
+// Handle WebSocket connections with Socket.io
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  
+  // Handle incoming messages from clients
+  socket.on('chat message', (msg) => {
+    console.log('Received message:', msg);
+    io.emit('chat message', msg);  // Broadcast the message to all clients
+  });
+
+  // Handle client disconnects
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
 
 /*
 db.run('DROP TABLE intentions_log');
@@ -567,8 +592,13 @@ app.get('/retrieveUsersForGroup', (req, res) => {
   });
 });
 
+/*
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://192.168.86.195:${port}`);
 });
-
+*/
+// Start the server
+server.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
