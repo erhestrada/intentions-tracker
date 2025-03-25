@@ -7,8 +7,13 @@ import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
 import { sendBondRequest } from "./sendBondRequest";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
+import { retrieveUsersForGroup } from "./storeAndRetrieveGroups";
 
 const uuid = getOrCreateUniqueId();
+
+const urlParams = new URLSearchParams(window.location.search);
+const groupId = urlParams.get('groupid');
+const usersForGroup = await retrieveUsersForGroup(groupId);
 
 export async function displayInformationForUsers() {
     const users = (await retrieveUsers()).map(obj => obj.uuid);
