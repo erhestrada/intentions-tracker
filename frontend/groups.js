@@ -226,4 +226,4 @@ const groupId = urlParams.get('groupid');
 const usersForGroup = await retrieveUsersForGroup(groupId);
 
 setupBondRequestButton();
-displayInformationForUsers();
+displayInformationForUsers(usersForGroup);
