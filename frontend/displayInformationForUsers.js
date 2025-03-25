@@ -3,29 +3,26 @@ import { retrieveAchievementStatuses } from "./retrieveAchievementStatuses";
 import { retrieveAndFormatIntentionsLog } from "./retrieveIntentionsLog";
 import { retrieveAndFormatStreaks } from "./retrieveStreaks";
 import { retrieveAndFormatAchievementStatuses } from "./retrieveAchievementStatuses";
-import { sendBondRequest } from "./sendBondRequest";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
 
-export async function displayInformationForUsers(uuids) {
-    uuids.forEach(uuid => displayInformationForUser(uuid));
+export async function displayInformationForUsers(uuids, masterContainer) {
+    uuids.forEach(uuid => displayInformationForUser(uuid, masterContainer));
 }
 
-export async function displayInformationForUser(uuid) {
+export async function displayInformationForUser(uuid, masterContainer) {
     const requiredRepetitionsPerIntention = await retrieveAndFormatRequiredRepetitionsPerIntention(uuid);
     const intentionsLog = await retrieveAndFormatIntentionsLog(uuid);
     const intentionsRepetitionsPerDate = makeIntentionsRepetitionsPerDateFromIntentionsLog(intentionsLog);
-    displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate);
+    displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, masterContainer);
 }
 
-async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate) {
+async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, intentionsRepetitionsPerDate, masterContainer) {
     const username = await retrieveUsername(uuid);
 
     let achievementStatuses = await retrieveAchievementStatuses(uuid);
     let formattedAchievementStatuses = await retrieveAndFormatAchievementStatuses(uuid);
 
     let streaks = await retrieveAndFormatStreaks(uuid);
-
-    const masterContainer = document.querySelector('.container');
 
     const intentionBoxesContainer = document.createElement('div');
     intentionBoxesContainer.id = 'intention-boxes-container-' + uuid;
@@ -164,58 +161,3 @@ function getYesterdaysDate(dateStr) {
     return yesterday;
 }
 
-let bondedIntentions = {};
-
-function setupBondRequestButton() {
-    const bondRequestButton = document.getElementById('bond-request-button');
-    bondRequestButton.clicked = false;
-    bondRequestButton.addEventListener('click', () => {
-        bondRequestButton.clicked = !bondRequestButton.clicked;
-    
-        const intentionBoxes = document.querySelectorAll('.intention-box');
-    
-        if (bondRequestButton.clicked) {
-            // reset bondedIntentions
-            bondedIntentions = {};
-            bondRequestButton.innerText = 'Send Bond Request';
-            intentionBoxes.forEach(intentionBox => {
-                intentionBox.style.opacity = '0.5';
-                intentionBox.classList.add('clickable');
-                intentionBox.clicked = false;
-                intentionBox.addEventListener('click', handleIntentionBoxClick);
-            });
-        } else {
-            sendBondRequest(uuid, bondedIntentions);
-            //alert(JSON.stringify(bondedIntentions));
-            //alert('bond request sent', bondedIntentions);
-            bondRequestButton.innerText = 'Bond Request';
-            intentionBoxes.forEach(intentionBox => {
-                intentionBox.style.opacity = '1';
-                intentionBox.classList.remove('clickable');
-                intentionBox.removeEventListener('click', handleIntentionBoxClick)
-            });
-        }
-    });
-}
-
-function handleIntentionBoxClick(event) {
-    event.currentTarget.clicked = !event.currentTarget.clicked;
-    const intention = event.currentTarget.querySelector('p').innerText;
-
-    if (event.currentTarget.clicked) {
-        event.currentTarget.style.opacity = '1';
-        //bondedIntentions.push(intention);
-        updateBrain(event.currentTarget.uuid, intention, bondedIntentions);
-    } else {
-        event.currentTarget.style.opacity = '0.5';
-        bondedIntentions[event.currentTarget.uuid] = bondedIntentions[event.currentTarget.uuid].filter(element => element != intention);
-    }
-}
-
-function updateBrain(genus, species, brain) {
-    if (!(genus in brain)) {
-        brain[genus] = [species];
-    } else {
-        brain[genus].push(species)
-    }
-}
