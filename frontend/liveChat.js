@@ -1,4 +1,4 @@
-const socket = io(); // Connect to the server
+const socket = io('http://localhost:3000'); // Make sure this points to your backend
 
 // DOM elements
 const input = document.getElementById('input');
