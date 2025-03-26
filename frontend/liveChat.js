@@ -1,3 +1,8 @@
+import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
+import { retrieveUsername } from "./storeAndRetrieveUsername";
+const uuid = getOrCreateUniqueId();
+const username = await retrieveUsername(uuid);
+
 const socket = io('http://localhost:3000'); // Make sure this points to your backend
 
 // DOM elements
@@ -7,7 +12,7 @@ const messages = document.getElementById('messages');
 
 // Send message when button is clicked
 sendButton.addEventListener('click', () => {
-  const message = input.value;
+  const message = username + ': ' + input.value;
   if (message.trim()) {
     socket.emit('chat message', message); // Send message to the server
     input.value = ''; // Clear the input field
