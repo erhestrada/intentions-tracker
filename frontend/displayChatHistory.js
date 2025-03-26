@@ -17,5 +17,6 @@ export function displayChatHistory(chatHistory) {
         container.appendChild(itemDiv);
     }
 
-    document.body.appendChild(container);
+    const chatContainer = document.getElementById('chat-container');
+    document.body.insertBefore(container, chatContainer);
 }
