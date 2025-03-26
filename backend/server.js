@@ -7,7 +7,6 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 3000;  // Change to a different port
 
-
 app.use(cors({
   origin: true,  // This allows all origins
   credentials: true
@@ -54,26 +53,8 @@ io.on('connection', (socket) => {
   });
 });
 
-/*
-db.run('DROP TABLE intentions_log');
-db.run('DROP TABLE required_repetitions_per_intention');
-db.run('DROP TABLE achievement_statuses');
-db.run('DROP TABLE streaks');
-*/
-
 //db.run('DROP TABLE groups');
-//db.run('DROP TABLE groups_per_user');
-
-
-/*
-db.run('DELETE FROM users WHERE uuid = ?', ['37ddb973-131d-45c7-b814-c930b6d5cd67'], (err) => {
-  if (err) {
-    console.error('Error deleting row:', err);
-  } else {
-    console.log('Row deleted successfully');
-  }
-});
-*/
+//db.run('DELETE FROM chat_history'); // Deletes all rows
 
 db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL)');
 db.run('CREATE TABLE IF NOT EXISTS usernames (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, username TEXT)');
@@ -95,61 +76,6 @@ db.run(`
     UNIQUE(uuid, group_id)
   )
 `);
-
-//db.run('CREATE TABLE IF NOT EXISTS groups_per_user (id INTEGER PRIMARY KEY, uuid TEXT UNIQUE NOT NULL, groups TEXT UNIQUE, descriptions_per_group TEXT)');
-
-
-/*
-// Step 1: Create the new table with the UNIQUE constraint
-db.run(`
-  CREATE TABLE IF NOT EXISTS new_achievement_statuses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    uuid TEXT NOT NULL,
-    date TEXT,
-    action TEXT,
-    achievement_status INTEGER,
-    UNIQUE (uuid, date, action)  -- Add the UNIQUE constraint on uuid, date, and action
-  )
-`, function(err) {
-  if (err) {
-    console.error('Error creating new table:', err.message);
-    return;
-  }
-
-  // Step 2: Copy the data from the old table to the new table
-  db.run(`
-    INSERT INTO new_achievement_statuses (id, uuid, date, action, achievement_status)
-    SELECT id, uuid, date, action, achievement_status
-    FROM achievement_statuses
-  `, function(err) {
-    if (err) {
-      console.error('Error copying data to new table:', err.message);
-      return;
-    }
-
-    // Step 3: Drop the old table
-    db.run('DROP TABLE achievement_statuses', function(err) {
-      if (err) {
-        console.error('Error dropping old table:', err.message);
-        return;
-      }
-
-      // Step 4: Rename the new table to the original table name
-      db.run('ALTER TABLE new_achievement_statuses RENAME TO achievement_statuses', function(err) {
-        if (err) {
-          console.error('Error renaming new table:', err.message);
-          return;
-        }
-
-        console.log('Table updated successfully with UNIQUE constraint on (uuid, date, action)');
-      });
-    });
-  });
-});
-*/
-
-//db.run('DELETE FROM bonds_per_user_intention'); // Deletes all rows
-//db.run('DELETE FROM usernames WHERE id = ?', [2] );
 
 // users routes
 app.post('/storeUser', (req, res) => {
