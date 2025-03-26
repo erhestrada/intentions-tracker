@@ -1,5 +1,14 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
+import { retrieveChatHistory } from "./retrieveChatHistory";
+import { storeChatMessage } from "./storeChatMessage";
+import { displayChatHistory } from "./displayChatHistory";
+
+export async function sendChatMessage(uuid) {
+    const chatHistory = await retrieveChatHistory();
+    displayChatHistory(chatHistory);
+}
+
 const uuid = getOrCreateUniqueId();
 const username = await retrieveUsername(uuid);
 
@@ -11,10 +20,12 @@ const sendButton = document.getElementById('send');
 const messages = document.getElementById('messages');
 
 // Send message when button is clicked
-sendButton.addEventListener('click', () => {
-  const message = username + ': ' + input.value;
+sendButton.addEventListener('click', async () => {
+  const message = input.value;
   if (message.trim()) {
-    socket.emit('chat message', message); // Send message to the server
+    const messageWithUsername = username + ': ' + input.value;
+    await storeChatMessage(uuid, messageWithUsername);
+    socket.emit('chat message', messageWithUsername); // Send message to the server
     input.value = ''; // Clear the input field
   }
 });
