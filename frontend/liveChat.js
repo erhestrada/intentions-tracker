@@ -1,13 +1,11 @@
 import { getOrCreateUniqueId } from "./getOrCreateUniqueUserId";
 import { retrieveUsername } from "./storeAndRetrieveUsername";
-import { retrieveChatHistory } from "./retrieveChatHistory";
 import { storeChatMessage } from "./storeChatMessage";
+import { retrieveChatHistory } from "./retrieveChatHistory";
 import { displayChatHistory } from "./displayChatHistory";
 
-export async function sendChatMessage(uuid) {
-    const chatHistory = await retrieveChatHistory();
-    displayChatHistory(chatHistory);
-}
+const chatHistory = await retrieveChatHistory();
+displayChatHistory(chatHistory);
 
 const uuid = getOrCreateUniqueId();
 const username = await retrieveUsername(uuid);
@@ -17,7 +15,7 @@ const socket = io('http://localhost:3000'); // Make sure this points to your bac
 // DOM elements
 const input = document.getElementById('input');
 const sendButton = document.getElementById('send');
-const messages = document.getElementById('messages');
+const messages = document.getElementById('chat-messages-container');
 
 // Send message when button is clicked
 sendButton.addEventListener('click', async () => {
@@ -32,9 +30,11 @@ sendButton.addEventListener('click', async () => {
 
 // Listen for incoming messages
 socket.on('chat message', (msg) => {
-  const li = document.createElement('li');
-  li.textContent = msg;
-  messages.appendChild(li);
+  const itemDiv = document.createElement('div');
+  itemDiv.classList.add('chat-message');
+  itemDiv.textContent = msg;
+
+  messages.appendChild(itemDiv);
   messages.scrollTop = messages.scrollHeight; // Scroll to the bottom
 });
 
