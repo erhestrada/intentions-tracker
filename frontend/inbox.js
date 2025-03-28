@@ -23,33 +23,36 @@ async function retrieveAndDisplayBondRequestsForUser(uuid) {
         const bondedIntentionsByUsernameJson = await convertIdIndexedJsonToUsernameIndexedJson(bondedIntentionsJson, usernamePerId);
         let acceptanceStatusPerReceiverId = await getAcceptanceStatusPerReceiverId(bondedIntentionsJson);
 
-        let bondRequestElement = document.createElement('p');
-        bondRequestElement.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
-
-        const bondedIntentions = JSON.parse(bondedIntentionsJson);
-
-        Object.keys(bondedIntentions).forEach(userId => {
-            const username = usernamePerId[userId];
-            const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
-            bondRequestElement.innerText += ` | ${username}: ${acceptanceStatus}`
-        });
-
-        if (acceptanceStatus === 'pending') {
-            const acceptButton = document.createElement('button');
-            acceptButton.innerText = 'accept';
-            acceptButton.style.marginLeft = '10px';
-            console.log(acceptanceStatusPerReceiverId);
-            setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted', acceptanceStatusPerReceiverId);
-
-            const declineButton = document.createElement('button');
-            declineButton.innerText = 'decline';
-            setupStatusButton(declineButton, bondRequestElement, receiverId, bondedIntentionsJson, 'declined', acceptanceStatusPerReceiverId);
-            
-            bondRequestElement.appendChild(acceptButton);
-            bondRequestElement.appendChild(declineButton);
+        // only display pending bond requests
+        if (Object.values(acceptanceStatusPerReceiverId).includes("pending")) {
+            let bondRequestElement = document.createElement('p');
+            bondRequestElement.innerText = `sender: ${senderUsername} | bond: ${bondedIntentionsByUsernameJson}`;
+    
+            const bondedIntentions = JSON.parse(bondedIntentionsJson);
+    
+            Object.keys(bondedIntentions).forEach(userId => {
+                const username = usernamePerId[userId];
+                const acceptanceStatus = acceptanceStatusPerReceiverId[userId];
+                bondRequestElement.innerText += ` | ${username}: ${acceptanceStatus}`
+            });
+    
+            if (acceptanceStatus === 'pending') {
+                const acceptButton = document.createElement('button');
+                acceptButton.innerText = 'accept';
+                acceptButton.style.marginLeft = '10px';
+                console.log(acceptanceStatusPerReceiverId);
+                setupStatusButton(acceptButton, bondRequestElement, receiverId, bondedIntentionsJson, 'accepted', acceptanceStatusPerReceiverId);
+    
+                const declineButton = document.createElement('button');
+                declineButton.innerText = 'decline';
+                setupStatusButton(declineButton, bondRequestElement, receiverId, bondedIntentionsJson, 'declined', acceptanceStatusPerReceiverId);
+                
+                bondRequestElement.appendChild(acceptButton);
+                bondRequestElement.appendChild(declineButton);
+            }
+    
+            bondRequestsContainer.appendChild(bondRequestElement);
         }
-
-        bondRequestsContainer.appendChild(bondRequestElement);
     }
 }
 
