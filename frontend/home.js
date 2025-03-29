@@ -143,7 +143,10 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
         } else {
             intentionBox.style.backgroundColor = '#E53935 ';
         }
-    });        
+    });   
+    
+    const displayProgressButton = document.createElement('button');
+    displayProgressButton.innerText = '📈 ';
 
     const removeIntentionBoxElement = document.createElement('button');
     removeIntentionBoxElement.className = 'remove-intention-button';
@@ -173,6 +176,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     intentionBox.appendChild(successButton);
     intentionBox.appendChild(failureButton);
     intentionBox.appendChild(streakElement);
+    intentionBox.appendChild(displayProgressButton);
     intentionBox.appendChild(removeIntentionBoxElement);
 
 }
