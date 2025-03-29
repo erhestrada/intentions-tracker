@@ -145,6 +145,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
         }
     });   
     
+    // really want to just unhide progressPopup for intention
     const displayProgressButton = document.createElement('button');
     displayProgressButton.innerText = '📈';
     displayProgressButton.addEventListener('click', () => {
