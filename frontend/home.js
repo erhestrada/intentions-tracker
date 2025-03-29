@@ -146,7 +146,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     });   
     
     const displayProgressButton = document.createElement('button');
-    displayProgressButton.innerText = '📈 ';
+    displayProgressButton.innerText = '📈';
 
     const removeIntentionBoxElement = document.createElement('button');
     removeIntentionBoxElement.className = 'remove-intention-button';
