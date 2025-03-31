@@ -148,8 +148,11 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     const displayProgressButton = document.createElement('button');
     displayProgressButton.innerText = '📈';
     displayProgressButton.addEventListener('click', () => {
-        window.location.href = 'progress.html';
+        openPopUp('progress-popup');
     });
+
+    const progressCloseButton = document.getElementById('progress-close-button');
+    progressCloseButton.addEventListener('click', () => closePopUp('progress-popup'));
 
     const removeIntentionBoxElement = document.createElement('button');
     removeIntentionBoxElement.className = 'remove-intention-button';
