@@ -33,7 +33,7 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
 
     const plusButtonElement = document.createElement('button');
     plusButtonElement.innerText = '+';
-    plusButtonElement.addEventListener('click', openPopUp);
+    plusButtonElement.addEventListener('click', () => openPopUp('popup'));
 
     const minusButtonElement = document.createElement('button');
     minusButtonElement.innerText = '-';
@@ -48,9 +48,8 @@ async function displayIntentionBoxes(uuid, requiredRepetitionsPerIntention, inte
         });
     });
 
-
     const closeButton = document.getElementById('add-intention-close-button');
-    closeButton.addEventListener('click', closePopUp);
+    closeButton.addEventListener('click', () => closePopUp('popup'));
 
     intentionBoxesContainer.appendChild(plusMinusBox);
     plusMinusBox.appendChild(plusMinusBoxLabel);
@@ -247,12 +246,12 @@ function updateAchievementStatuses(uuid, achievementStatuses, date, intention, a
     return achievementStatuses
 }
 
-function openPopUp() {
-    document.getElementById('popup').style.display = 'block';
+function openPopUp(popupId) {
+    document.getElementById(popupId).style.display = 'block';
 }
 
-function closePopUp() {
-    document.getElementById('popup').style.display = 'none';
+function closePopUp(popupId) {
+    document.getElementById(popupId).style.display = 'none';
 }
 
 let intentionsWithRepetitionsRemaining;
