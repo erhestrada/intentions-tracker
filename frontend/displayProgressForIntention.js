@@ -1,4 +1,5 @@
-export function displayProgressForIntention(containerId, intention) {
+export function displayProgressForIntention(containerId, intention, formattedAchievementStatuses) {
+    console.log(formattedAchievementStatuses);
     const container = document.getElementById(containerId);
 
     container.innerHTML = '';  // or container.textContent = '';
