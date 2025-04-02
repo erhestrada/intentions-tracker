@@ -150,7 +150,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     displayProgressButton.innerText = '📈';
     displayProgressButton.addEventListener('click', () => {
         openPopUp('progress-popup');
-        displayProgressForIntention();
+        displayProgressForIntention('progress-container');
     });
 
     const progressCloseButton = document.getElementById('progress-close-button');
