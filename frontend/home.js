@@ -15,6 +15,7 @@ import { setupCreateGroupButton } from "./setupCreateGroupButton.js";
 import { updateStreaks, undoStreakUpdate, getYesterdaysDate} from "./updateStreaks.js"
 import { resetBrokenStreaks } from "./updateStreaks.js";
 import { batchRetrieveBondedIntentions } from "./storeAndRetrieveBondedIntentions.js";
+import { displayProgressForIntention } from "./displayProgressForIntention.js";
 
 // i don't think retrieveAchievementStatus should ever be used (just a list of rows) - it should be formattedAchievementStatuses (?)
 
@@ -149,6 +150,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
     displayProgressButton.innerText = '📈';
     displayProgressButton.addEventListener('click', () => {
         openPopUp('progress-popup');
+        displayProgressForIntention();
     });
 
     const progressCloseButton = document.getElementById('progress-close-button');
