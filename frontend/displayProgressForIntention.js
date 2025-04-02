@@ -7,10 +7,12 @@ export function displayProgressForIntention(containerId, intention, formattedAch
     const achievementStatusPerDate = getAchievementStatusPerDateForIntention(intention, formattedAchievementStatuses)
     console.log(achievementStatusPerDate);
 
-    const element = document.createElement('p');
-    element.innerText = intention;
-
-    container.appendChild(element);
+    for (const [date, achievementStatus] of Object.entries(achievementStatusPerDate)) {
+        const element = document.createElement('p');
+        element.innerText = `${date}: ${achievementStatus}`;
+    
+        container.appendChild(element);
+    }
 }
 
 function getAchievementStatusPerDateForIntention(intention, formattedAchievementStatuses) {
