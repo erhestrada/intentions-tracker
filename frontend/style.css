@@ -189,3 +189,19 @@ nav ul li:last-child {
     display: block;
   }
   
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#chat-messages-container {
+    flex-grow: 1;
+    overflow-y: auto; /* Scrollable container */
+    padding: 10px;
+}
+
+#chat-input, #chat-send {
+  margin: 10px;
+  padding: 10px;
+}

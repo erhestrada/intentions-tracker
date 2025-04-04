@@ -13,8 +13,8 @@ const username = await retrieveUsername(uuid);
 const socket = io('http://localhost:3000'); // Make sure this points to your backend
 
 // DOM elements
-const input = document.getElementById('input');
-const sendButton = document.getElementById('send');
+const input = document.getElementById('chat-input');
+const sendButton = document.getElementById('chat-send');
 const messages = document.getElementById('chat-messages-container');
 
 // Send message when button is clicked
