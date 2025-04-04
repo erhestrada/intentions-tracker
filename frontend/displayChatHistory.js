@@ -1,12 +1,10 @@
 export function displayChatHistory(chatHistory) {
     const existingContainer = document.getElementById('chat-messages-container');
-    if (existingContainer) {
-        existingContainer.remove(); // Remove the existing container
-    }
-
-    const container = document.createElement('div');
-    container.id = 'chat-messages-container';
     
+    // Clear the existing content of the chat container
+    existingContainer.innerHTML = '';
+
+    // Loop through the chat history and add each message
     for (const row of chatHistory) {
         const message = row.chat_message;
 
@@ -14,9 +12,10 @@ export function displayChatHistory(chatHistory) {
         itemDiv.classList.add('chat-message');
         itemDiv.textContent = message;
 
-        container.appendChild(itemDiv);
+        // Append the new message to the container
+        existingContainer.appendChild(itemDiv);
     }
 
-    const chatContainer = document.getElementById('chat-container');
-    document.body.insertBefore(container, chatContainer);
+    // Scroll to the bottom of the chat messages container
+    existingContainer.scrollTop = existingContainer.scrollHeight;
 }
