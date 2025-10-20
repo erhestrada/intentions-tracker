@@ -131,6 +131,7 @@ nav ul li:last-child {
     box-sizing: border-box;                 /* Include padding and border in box size */
     padding: 20px;                          /* Add internal spacing */
     border-radius: 10px;  /* Add rounded corners. */
+    color: white;
 }
 
 .popup {
