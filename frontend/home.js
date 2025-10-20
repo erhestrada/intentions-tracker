@@ -73,7 +73,7 @@ function displayIntentionBox(intention, bondedIntentions, requiredRepetitions, a
         intentionBox.style.backgroundColor = 'rgb(129, 199, 132)';
     } else {
         //intentionBox.style.backgroundColor = 'rgb(229, 57, 53)';
-        intentionBox.style.backgroundColor = 'lightblue';
+        //intentionBox.style.backgroundColor = 'lightblue';
     }
 
     const intentionTextElement = document.createElement('p');
