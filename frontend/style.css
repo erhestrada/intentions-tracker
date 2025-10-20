@@ -82,6 +82,18 @@ nav ul li:last-child {
     justify-content: center;
 }
 
+#express-intentions-button{
+  width: fit-content;
+  color: white;
+  cursor: pointer;
+  background-color: rgb(31, 31, 31);
+  display: inline-flex;
+  border-radius: 9999px;       /* pill shape */
+  overflow: hidden;
+  user-select: none;
+  border: 2px solid white;
+}
+
 #intention-boxes-container {
     display: flex;                          /* Enable Flexbox */
     flex-wrap: wrap;                        /* Allow items to wrap to the next row if needed */
