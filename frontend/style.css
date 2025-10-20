@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(31, 31, 31);
+}
+
 a {
     color: inherit; /* Makes the link inherit the color of its parent element */
     text-decoration: none; /* Removes the underline */
