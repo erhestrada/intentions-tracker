@@ -8,12 +8,6 @@ a {
     color: white;
 }
 
-button {
-  all: unset;
-  cursor: pointer;
-  color: white;
-}
-
 nav ul {
     display: flex;
     flex-direction: row;
@@ -26,6 +20,12 @@ nav li {
 
 nav ul li:last-child {
     margin-left: auto;  /* Push the last item (Inbox) to the right */
+}
+
+.nav-bar-button {
+  all: unset;
+  cursor: pointer;
+  color: white;
 }
 
 .container {
