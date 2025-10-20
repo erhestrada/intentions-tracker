@@ -87,7 +87,7 @@ nav ul li:last-child {
   width: fit-content;
   color: white;
   cursor: pointer;
-  background-color: rgb(31, 31, 31);
+  background: transparent;
   display: inline-flex;
   border-radius: 9999px;       /* pill shape */
   overflow: hidden;
