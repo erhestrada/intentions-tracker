@@ -5,6 +5,7 @@ body {
 a {
     color: inherit; /* Makes the link inherit the color of its parent element */
     text-decoration: none; /* Removes the underline */
+    color: white;
   }
 
 nav ul {
