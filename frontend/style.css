@@ -103,6 +103,15 @@ nav ul li:last-child {
   padding: 5px 10px;
 }
 
+#intention-boxes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  gap: 100px;
+}
+
 .intention-boxes-container {
     display: flex;                          
     flex-wrap: wrap;                        
