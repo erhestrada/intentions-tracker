@@ -106,7 +106,6 @@ nav ul li:last-child {
 #intention-boxes-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   flex: none;
   gap: 100px;
